@@ -1,0 +1,197 @@
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+// material-ui
+import {
+  Box,
+  Button,
+  CardContent,
+  CardMedia,
+  Grid,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
+
+// project import
+import MainCard from "./MainCard";
+import SkeletonProductPlaceholder from "../../ui-component/cards/Skeleton/ProductPlaceholder";
+import { KeyedObject } from "../../types";
+import { ADD_PRODUCTS, SNACKBAR_OPEN } from "../../store/actions";
+
+// assets
+import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
+import useAuth from "../../hooks/useAuth";
+
+// const prodImage = require.context('assets/images/e-commerce', true);
+
+// ==============================|| PRODUCT CARD ||============================== //
+
+export interface ProductCardProps extends KeyedObject {
+  id?: string | number;
+  color?: string;
+  name: string;
+  image: string;
+  description?: string;
+  offerPrice?: number;
+  salePrice?: number;
+  rating?: number;
+}
+
+const ProductCard = ({
+  id,
+  color,
+  name,
+  image,
+  description,
+  offerPrice,
+  salePrice,
+  rating,
+}: ProductCardProps) => {
+  const dispatch = useDispatch();
+  const prodProfile = image;
+  const [productRating] = React.useState<number | undefined>(rating);
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+  // console.log(isLoggedIn);
+
+  const addCart = () => {
+    if (isLoggedIn) {
+      dispatch({
+        type: ADD_PRODUCTS,
+        product: {
+          id,
+          name,
+          image,
+          salePrice,
+          offerPrice,
+          color,
+          size: 8,
+          quantity: 1,
+        },
+      });
+      dispatch({
+        type: SNACKBAR_OPEN,
+        open: true,
+        message: "Add To Cart Success",
+        variant: "alert",
+        alertSeverity: "success",
+      });
+    } else {
+      dispatch({
+        type: SNACKBAR_OPEN,
+        open: true,
+        message: "You must login to continue",
+        variant: "alert",
+        alertSeverity: "error",
+      });
+      navigate("/login", { replace: true });
+    }
+  };
+
+  const [isLoading, setLoading] = React.useState(true);
+  React.useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  return (
+    <>
+      {isLoading ? (
+        <SkeletonProductPlaceholder />
+      ) : (
+        <MainCard
+          content={false}
+          boxShadow
+          sx={{
+            backgroundColor: "whitesmoke",
+            "&:hover": {
+              transform: "scale3d(1.02, 1.02, 1)",
+              transition: "all .4s ease-in-out",
+            },
+          }}
+        >
+          <CardMedia
+            sx={{ height: 100 }}
+            image={prodProfile}
+            title="Contemplative Reptile"
+            component={Link}
+            to={`/product-details/${id}`}
+          />
+          <CardContent sx={{ p: 0.5 }}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Typography
+                  component={Link}
+                  to={`/e-commerce/product-details/${id}`}
+                  variant="subtitle1"
+                  sx={{ textDecoration: "none" }}
+                >
+                  {name}
+                </Typography>
+              </Grid>
+              {description && (
+                <Grid item xs={12}>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      overflow: "hidden",
+                      height: 20,
+                    }}
+                  >
+                    {description}
+                  </Typography>
+                </Grid>
+              )}
+              <Grid item xs={12} sx={{ pt: "1px !important" }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Rating
+                    precision={0.5}
+                    name="size-small"
+                    value={productRating}
+                    size="small"
+                    readOnly
+                  />
+                  <Typography variant="caption">({offerPrice}+)</Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Grid container spacing={1}>
+                    <Grid item>
+                      <Typography variant="h4">Rs {offerPrice}</Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: "grey.500",
+                          textDecoration: "line-through",
+                        }}
+                      >
+                        Rs {salePrice}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Button
+                    variant="contained"
+                    sx={{ minWidth: 0 }}
+                    onClick={addCart}
+                  >
+                    <ShoppingCartTwoToneIcon fontSize="small" />
+                  </Button>
+                </Stack>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </MainCard>
+      )}
+    </>
+  );
+};
+
+export default ProductCard;
