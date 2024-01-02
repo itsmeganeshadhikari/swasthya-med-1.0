@@ -1,8 +1,9 @@
 // product shop list
 export type Products = {
   id: string | number | undefined;
-  image: string;
-  name: string;
+  image: string | any;
+  productName: string;
+  subDescription: string;
   description?: string;
   rating?: number;
   discount?: number;

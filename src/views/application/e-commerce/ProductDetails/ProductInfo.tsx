@@ -157,7 +157,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
     enableReinitialize: true,
     initialValues: {
       id: product.id,
-      name: product.name,
+      name: product.productName,
       image: product.image,
       salePrice: product.salePrice,
       offerPrice: product.offerPrice,
@@ -224,7 +224,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" alignItems="center" spacing={1}>
-                <Typography variant="h3">{product.name}</Typography>
+                <Typography variant="h3">{product?.productName}</Typography>
                 <Chip
                   size="small"
                   label="New"
@@ -243,7 +243,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body2">{product.description}</Typography>
+        <Typography variant="body2">{product?.subDescription}</Typography>
       </Grid>
       <Grid item xs={12}>
         <Stack direction="row" alignItems="center" spacing={1}>

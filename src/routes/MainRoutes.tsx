@@ -5,6 +5,7 @@ import MainLayout from "../layout/MainLayout";
 import Loadable from "../ui-component/Loadable";
 import AuthGuard from "../utils/route-guard/AuthGuard";
 import RoleGuard from "../utils/route-guard/RoleGuard";
+import ProductEntry from "../views/application/e-commerce/ProductEntry";
 
 // application e-commerce pages
 const AppECommProducts = Loadable(
@@ -19,8 +20,16 @@ const AppECommProductList = Loadable(
 const AppECommCheckout = Loadable(
   lazy(() => import("../views/application/e-commerce/Checkout"))
 );
+
+const AppECommProductEntry = Loadable(
+  lazy(() => import("../views/application/e-commerce/ProductEntry"))
+);
 const FrmWysiwugEditor = Loadable(
   lazy(() => import("../views/forms/plugins/WysiwugEditor"))
+);
+
+const FrmFormsWizard = Loadable(
+  lazy(() => import("../views/forms/forms-wizard"))
 );
 
 const SamplePage = Loadable(lazy(() => import("../views/sample-page")));
@@ -60,6 +69,14 @@ const MainRoutes = {
     {
       path: "/forms/frm-wysiwug",
       element: <FrmWysiwugEditor />,
+    },
+    {
+      path: "/forms/forms-wizard",
+      element: <FrmFormsWizard />,
+    },
+    {
+      path: "/e-commerce/product-entry",
+      element: <AppECommProductEntry />,
     },
   ],
 };

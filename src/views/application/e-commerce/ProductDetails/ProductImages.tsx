@@ -38,7 +38,7 @@ const ProductImages = ({ product }: { product: Products }) => {
   const products = [prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8];
 
   const matchDownLG = useMediaQuery(theme.breakpoints.up("lg"));
-  const initialImage = product.image;
+  const initialImage = product.image.url;
 
   const [selected, setSelected] = React.useState(initialImage);
   const [modal, setModal] = React.useState(false);

@@ -10,12 +10,9 @@ import { motion } from "framer-motion";
 // project imports
 import FloatingCart from "../../../../ui-component/cards/FloatingCart";
 import { appDrawerWidth, gridSpacing } from "../../../../store/constant";
-import products from "../../../../constants/Products";
-import topBrandProducts from "../../../../constants/TopBrandsProduct";
-import trendingProducts from "../../../../constants/TrendingProducts";
 import ProductCategory from "./ProductCategory";
-import babyProducts from "../../../../constants/BabySupplementProducts";
-import dermaProducts from "../../../../constants/DermaProducts";
+import { useQuery } from "@tanstack/react-query";
+import axiosServices from "../../../../utils/axios";
 
 // product list container
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -46,19 +43,31 @@ const Products = () => {
   const theme = useTheme();
   const [isLoading, setLoading] = React.useState(true);
 
+  const { data } = useQuery({
+    queryKey: ["get-product"],
+    queryFn: async () => {
+      return axiosServices.get("/api/product");
+    },
+  });
+
+  const skinProduct = data?.data.filter((e: any) => e.category == "Skin");
+  const babyProducts = data?.data.filter((e: any) => e.category == "Baby");
+  const trendingProducts = data?.data.filter(
+    (e: any) => e.category == "Trending"
+  );
+  const topBrandProducts = data?.data.filter(
+    (e: any) => e.category == "TopBrand"
+  );
+
   useEffect(() => {
     setLoading(true);
   }, []);
 
-  let productResult: React.ReactElement | React.ReactElement[] = <></>;
   let topBrand: React.ReactElement | React.ReactElement[] = <></>;
   let derma: React.ReactElement | React.ReactElement[] = <></>;
   let trending: React.ReactElement | React.ReactElement[] = <></>;
   let baby: React.ReactElement | React.ReactElement[] = <></>;
 
-  if (products) {
-    productResult = <ProductCategory products={products} />;
-  }
   if (topBrandProducts) {
     topBrand = <ProductCategory products={topBrandProducts} />;
   }
@@ -71,8 +80,8 @@ const Products = () => {
     baby = <ProductCategory products={babyProducts} />;
   }
 
-  if (dermaProducts) {
-    derma = <ProductCategory products={babyProducts} />;
+  if (skinProduct) {
+    derma = <ProductCategory products={skinProduct} />;
   }
 
   return (

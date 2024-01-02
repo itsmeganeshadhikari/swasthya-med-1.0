@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
@@ -21,6 +21,7 @@ import { gridSpacing } from "../../../../store/constant";
 import products from "../../../../constants/Products";
 import Breadcrumbs from "../../../../ui-component/extended/Breadcrumbs";
 import { IconChevronRight } from "@tabler/icons-react";
+import axiosServices from "../../../../utils/axios";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,7 +53,6 @@ function a11yProps(index: number) {
 const ProductDetails = () => {
   const { id } = useParams();
   const history = useNavigate();
-
   const dispatch = useDispatch();
   const cart = useSelector((state: DefaultRootStateProps) => state.cart);
 
@@ -64,23 +64,13 @@ const ProductDetails = () => {
   };
 
   const [product, setProduct] = React.useState<Products | null>(null);
-
   const getProduct = async () => {
-    console.log(typeof id);
-    const productD = products.filter((item) => {
-      return item.id == parseInt(id);
-    });
-    setProduct(productD[0]);
-    /** Another Method */
-
-    // const response = await axios.post("/api/product/details", {
-    //   id,
-    // });
-    // console.log(products);
-    // setProduct(products);
-    // if (id === "default") {
-    //   history(`/e-commerce/product-details/1`);
-    // }
+    const response = await axiosServices.get("/api/product/" + id);
+    console.log(response.data);
+    setProduct(response.data);
+    if (id === "default") {
+      history(`/e-commerce/product-details/1`);
+    }
   };
 
   React.useEffect(() => {
@@ -112,7 +102,7 @@ const ProductDetails = () => {
               <Grid item xs={12} md={6}>
                 <ProductInfo product={product} />
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <Tabs
                   value={value}
                   indicatorColor="primary"
@@ -145,25 +135,24 @@ const ProductDetails = () => {
                   />
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                  <ProductDescription />
+                  {/* <ProductDescription /> */}
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                   <ProductReview product={product} />
                 </TabPanel>
-              </Grid> */}
+              </Grid>
             </Grid>
           )}
         </MainCard>
       </Grid>
       {/* <Grid item xs={12} lg={10} sx={{ mt: 3 }}>
         <Typography variant="h2">Related Products</Typography>
-      </Grid> */}
-      {/* <Grid item xs={11} lg={10}>
+      </Grid>
+      <Grid item xs={11} lg={10}>
         <RelatedProducts id={id} />
       </Grid> */}
       <FloatingCart />
     </Grid>
-    // </Container>
   );
 };
 
