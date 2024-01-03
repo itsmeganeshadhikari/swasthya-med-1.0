@@ -11,6 +11,7 @@ import {
   Grid,
   Rating,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -121,26 +122,34 @@ const ProductCard = ({
           <CardContent sx={{ p: 0.5 }}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <Typography
-                  component={Link}
-                  to={`/e-commerce/product-details/${id}`}
-                  variant="subtitle1"
-                  sx={{ textDecoration: "none" }}
-                >
-                  {name}
-                </Typography>
+                <Tooltip title={name} enterDelay={500} leaveDelay={200}>
+                  <Typography
+                    component={Link}
+                    to={`/e-commerce/product-details/${id}`}
+                    variant="subtitle1"
+                    sx={{ textDecoration: "none" }}
+                  >
+                    {name.length <= 22 ? name : name.substring(0, 18) + "..."}
+                  </Typography>
+                </Tooltip>
               </Grid>
               {description && (
                 <Grid item xs={12}>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      overflow: "hidden",
-                      height: 20,
-                    }}
+                  <Tooltip
+                    title={description}
+                    enterDelay={500}
+                    leaveDelay={200}
                   >
-                    {description}
-                  </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        overflow: "hidden",
+                        height: 20,
+                      }}
+                    >
+                      {description}
+                    </Typography>
+                  </Tooltip>
                 </Grid>
               )}
               <Grid item xs={12} sx={{ pt: "1px !important" }}>

@@ -1,5 +1,6 @@
 // product shop list
 export type Products = {
+  [x: string]: any;
   id: string | number | undefined;
   image: string | any;
   productName: string;
@@ -15,7 +16,7 @@ export type Products = {
   popularity?: number;
   date?: number;
   created: Date;
-  isStock?: boolean;
+  stock?: boolean;
   new?: number;
 };
 

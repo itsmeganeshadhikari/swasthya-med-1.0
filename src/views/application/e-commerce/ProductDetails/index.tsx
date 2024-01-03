@@ -3,14 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
-import { Box, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Container, Grid, Stack, Tab, Tabs } from "@mui/material";
 
 // project imports
 import ProductImages from "./ProductImages";
 import ProductInfo from "./ProductInfo";
-import ProductDescription from "./ProductDescription";
 import ProductReview from "./ProductReview";
-import RelatedProducts from "./RelatedProducts";
 import MainCard from "../../../../ui-component/cards/MainCard";
 import FloatingCart from "../../../../ui-component/cards/FloatingCart";
 import Chip from "../../../../ui-component/extended/Chip";
@@ -18,9 +16,6 @@ import { Products } from "../types";
 import { DefaultRootStateProps } from "../../../../types";
 import { RESET_CART } from "../../../../store/actions";
 import { gridSpacing } from "../../../../store/constant";
-import products from "../../../../constants/Products";
-import Breadcrumbs from "../../../../ui-component/extended/Breadcrumbs";
-import { IconChevronRight } from "@tabler/icons-react";
 import axiosServices from "../../../../utils/axios";
 
 interface TabPanelProps {
@@ -153,6 +148,7 @@ const ProductDetails = () => {
       </Grid> */}
       <FloatingCart />
     </Grid>
+    // </Container>
   );
 };
 

@@ -18,7 +18,7 @@ import FormatPrice from "../../../../ui-component/FormatPrice";
 
 // ==============================|| CHECKOUT CART - ORDER SUMMARY ||============================== //
 
-const OrderSummary = ({ totalPrice, totalQuantity }) => (
+const OrderSummary = ({ totalPrice, totalQuantity }: any) => (
   <SubCard>
     <TableContainer>
       <Table sx={{ minWidth: "auto" }} size="small" aria-label="simple table">

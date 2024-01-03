@@ -5,8 +5,6 @@ import MainLayout from "../layout/MainLayout";
 import Loadable from "../ui-component/Loadable";
 import AuthGuard from "../utils/route-guard/AuthGuard";
 import RoleGuard from "../utils/route-guard/RoleGuard";
-import ProductEntry from "../views/application/e-commerce/ProductEntry";
-
 // application e-commerce pages
 const AppECommProducts = Loadable(
   lazy(() => import("../views/application/e-commerce/Products"))

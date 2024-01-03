@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
+// import { Link as RouterLink } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -61,7 +61,7 @@ function getColor(color: string) {
 }
 
 // product size
-const sizeOptions = [8, 10, 12, 14, 16, 18, 20];
+// const sizeOptions = [8, 10, 12, 14, 16, 18, 20];
 
 const validationSchema = yup.object({
   color: yup.string().required("Color selection is required"),
@@ -111,7 +111,7 @@ const Colors = ({
   );
 };
 
-const Increment = (props: string | FieldHookConfig<any>) => {
+const Increment = (props: string | FieldHookConfig<any> | any) => {
   const [field, , helpers] = useField(props);
 
   const { value } = field;
@@ -136,6 +136,7 @@ const Increment = (props: string | FieldHookConfig<any>) => {
       </Button>
       <Button
         key="one"
+        disabled={value >= props.quantity}
         onClick={() => setValue(value + 1)}
         sx={{ pl: 0.75, pr: 0.75, minWidth: "0px !important" }}
       >
@@ -217,8 +218,14 @@ const ProductInfo = ({ product }: { product: Products }) => {
             <Grid item xs={12}>
               <Chip
                 size="small"
-                label={product.isStock ? "In Stock" : "Out of Stock"}
-                chipcolor={product.isStock ? "success" : "error"}
+                label={
+                  product.stock && product.quantity >= 1
+                    ? "In Stock"
+                    : "Out of Stock"
+                }
+                chipcolor={
+                  product.stock && product.quantity >= 1 ? "success" : "error"
+                }
                 sx={{ borderRadius: "4px", textTransform: "capitalize" }}
               />
             </Grid>
@@ -387,7 +394,11 @@ const ProductInfo = ({ product }: { product: Products }) => {
                         <Typography variant="body2">Quantity</Typography>
                       </TableCell>
                       <TableCell align="left">
-                        <Increment name="quantity" />
+                        <Increment
+                          name="quantity"
+                          quantity={product.quantity}
+                          stock={product.stock}
+                        />
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -401,6 +412,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
                   <Grid item xs={6}>
                     <Button
                       fullWidth
+                      disabled={product.quantity < 1}
                       color="primary"
                       variant="contained"
                       size="large"
@@ -413,6 +425,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
                   <Grid item xs={6}>
                     <Button
                       fullWidth
+                      disabled={product.quantity < 1}
                       component={Link}
                       to="/checkout"
                       color="secondary"
