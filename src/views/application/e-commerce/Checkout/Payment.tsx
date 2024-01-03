@@ -355,7 +355,7 @@ const Payment = ({
                                   size="md"
                                   variant="rounded"
                                   src={
-                                    row.image
+                                    row.image.url
                                     // ? prodImage(`./${row.image}`).default
                                     // : ""
                                   }
@@ -375,32 +375,12 @@ const Payment = ({
                                       variant="subtitle2"
                                       sx={{ fontWeight: 500 }}
                                     >
-                                      Size:{" "}
+                                      Size:
                                       <Typography
                                         variant="caption"
                                         component="span"
                                       >
                                         {row.size}
-                                      </Typography>
-                                    </Typography>
-                                    <Typography
-                                      variant="caption"
-                                      sx={{ fontSize: "1rem" }}
-                                    >
-                                      |
-                                    </Typography>
-                                    <Typography
-                                      variant="subtitle2"
-                                      sx={{ fontWeight: 500 }}
-                                    >
-                                      Color:
-                                      <Typography
-                                        variant="caption"
-                                        component="span"
-                                      >
-                                        {colorsData
-                                          ? colorsData[0].label
-                                          : "Multicolor"}
                                       </Typography>
                                     </Typography>
                                   </Stack>

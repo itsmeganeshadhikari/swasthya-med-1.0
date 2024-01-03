@@ -169,7 +169,7 @@ const Cart = ({
                           <Avatar
                             size="md"
                             variant="rounded"
-                            src={`../../../${row.image}`}
+                            src={`${row.image.url}`}
                           />
                         </Grid>
                         <Grid item>

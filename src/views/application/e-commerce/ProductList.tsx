@@ -53,8 +53,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/AddTwoTone";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 
-// const prodImage = require.context("assets/images/e-commerce", true);
-
 // table sort
 function descendingComparator(a: KeyedObject, b: KeyedObject, orderBy: string) {
   if (b[orderBy] < a[orderBy]) {
