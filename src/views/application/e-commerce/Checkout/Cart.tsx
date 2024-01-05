@@ -39,6 +39,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import FormatPrice from "../../../../ui-component/FormatPrice";
+import CartDiscount from "./CartDiscount";
 
 // const prodImage = require("assets/images/e-commerce", true);
 

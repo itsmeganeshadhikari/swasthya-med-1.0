@@ -17,8 +17,16 @@ import AnimateButton from "../../../ui-component/extended/AnimateButton";
 // third-party
 import { useFormik } from "formik";
 import * as yup from "yup";
-import WysiwygEditor from "../../forms/plugins/WysiwugEditor";
+// import ReactDraftWysiwyg from "./Wysiwug/ReactDraftWysiwyg";
+import SecondaryAction from "../../../ui-component/cards/CardSecondaryAction";
 import InputLabel from "../../../ui-component/extended/Form/InputLabel";
+import { useEffect, useState } from "react";
+import { useTheme } from "@mui/material/styles";
+import axiosServices from "../../../utils/axios";
+import MainCard from "../../../ui-component/cards/MainCard";
+import { gridSpacing } from "../../../store/constant";
+import LinkIcon from "@mui/icons-material/Link";
+import ReactQuillDemo from "../../forms/plugins/Wysiwug/ReactQuill";
 
 const validationSchema = yup.object({
   productName: yup.string().required("Product Name is required"),
@@ -33,9 +41,9 @@ export type ProductDetailsData = {
   subDescription?: string;
   description?: string;
   productImage: string;
-  productCode: string;
+  productCode: string | any;
   productSize: string;
-  sku: string;
+  sku: string | any;
   category: string;
   quantity: number;
 };
@@ -53,6 +61,30 @@ const ProductDetailsForm = ({
   handleNext,
   setErrorIndex,
 }: ProductDetailsForm) => {
+  const [newProduct, setNewProduct] = useState("");
+  const theme = useTheme();
+  const [text, setText] = useState(
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+  );
+  const handleChange = (value: string) => {
+    setText(value);
+  };
+
+  const getProducts = async () => {
+    const response = await axiosServices.get("/api/product");
+    if (response.data.length > 0) {
+      const lastProductLength = response?.data.length - 1;
+      const codeNo = response?.data[lastProductLength].productCode + 1;
+      setNewProduct(codeNo);
+    } else {
+      setNewProduct("101");
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       productImagePreview: productDetailsData.productImagePreview,
@@ -72,17 +104,18 @@ const ProductDetailsForm = ({
         productImagePreview: values.productImagePreview,
         productName: values.productName,
         subDescription: values.subDescription,
-        description: values.description,
+        description: text,
         productImage: values.productImage,
-        productCode: values.productCode,
+        productCode: newProduct,
         productSize: values.productSize,
-        sku: values.sku,
+        sku: newProduct,
         category: values.category,
         quantity: values.quantity,
       });
       handleNext();
     },
   });
+  console.log(text);
 
   return (
     <>
@@ -129,7 +162,58 @@ const ProductDetailsForm = ({
             />
           </Grid>
           <Grid item xs={12}>
-            <WysiwygEditor />
+            <MainCard
+              title="Product Descriptions"
+              secondary={
+                <SecondaryAction
+                  icon={<LinkIcon fontSize="small" />}
+                  link="/dashboard"
+                />
+              }
+            >
+              <Grid container spacing={gridSpacing}>
+                <Grid item xs={12}>
+                  <Stack
+                    spacing={gridSpacing}
+                    sx={{
+                      "& .quill": {
+                        bgcolor:
+                          theme.palette.mode === "dark"
+                            ? "dark.main"
+                            : "grey.50",
+                        borderRadius: "12px",
+                        "& .ql-toolbar": {
+                          bgcolor:
+                            theme.palette.mode === "dark"
+                              ? "dark.light"
+                              : "grey.100",
+                          borderColor:
+                            theme.palette.mode === "dark"
+                              ? theme.palette.dark.light + 20
+                              : "primary.light",
+                          borderTopLeftRadius: "12px",
+                          borderTopRightRadius: "12px",
+                        },
+                        "& .ql-container": {
+                          borderColor:
+                            theme.palette.mode === "dark"
+                              ? `${theme.palette.dark.light + 20} !important`
+                              : "primary.light",
+                          borderBottomLeftRadius: "12px",
+                          borderBottomRightRadius: "12px",
+                          "& .ql-editor": {
+                            minHeight: 135,
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    {/* <Typography variant="subtitle1">React Quill</Typography> */}
+                    <ReactQuillDemo value={text} onChange={handleChange} />
+                  </Stack>
+                </Grid>
+              </Grid>
+            </MainCard>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -154,11 +238,11 @@ const ProductDetailsForm = ({
             <TextField
               id="productCode"
               name="productCode"
-              label="Code"
-              value={formik.values.productCode}
-              fullWidth
-              autoComplete="0016"
+              disabled
+              value={newProduct}
+              defaultValue={newProduct}
               onChange={formik.handleChange}
+              fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -175,8 +259,9 @@ const ProductDetailsForm = ({
             <TextField
               id="sku"
               name="sku"
-              label="Sku"
-              value={formik.values.sku}
+              value={newProduct + "11"}
+              defaultValue={newProduct}
+              disabled
               autoComplete="product serial no"
               onChange={formik.handleChange}
               fullWidth

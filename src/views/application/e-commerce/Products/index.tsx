@@ -52,12 +52,8 @@ const Products = () => {
 
   const skinProduct = data?.data.filter((e: any) => e.category == "Skin");
   const babyProducts = data?.data.filter((e: any) => e.category == "Baby");
-  const trendingProducts = data?.data.filter(
-    (e: any) => e.category == "Trending"
-  );
-  const topBrandProducts = data?.data.filter(
-    (e: any) => e.category == "TopBrand"
-  );
+  const trendingProducts = data?.data.filter((e: any) => e.category == "Baby");
+  const topBrandProducts = data?.data.filter((e: any) => e.category == "Skin");
 
   useEffect(() => {
     setLoading(true);

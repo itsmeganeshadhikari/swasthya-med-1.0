@@ -17,6 +17,7 @@ import { DefaultRootStateProps } from "../../../../types";
 import { RESET_CART } from "../../../../store/actions";
 import { gridSpacing } from "../../../../store/constant";
 import axiosServices from "../../../../utils/axios";
+import ProductDescription from "./ProductDescription";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -130,7 +131,7 @@ const ProductDetails = () => {
                   />
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                  {/* <ProductDescription /> */}
+                  <ProductDescription product={product} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                   <ProductReview product={product} />

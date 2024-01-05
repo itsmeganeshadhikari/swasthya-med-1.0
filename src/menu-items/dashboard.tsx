@@ -36,7 +36,7 @@ const dashboard: DashboardMenuProps = {
       id: "default",
       title: "Default",
       type: "item",
-      url: "/sample-page",
+      url: "/dashboard",
       icon: icons.IconDashboard,
       breadcrumbs: false,
     },

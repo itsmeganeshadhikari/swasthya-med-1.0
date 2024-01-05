@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 // material-ui
 import { useTheme, Theme } from "@mui/material/styles";
 import {
+  Button,
   CardContent,
   Checkbox,
   Fab,
@@ -25,9 +26,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-
-// third-party
-import { format } from "date-fns";
 
 // project imports
 import MainCard from "../../../ui-component/cards/MainCard";
@@ -51,7 +49,10 @@ import PrintIcon from "@mui/icons-material/PrintTwoTone";
 import FileCopyIcon from "@mui/icons-material/FileCopyTwoTone";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/AddTwoTone";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { IconEdit } from "@tabler/icons-react";
+import { IconEditCircleOff } from "@tabler/icons-react";
+import { useMutation } from "@tanstack/react-query";
+import axiosServices from "../../../utils/axios";
 
 // table sort
 function descendingComparator(a: KeyedObject, b: KeyedObject, orderBy: string) {
@@ -87,7 +88,7 @@ const headCells: HeadCell[] = [
   {
     id: "id",
     numeric: true,
-    label: "#",
+    label: "Images",
     align: "center",
   },
   {
@@ -252,7 +253,6 @@ const EnhancedTableToolbar = ({ numSelected }: EnhancedTableToolbarProps) => (
 
 const ProductList = () => {
   const theme = useTheme();
-
   const [order, setOrder] = React.useState<ArrangementOrder>("asc");
   const [orderBy, setOrderBy] = React.useState<string>("calories");
   const [selected, setSelected] = React.useState<string[]>([]);
@@ -260,24 +260,16 @@ const ProductList = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
   const [search, setSearch] = React.useState<string>("");
   const [rows, setRows] = React.useState<Products[]>([]);
-
-  const [anchorEl, setAnchorEl] = React.useState<
-    Element | ((element: Element) => Element) | null | undefined
-  >(null);
-
-  const handleMenuClick = (
-    event: React.MouseEvent<HTMLButtonElement> | undefined
-  ) => {
-    setAnchorEl(event?.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const { mutate } = useMutation({
+    mutationKey: ["delete-product"],
+    mutationFn: async (id: any) => {
+      await axiosServices.delete("/api/product/" + id);
+      getProducts();
+    },
+  });
   const getProducts = async () => {
-    const response = await axios.get("/api/products/list");
-    setRows(response.data.products);
+    const response = await axios.get("/api/product");
+    setRows(response.data);
   };
 
   React.useEffect(() => {
@@ -497,11 +489,7 @@ const ProductList = () => {
                       onClick={(event) => handleClick(event, row.name)}
                       sx={{ cursor: "pointer" }}
                     >
-                      <Avatar
-                        // src={row.image && prodImage(`./${row.image}`).default}
-                        size="md"
-                        variant="rounded"
-                      />
+                      <Avatar src={row.image.url} size="md" variant="rounded" />
                     </TableCell>
                     <TableCell
                       component="th"
@@ -521,19 +509,17 @@ const ProductList = () => {
                           textDecoration: "none",
                         }}
                       >
-                        {row.name}
+                        {row.productName}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      {format(new Date(row.created), "E, MMM d yyyy")}
-                    </TableCell>
+                    <TableCell>${row.date}</TableCell>
                     <TableCell align="right">${row.offerPrice}</TableCell>
                     <TableCell align="right">${row.salePrice}</TableCell>
                     <TableCell align="center">
                       <Chip
                         size="small"
-                        label={row.isStock ? "In Stock" : "Out of Stock"}
-                        chipcolor={row.isStock ? "success" : "error"}
+                        label={row.stock ? "In Stock" : "Out of Stock"}
+                        chipcolor={row.stock ? "success" : "error"}
                         sx={{
                           borderRadius: "4px",
                           textTransform: "capitalize",
@@ -541,38 +527,18 @@ const ProductList = () => {
                       />
                     </TableCell>
                     <TableCell align="center" sx={{ pr: 3 }}>
-                      <IconButton onClick={handleMenuClick} size="large">
-                        <MoreHorizOutlinedIcon
-                          fontSize="small"
-                          aria-controls="menu-popular-card-1"
-                          aria-haspopup="true"
-                          sx={{ color: "grey.500" }}
-                        />
-                      </IconButton>
-                      <Menu
-                        id="menu-popular-card-1"
-                        // anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                        variant="selectedMenu"
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "right",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "right",
-                        }}
-                        sx={{
-                          "& .MuiMenu-paper": {
-                            boxShadow: theme.customShadows.z1,
-                          },
-                        }}
+                      <Link to={`/e-commerce/product-entry/${row.id}`}>
+                        <Button variant="outlined">
+                          <IconEdit color="purple" />
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="outlined"
+                        sx={{ marginLeft: "4px" }}
+                        onClick={() => mutate(row.id)}
                       >
-                        <MenuItem onClick={handleClose}> Edit</MenuItem>
-                        <MenuItem onClick={handleClose}> Delete</MenuItem>
-                      </Menu>
+                        <DeleteIcon color="error" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );
@@ -592,7 +558,7 @@ const ProductList = () => {
 
       {/* table pagination */}
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 15]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

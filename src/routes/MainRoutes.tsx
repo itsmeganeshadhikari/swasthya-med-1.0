@@ -45,7 +45,7 @@ const MainRoutes = {
   ),
   children: [
     {
-      path: "/sample-page",
+      path: "/dashboard",
       element: <SamplePage />,
     },
     {
@@ -74,6 +74,10 @@ const MainRoutes = {
     },
     {
       path: "/e-commerce/product-entry",
+      element: <AppECommProductEntry />,
+    },
+    {
+      path: "/e-commerce/product-entry/:id",
       element: <AppECommProductEntry />,
     },
   ],

@@ -105,22 +105,24 @@ const ProductCard = ({
           content={false}
           boxShadow
           sx={{
-            backgroundColor: "whitesmoke",
             "&:hover": {
               transform: "scale3d(1.02, 1.02, 1)",
               transition: "all .4s ease-in-out",
             },
+            backgroundColor: "whitesmoke",
           }}
         >
           <CardMedia
-            sx={{ height: 100 }}
+            sx={{
+              height: 100,
+            }}
+            title={name}
             image={prodProfile}
-            title="Contemplative Reptile"
             component={Link}
             to={`/product-details/${id}`}
           />
           <CardContent sx={{ p: 0.5 }}>
-            <Grid container spacing={1}>
+            <Grid container>
               <Grid item xs={12}>
                 <Tooltip title={name} enterDelay={500} leaveDelay={200}>
                   <Typography

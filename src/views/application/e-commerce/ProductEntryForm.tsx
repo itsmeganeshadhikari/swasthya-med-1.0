@@ -16,12 +16,11 @@ import ProductPriceForm, { ProductPriceData } from "./ProductPriceForm";
 import Review from "./Review";
 import MainCard from "../../../ui-component/cards/MainCard";
 import AnimateButton from "../../../ui-component/extended/AnimateButton";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axiosServices from "../../../utils/axios";
 
 // step options
 const steps = ["Product Details", "Price Details", "Review your Product"];
-console.log(steps.length);
 
 const getStepContent = (
   step: number,
@@ -75,13 +74,12 @@ const ProductEntryForm = () => {
   const { mutate } = useMutation({
     mutationKey: ["add-product"],
     mutationFn: async (values) => {
-      console.log(values);
       return await axiosServices.post("/api/product", values);
     },
   });
+
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      console.log(activeStep);
       mutate({ ...productDetailsData, ...productPriceData });
     }
     setActiveStep(activeStep + 1);

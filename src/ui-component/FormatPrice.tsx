@@ -1,4 +1,4 @@
-const FormatPrice = ({ price }) => {
+const FormatPrice = ({ price }: any) => {
   return new Intl.NumberFormat("in-IN", {
     style: "currency",
     currency: "INR",

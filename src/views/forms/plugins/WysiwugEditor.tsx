@@ -11,7 +11,6 @@ import { gridSpacing } from "../../../store/constant";
 
 // assets
 import LinkIcon from "@mui/icons-material/Link";
-import ReactDraftWysiwyg from "./Wysiwug/ReactDraftWysiwyg";
 
 // ==============================|| PLUGIN - EDITORS ||============================== //
 
