@@ -13,7 +13,7 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 // ==============================|| CHECKOUT BILLING ADDRESS - ADDRESS CARD ||============================== //
 
 interface AddressCardProps {
-  address: Address | null;
+  address: Address | null| any;
   deleteAddress: (id: string | number) => void;
   single?: boolean;
   change?: boolean;

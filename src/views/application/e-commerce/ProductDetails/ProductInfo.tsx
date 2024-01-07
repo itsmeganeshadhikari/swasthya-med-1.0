@@ -3,27 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 // import { Link as RouterLink } from "react-router-dom";
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
 import {
   Button,
-  ButtonBase,
   ButtonGroup,
   Divider,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
   Grid,
-  MenuItem,
-  Radio,
-  RadioGroup,
   Rating,
-  Select,
   Stack,
   Table,
   TableBody,
   TableCell,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -41,12 +31,10 @@ import * as yup from "yup";
 // project imports
 import Chip from "../../../../ui-component/extended/Chip";
 import Avatar from "../../../../ui-component/extended/Avatar";
-import ColorOptions from "../ColorOptions";
-import { ColorsOptionsProps, Products } from "../types";
+import {  Products } from "../types";
 import { ADD_PRODUCTS, SNACKBAR_OPEN } from "../../../../store/actions";
 
 // assets
-import CircleIcon from "@mui/icons-material/Circle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarTwoToneIcon from "@mui/icons-material/StarTwoTone";
 import StarBorderTwoToneIcon from "@mui/icons-material/StarBorderTwoTone";
@@ -54,11 +42,6 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import useAuth from "../../../../hooks/useAuth";
-
-// product color select
-function getColor(color: string) {
-  return ColorOptions.filter((item) => item.value === color);
-}
 
 // product size
 // const sizeOptions = [8, 10, 12, 14, 16, 18, 20];
@@ -69,47 +52,6 @@ const validationSchema = yup.object({
 });
 
 // ==============================|| COLORS OPTION ||============================== //
-
-const Colors = ({
-  checked,
-  colorsData,
-}: {
-  checked?: boolean;
-  colorsData: ColorsOptionsProps[];
-}) => {
-  const theme = useTheme();
-  return (
-    <Grid item>
-      <Tooltip title={colorsData[0].label}>
-        <ButtonBase sx={{ borderRadius: "50%" }}>
-          <Avatar
-            color="inherit"
-            size="badge"
-            sx={{
-              bgcolor: colorsData[0].bg,
-              color: theme.palette.mode === "light" ? "grey.50" : "grey.800",
-            }}
-          >
-            {checked && (
-              <CircleIcon
-                sx={{
-                  color:
-                    theme.palette.mode === "light" ? "grey.50" : "grey.800",
-                  fontSize: "0.75rem",
-                }}
-              />
-            )}
-            {!checked && (
-              <CircleIcon
-                sx={{ color: colorsData[0].bg, fontSize: "0.75rem" }}
-              />
-            )}
-          </Avatar>
-        </ButtonBase>
-      </Tooltip>
-    </Grid>
-  );
-};
 
 const Increment = (props: string | FieldHookConfig<any> | any) => {
   const [field, , helpers] = useField(props);
@@ -180,7 +122,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
     },
   });
 
-  const { values, errors, handleSubmit, handleChange } = formik;
+  const { values, handleSubmit } = formik;
 
   const addCart = () => {
     if (isLoggedIn) {

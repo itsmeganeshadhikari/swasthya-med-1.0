@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material';
 
 // project imports
-import { GenericCardProps } from 'types';
+import { GenericCardProps } from '../../../types';
 
 // ==============================|| FORM CONTROL SELECT ||============================== //
 
@@ -13,8 +13,8 @@ export interface FormControlSelectProps {
     captionLabel?: string;
     currencies?: { value: string; label: string }[];
     formState?: string;
-    iconPrimary?: GenericCardProps['iconPrimary'];
-    iconSecondary?: GenericCardProps['iconPrimary'];
+    iconPrimary?: GenericCardProps['iconPrimary'] | any;
+    iconSecondary?: GenericCardProps['iconPrimary'] | any;
     selected?: string;
     textPrimary?: string;
     textSecondary?: string;

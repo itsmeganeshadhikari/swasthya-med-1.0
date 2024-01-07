@@ -28,7 +28,6 @@ import {
 import OrderSummary from "./OrderSummary";
 import AddressCard from "./AddressCard";
 import PaymentSelect from "./PaymentSelect";
-import ColorOptions from "../ColorOptions";
 import PaymentOptions from "./PaymentOptions";
 // import PaymentCard from "./PaymentCard";
 import AddPaymentCard from "./AddPaymentCard";
@@ -38,7 +37,6 @@ import Avatar from "../../../../ui-component/extended/Avatar";
 import {
   SNACKBAR_OPEN,
   SET_PAYMENT_METHOD,
-  SET_PAYMENT_CARD,
 } from "../../../../store/actions";
 import { gridSpacing } from "../../../../store/constant";
 
@@ -53,10 +51,6 @@ import FormatPrice from "../../../../ui-component/FormatPrice";
 import qr from "../../../../assets/images/e-commerce/qrcode.png";
 import axios from "../../../../utils/axios";
 import { useSearchParams } from "react-router-dom";
-// product color select
-function getColor(color: string) {
-  return ColorOptions.filter((item) => item.value === color);
-}
 
 // ==============================|| CHECKOUT PAYMENT - MAIN ||============================== //
 
@@ -78,7 +72,7 @@ const Payment = ({
   const [type, setType] = React.useState(checkout.payment.type);
   const [payment, setPayment] = React.useState(checkout.payment.method);
   const [rows, setRows] = React.useState(checkout.products);
-  const [cards, setCards] = React.useState(checkout.payment.card);
+  const [cards] = React.useState(checkout.payment.card);
 
   const [searchParams] = useSearchParams();
 
@@ -95,9 +89,9 @@ const Payment = ({
   React.useEffect(() => {
     if (searchParams.size > 0) {
       //verify transaction api
-      const response = axios.post("/api/khalti/lookup", {
-        pidx: `${searchParams.get("pidx")}`,
-      });
+    //   const response = axios.post("/api/khalti/lookup", {
+    //     pidx: `${searchParams.get("pidx")}`,
+    //   });
     }
     // if (checkout.step > 2) {
     //   setComplete(true);
@@ -109,12 +103,12 @@ const Payment = ({
     setRows(checkout.products);
   }, [checkout.products]);
 
-  const cardHandler = (card: string) => {
-    if (payment === "card") {
-      setCards(card);
-      dispatch({ type: SET_PAYMENT_CARD, card });
-    }
-  };
+  // const cardHandler = (card: string) => {
+  //   if (payment === "card") {
+  //     setCards(card);
+  //     dispatch({ type: SET_PAYMENT_CARD, card });
+  //   }
+  // };
 
   const handlePaymentMethod = (value: string) => {
     setPayment(value);
@@ -338,9 +332,6 @@ const Payment = ({
                 <Table sx={{ minWidth: 280 }} aria-label="simple table">
                   <TableBody>
                     {rows.map((row, index) => {
-                      const colorsData = row.color
-                        ? getColor(row.color)
-                        : false;
                       return (
                         <TableRow
                           key={index}

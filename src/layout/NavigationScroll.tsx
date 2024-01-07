@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { ReactElement } from "react-markdown";
+import { ReactElement, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 // ==============================|| NAVIGATION SCROLL TO TOP ||============================== //

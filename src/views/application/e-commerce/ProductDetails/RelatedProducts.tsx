@@ -7,7 +7,7 @@ import { Slider, useMediaQuery } from "@mui/material";
 // third-party
 // import Slider from 'react-slick';
 
-const RelatedProducts = ({ id }: { id?: string }) => {
+const RelatedProducts = ({ }: { id?: string }) => {
   const theme = useTheme();
   const matchDownXl = useMediaQuery(theme.breakpoints.down("xl"));
   const matchDownLG = useMediaQuery(theme.breakpoints.down("xl"));

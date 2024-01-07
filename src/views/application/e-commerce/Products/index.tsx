@@ -41,7 +41,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 
 const Products = () => {
   const theme = useTheme();
-  const [isLoading, setLoading] = React.useState(true);
+  const [, setLoading] = React.useState(true);
 
   const { data } = useQuery({
     queryKey: ["get-product"],

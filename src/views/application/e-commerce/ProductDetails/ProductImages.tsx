@@ -43,17 +43,6 @@ const ProductImages = ({ product }: { product: Products }) => {
   const [selected, setSelected] = React.useState(initialImage);
   const [modal, setModal] = React.useState(false);
 
-  const images = [
-    { source: prod1 },
-    { source: prod2 },
-    { source: prod3 },
-    { source: prod4 },
-    { source: prod5 },
-    { source: prod6 },
-    { source: prod7 },
-    { source: prod8 },
-  ];
-
   const lgNo = matchDownLG ? 4 : 3;
 
   const settings = {

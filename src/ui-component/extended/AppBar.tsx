@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 // material-ui
@@ -20,8 +20,6 @@ import {
   Typography,
   useScrollTrigger,
   Grid,
-  ButtonBase,
-  Avatar,
   Badge,
 } from "@mui/material";
 
@@ -31,8 +29,6 @@ import {
 // assets
 import {
   IconBook,
-  IconCreditCard,
-  IconDashboard,
   IconHome2,
   IconUpload,
 } from "@tabler/icons-react";
@@ -94,8 +90,6 @@ const AppBar = ({ ...others }) => {
   const totalQuantity = sum(
     cart.checkout.products.map((item: CartProductStateProps) => item.quantity)
   );
-
-  const theme = useTheme();
 
   const [drawerToggle, setDrawerToggle] = React.useState<boolean>(false);
   /** Method called on multiple components with different event types */

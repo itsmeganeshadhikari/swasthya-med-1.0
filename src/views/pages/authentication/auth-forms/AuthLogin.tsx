@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 // material-ui
@@ -19,7 +18,6 @@ import {
   OutlinedInput,
   Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 
 // third party
@@ -33,34 +31,27 @@ import AnimateButton from "../../../../ui-component/extended/AnimateButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-import Google from "../../../../assets/images/icons/social-google.svg";
-import { DefaultRootStateProps } from "../../../../types";
 import useScriptRef from "../../../../hooks/useScriptRef";
 import useAuth from "../../../../hooks/useAuth";
-import { SNACKBAR_OPEN } from "../../../../store/actions";
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const Login = (props: { loginProp?: number }, { ...others }) => {
+const Login = (_props: { loginProp?: number }, { ...others }) => {
   const theme = useTheme();
   const scriptedRef = useScriptRef();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
-  const customization = useSelector(
-    (state: DefaultRootStateProps) => state.customization
-  );
   const [checked, setChecked] = React.useState(true);
 
   const { login } = useAuth();
-  const dispatch = useDispatch();
-  const googleHandler = () => {
-    dispatch({
-      type: SNACKBAR_OPEN,
-      open: true,
-      message: "Under maintainance",
-      variant: "alert",
-      alertSeverity: "error",
-    });
-  };
+  // const dispatch = useDispatch();
+  // const googleHandler = () => {
+  //   dispatch({
+  //     type: SNACKBAR_OPEN,
+  //     open: true,
+  //     message: "Under maintainance",
+  //     variant: "alert",
+  //     alertSeverity: "error",
+  //   });
+  // };
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {

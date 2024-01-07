@@ -1,7 +1,6 @@
 // material-ui
 import {
   Box,
-  CardMedia,
   Grid,
   List,
   ListItem,

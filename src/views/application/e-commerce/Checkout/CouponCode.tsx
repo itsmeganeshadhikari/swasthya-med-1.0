@@ -42,17 +42,8 @@ interface CouponCodeProps {
   setCoupon: (code: string) => void;
 }
 
-const CouponCode = ({ open, handleClose, setCoupon }: CouponCodeProps) => {
-  const [animate, setAnimate] = React.useState(false);
-
-  const setDiscount = (code: string) => {
-    setAnimate(true);
-    setCoupon(code);
-    setTimeout(() => {
-      setAnimate(false);
-    }, 2500);
-  };
-
+const CouponCode = ({ open, handleClose }: CouponCodeProps) => {
+  const [animate] = React.useState(false);
   return (
     <Dialog
       open={open}

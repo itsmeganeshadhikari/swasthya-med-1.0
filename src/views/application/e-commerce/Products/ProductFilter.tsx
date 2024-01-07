@@ -246,7 +246,7 @@ const RatingSection = ({
                         precision={0.5}
                         name="simple-controlled"
                         value={rating}
-                        onChange={(event, newValue) => handelFilter('rating', '', newValue!)}
+                        onChange={(_event, newValue) => handelFilter('rating', '', newValue!)}
                     />
                     <Typography component="legend">({rating})</Typography>
                 </Stack>

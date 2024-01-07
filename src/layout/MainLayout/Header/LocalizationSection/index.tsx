@@ -43,7 +43,7 @@ const LocalizationSection = () => {
     const [language, setLanguage] = React.useState<string>(customization.locale);
 
     const handleListItemClick = (
-        event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLDivElement, MouseEvent> | undefined,
+        _event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLDivElement, MouseEvent> | undefined,
         lng: string
     ) => {
         setLanguage(lng);

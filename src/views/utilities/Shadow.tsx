@@ -3,10 +3,10 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Card, Grid } from '@mui/material';
 
 // project imports
-import SubCard from 'ui-component/cards/SubCard';
-import MainCard from 'ui-component/cards/MainCard';
-import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
-import { gridSpacing } from 'store/constant';
+import SubCard from '../../ui-component/cards/SubCard';
+import MainCard from '../../ui-component/cards/MainCard';
+import SecondaryAction from '../../ui-component/cards/CardSecondaryAction';
+import { gridSpacing } from '../../store/constant';
 
 // ===============================|| SHADOW BOX ||=============================== //
 

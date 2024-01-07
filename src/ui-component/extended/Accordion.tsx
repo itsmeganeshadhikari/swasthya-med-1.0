@@ -41,7 +41,7 @@ const Accordion = ({
   const [expanded, setExpanded] = React.useState<string | boolean | null>(null);
   const handleChange =
     (panel: string) =>
-    (event: React.SyntheticEvent<Element, Event>, newExpanded: boolean) => {
+    (_event: React.SyntheticEvent<Element, Event>, newExpanded: boolean) => {
       toggle && setExpanded(newExpanded ? panel : false);
     };
 

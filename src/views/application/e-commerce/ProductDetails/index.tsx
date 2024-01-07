@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
-import { Box, Container, Grid, Stack, Tab, Tabs } from "@mui/material";
+import { Box, Grid, Stack, Tab, Tabs } from "@mui/material";
 
 // project imports
 import ProductImages from "./ProductImages";
@@ -55,7 +55,7 @@ const ProductDetails = () => {
   // product description tabs
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 

@@ -30,7 +30,7 @@ const MinimalLayout = () => (
     <SecondWrapper>
       <Outlet />
     </SecondWrapper>
-    {/* <Customization /> */}
+    <Customization />
     <Footer />
   </>
 );

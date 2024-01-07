@@ -1,21 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Link, useNavigate } from "react-router-dom";
 
 // material-ui
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Button,
   Checkbox,
-  Divider,
   FormControl,
   FormControlLabel,
   FormHelperText,
   Grid,
   IconButton,
-  Input,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -29,39 +24,24 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 
 // project imports
-import Google from "../../../../assets/images/icons/social-google.svg";
 import AnimateButton from "../../../../ui-component/extended/AnimateButton";
 
 // assets
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { DefaultRootStateProps } from "../../../../types";
 import useAuth from "../../../../hooks/useAuth";
 import useScriptRef from "../../../../hooks/useScriptRef";
+import { useState } from "react";
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
 const AuthRegister = ({ ...others }) => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
-  const customization = useSelector(
-    (state: DefaultRootStateProps) => state.customization
-  );
   const scriptedRef = useScriptRef();
   const { register, login } = useAuth();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [checked, setChecked] = React.useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [checked, setChecked] = useState(true);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -221,7 +201,7 @@ const AuthRegister = ({ ...others }) => {
                   type="file"
                   fullWidth
                   name="avatar"
-                  onChange={(event) => {
+                  onChange={(event: any) => {
                     const reader = new FileReader();
                     reader.readAsDataURL(event.target.files[0]);
                     reader.onload = () => {

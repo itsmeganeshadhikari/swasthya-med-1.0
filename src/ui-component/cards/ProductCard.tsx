@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 // material-ui
 import {
-  Box,
   Button,
   CardContent,
   CardMedia,

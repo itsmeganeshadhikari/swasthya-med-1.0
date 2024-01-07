@@ -1,14 +1,13 @@
 import React from 'react';
 
 // material-ui
-import { makeStyles } from '@mui/styles';
 import MuiAvatar, { AvatarProps } from '@mui/material/Avatar';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
-import { KeyedObject, LinkTarget } from 'types';
-import { Theme } from '@mui/material/styles';
+import { KeyedObject, LinkTarget } from '../../types';
+import { Theme, makeStyles } from '@mui/material/styles';
 
 // style constant
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles : any = makeStyles((theme: Theme) => ({
     primaryBackground: {
         background: theme.palette.primary.main,
         color: theme.palette.background.paper

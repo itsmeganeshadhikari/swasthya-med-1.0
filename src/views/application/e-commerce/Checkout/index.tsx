@@ -244,7 +244,7 @@ const Checkout = () => {
           <Grid item xs={12}>
             <Tabs
               value={value}
-              onChange={(e, newValue) => handleChange(newValue)}
+              onChange={(_e, newValue) => handleChange(newValue)}
               aria-label="icon label tabs example"
               variant="scrollable"
               sx={{

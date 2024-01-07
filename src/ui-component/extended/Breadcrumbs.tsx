@@ -73,7 +73,7 @@ const Breadcrumbs = ({
     const [item, setItem] = useState<NavItemType>();
 
     useEffect(() => {
-        navigation?.items?.map((menu: NavItemType | NavItemTypeObject, index: number) => {
+        navigation?.items?.map((menu: NavItemType | NavItemTypeObject, _index: number) => {
             if (menu.type && menu.type === 'group') {
                 getCollapse(menu as { children: NavItemType[]; type?: string });
             }
@@ -100,15 +100,15 @@ const Breadcrumbs = ({
     };
 
     // item separator
-    const SeparatorIcon = separator!;
+    const SeparatorIcon : any= separator!;
     const separatorIcon = separator ? <SeparatorIcon stroke={1.5} size="1rem" /> : <IconTallymark1 stroke={1.5} size="1rem" />;
 
     let mainContent;
     let itemContent;
     let breadcrumbContent: React.ReactElement = <Typography />;
     let itemTitle: NavItemType['title'] = '';
-    let CollapseIcon;
-    let ItemIcon;
+    let CollapseIcon : any;
+    let ItemIcon : any;
 
     // collapse item
     if (main && main.type === 'collapse') {

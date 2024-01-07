@@ -1,4 +1,3 @@
-import React, { SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
 
 // material-ui
@@ -17,6 +16,7 @@ import MuiSnackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { DefaultRootStateProps, KeyedObject } from "../../types";
+import { useEffect, useState } from "react";
 
 // animation function
 function TransitionSlideLeft(props: SlideProps) {
@@ -52,7 +52,7 @@ const transition: KeyedObject = {
 // ==============================|| SNACKBAR ||============================== //
 
 const Snackbar = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const snackbarInitial = useSelector(
     (state: DefaultRootStateProps) => state.snackbar
   );
@@ -64,7 +64,7 @@ const Snackbar = () => {
     setOpen(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOpen(snackbarInitial.open);
   }, [snackbarInitial.action, snackbarInitial.open]);
 
@@ -76,7 +76,7 @@ const Snackbar = () => {
           anchorOrigin={snackbarInitial.anchorOrigin}
           open={open}
           autoHideDuration={6000}
-          onClose={(e: SyntheticEvent, v: string) => handleClose(v)}
+          onClose={(_e,v) => handleClose(v)}
           message={snackbarInitial.message}
           TransitionComponent={transition[snackbarInitial.transition]}
           action={
@@ -108,7 +108,7 @@ const Snackbar = () => {
           anchorOrigin={snackbarInitial.anchorOrigin}
           open={open}
           autoHideDuration={6000}
-          onClose={(e: SyntheticEvent, v: string) => handleClose(v)}
+          onClose={(_e,v) => handleClose(v)}
         >
           <Alert
             variant="filled"

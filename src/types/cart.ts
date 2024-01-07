@@ -30,7 +30,7 @@ export interface CartProductStateProps {
   itemId?: string | number;
   id: string | number;
   name: string;
-  image: string;
+  image: string | any;
   salePrice: number;
   offerPrice: number;
   color: string;

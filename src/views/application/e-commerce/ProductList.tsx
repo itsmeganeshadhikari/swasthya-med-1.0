@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // material-ui
 import { useTheme, Theme } from "@mui/material/styles";
@@ -11,8 +11,6 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  Menu,
-  MenuItem,
   Table,
   TableBody,
   TableCell,
@@ -50,7 +48,6 @@ import FileCopyIcon from "@mui/icons-material/FileCopyTwoTone";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/AddTwoTone";
 import { IconEdit } from "@tabler/icons-react";
-import { IconEditCircleOff } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import axiosServices from "../../../utils/axios";
 
@@ -319,7 +316,7 @@ const ProductList = () => {
   };
 
   const handleRequestSort = (
-    event: React.SyntheticEvent<Element, Event>,
+    _event: React.SyntheticEvent<Element, Event>,
     property: string
   ) => {
     const isAsc = orderBy === property && order === "asc";
@@ -337,7 +334,7 @@ const ProductList = () => {
   };
 
   const handleClick = (
-    event: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    _event: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
     name: string
   ) => {
     const selectedIndex = selected.indexOf(name);
@@ -360,7 +357,7 @@ const ProductList = () => {
   };
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
     newPage: number
   ) => {
     setPage(newPage);

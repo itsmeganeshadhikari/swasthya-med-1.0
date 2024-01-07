@@ -2,7 +2,7 @@
 import { useTheme } from '@mui/material/styles';
 import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import MUIFormControl from '@mui/material/FormControl';
-import { GenericCardProps } from 'types';
+import { GenericCardProps } from '../../../types';
 
 // ==============================|| FORM CONTROL ||============================== //
 
@@ -10,8 +10,8 @@ export interface FormControlProps {
     captionLabel?: string;
     currencies?: { value: string; label: string }[];
     formState?: string;
-    iconPrimary?: GenericCardProps['iconPrimary'];
-    iconSecondary?: GenericCardProps['iconPrimary'];
+    iconPrimary?: GenericCardProps['iconPrimary']| any;
+    iconSecondary?: GenericCardProps['iconPrimary'] | any;
     placeholder?: string;
     selected?: string;
     textPrimary?: string;

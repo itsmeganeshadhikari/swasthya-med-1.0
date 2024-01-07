@@ -22,13 +22,6 @@ const AppECommCheckout = Loadable(
 const AppECommProductEntry = Loadable(
   lazy(() => import("../views/application/e-commerce/ProductEntry"))
 );
-const FrmWysiwugEditor = Loadable(
-  lazy(() => import("../views/forms/plugins/WysiwugEditor"))
-);
-
-const FrmFormsWizard = Loadable(
-  lazy(() => import("../views/forms/forms-wizard"))
-);
 
 const SamplePage = Loadable(lazy(() => import("../views/sample-page")));
 
@@ -63,14 +56,6 @@ const MainRoutes = {
     {
       path: "/e-commerce/checkout",
       element: <AppECommCheckout />,
-    },
-    {
-      path: "/forms/frm-wysiwug",
-      element: <FrmWysiwugEditor />,
-    },
-    {
-      path: "/forms/forms-wizard",
-      element: <FrmFormsWizard />,
     },
     {
       path: "/e-commerce/product-entry",

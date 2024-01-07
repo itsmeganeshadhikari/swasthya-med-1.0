@@ -102,7 +102,7 @@ const Customization = () => {
 
     // state - border radius
     const [borderRadius, setBorderRadius] = React.useState<number | number[]>(customization?.borderRadius!);
-    const handleBorderRadius = (event: Event, newValue: number | number[]) => {
+    const handleBorderRadius = (_event: Event, newValue: number | number[]) => {
         setBorderRadius(newValue);
     };
 

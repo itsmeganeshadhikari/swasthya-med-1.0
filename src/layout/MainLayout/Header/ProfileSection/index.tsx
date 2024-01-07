@@ -1,6 +1,4 @@
 import React from "react";
-
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // material-ui
@@ -8,22 +6,15 @@ import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
   Box,
-  Card,
-  CardContent,
   Chip,
   ClickAwayListener,
-  Divider,
-  Grid,
-  InputAdornment,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   Paper,
   Popper,
   Stack,
-  Switch,
   Typography,
 } from "@mui/material";
 
@@ -33,16 +24,12 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 // project imports
 import MainCard from "../../../../ui-component/cards/MainCard";
 import Transitions from "../../../../ui-component/extended/Transitions";
-import UpgradePlanCard from "./UpgradePlanCard";
 import { DefaultRootStateProps } from "../../../../types";
-import User1 from "../../../../assets/images/users/user-round.svg";
 
 // assets
 import {
   IconLogout,
-  IconSearch,
   IconSettings,
-  IconUser,
 } from "@tabler/icons-react";
 import useAuth from "../../../../hooks/useAuth";
 
@@ -53,29 +40,13 @@ const ProfileSection = () => {
   const customization = useSelector(
     (state: DefaultRootStateProps) => state.customization
   );
-  const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  const [sdm, setSdm] = React.useState(true);
-  const [value, setValue] = React.useState("");
-  const [notification, setNotification] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(-1);
+  const { user, logout }: any = useAuth();
+  const [selectedIndex] = React.useState(-1);
   const [open, setOpen] = React.useState(false);
   /**
    * anchorRef is used on different components and specifying one type leads to other components throwing an error
    * */
   const anchorRef = React.useRef<any>(null);
-  const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement>,
-    index: number,
-    route: string = ""
-  ) => {
-    setSelectedIndex(index);
-    handleClose(event);
-
-    if (route && route !== "") {
-      navigate(route);
-    }
-  };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
