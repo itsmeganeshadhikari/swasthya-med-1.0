@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 // material-ui
 import { styled, useTheme } from "@mui/material/styles";
@@ -10,7 +9,6 @@ import {
   Container,
   Drawer,
   IconButton,
-  Link,
   List,
   ListItemButton,
   ListItemIcon,
@@ -42,6 +40,7 @@ import { DefaultRootStateProps } from "../../types";
 import { CartProductStateProps } from "../../types/cart";
 import { sum } from "lodash";
 import useAuth from "../../hooks/useAuth";
+import { Link, NavLink } from "react-router-dom";
 
 // elevation scroll
 export interface ElevationScrollProps {
@@ -124,7 +123,7 @@ const AppBar = ({ ...others }) => {
               <Button
                 color="inherit"
                 component={Link}
-                href="/"
+                to="/"
                 target="_blank"
                 startIcon={<IconUpload />}
               >
@@ -132,7 +131,7 @@ const AppBar = ({ ...others }) => {
               </Button>
               <Button
                 color="inherit"
-                component={RouterLink}
+                component={Link}
                 to="/checkout"
                 target="_blank"
                 startIcon={
@@ -147,7 +146,7 @@ const AppBar = ({ ...others }) => {
               >
                 Cart
               </Button>
-              <Button color="inherit" component={Link} href="/" target="_blank">
+              <Button color="inherit" component={Link} to="/" target="_blank">
                 About us
               </Button>
 
@@ -156,7 +155,7 @@ const AppBar = ({ ...others }) => {
               ) : (
                 <Button
                   component={Link}
-                  href="/login"
+                  to="/login"
                   disableElevation
                   variant="contained"
                   color="secondary"
@@ -189,7 +188,7 @@ const AppBar = ({ ...others }) => {
                   <List>
                     <Link
                       style={{ textDecoration: "none" }}
-                      href="#"
+                      to="#"
                       target="_blank"
                     >
                       <ListItemButton component="a">
@@ -201,7 +200,7 @@ const AppBar = ({ ...others }) => {
                     </Link>
                     <Link
                       style={{ textDecoration: "none" }}
-                      href="/"
+                      to="/"
                       target="_blank"
                     >
                       <ListItemButton component="a">
@@ -213,7 +212,7 @@ const AppBar = ({ ...others }) => {
                     </Link>
                     <Link
                       style={{ textDecoration: "none" }}
-                      href="/"
+                      to="/"
                       target="_blank"
                     >
                       <ListItemButton component="a">
@@ -225,7 +224,7 @@ const AppBar = ({ ...others }) => {
                     </Link>
                     <Link
                       style={{ textDecoration: "none" }}
-                      href="/checkout"
+                      to="/checkout"
                       target="_blank"
                     >
                       <ListItemButton component="a">
