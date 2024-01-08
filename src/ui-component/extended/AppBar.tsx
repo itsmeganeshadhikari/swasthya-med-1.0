@@ -40,7 +40,7 @@ import { DefaultRootStateProps } from "../../types";
 import { CartProductStateProps } from "../../types/cart";
 import { sum } from "lodash";
 import useAuth from "../../hooks/useAuth";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // elevation scroll
 export interface ElevationScrollProps {
