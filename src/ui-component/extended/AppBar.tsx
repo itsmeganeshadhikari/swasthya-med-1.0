@@ -133,7 +133,6 @@ const AppBar = ({ ...others }) => {
                 color="inherit"
                 component={Link}
                 to="/checkout"
-                target="_blank"
                 startIcon={
                   <StyledBadge
                     showZero
@@ -225,7 +224,6 @@ const AppBar = ({ ...others }) => {
                     <Link
                       style={{ textDecoration: "none" }}
                       to="/checkout"
-                      target="_blank"
                     >
                       <ListItemButton component="a">
                         <ListItemIcon>

@@ -6,6 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
   Box,
+  Button,
   Chip,
   ClickAwayListener,
   List,
@@ -32,6 +33,7 @@ import {
   IconSettings,
 } from "@tabler/icons-react";
 import useAuth from "../../../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -168,6 +170,7 @@ const ProfileSection = () => {
                       <Typography variant="subtitle2">
                         Role: {user?.role}
                       </Typography>
+                      {user?.role=="admin"?<Button variant="outlined" to="/dashboard" component={Link}>Dashboard</Button>:""}
                     </Stack>
                     {/* <OutlinedInput
                       sx={{ width: "100%", pr: 1, pl: 2, my: 2 }}
