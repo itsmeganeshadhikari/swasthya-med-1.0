@@ -108,19 +108,20 @@ const ProductCard = ({
               transform: "scale3d(1.02, 1.02, 1)",
               transition: "all .4s ease-in-out",
             },
-            backgroundColor: "whitesmoke",
           }}
         >
           <CardMedia
             sx={{
-              height: 100,
+              height:130,
+              width:130,
+              margin:'auto'
             }}
             title={name}
             image={prodProfile}
             component={Link}
             to={`/product-details/${id}`}
           />
-          <CardContent sx={{ p: 0.5 }}>
+          <CardContent sx={{ p: 0.5 ,backgroundColor:"whitesmoke"}}>
             <Grid container>
               <Grid item xs={12}>
                 <Tooltip title={name} enterDelay={500} leaveDelay={200}>

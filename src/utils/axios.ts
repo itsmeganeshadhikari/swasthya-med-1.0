@@ -5,8 +5,8 @@
 import axios from "axios";
 
 const axiosServices = axios.create({
-  // baseURL: "http://localhost:8080/",
-  baseURL: "https://swasthya-med.onrender.com",
+  baseURL: "http://localhost:8080/",
+  // baseURL: "https://swasthya-med.onrender.com",
 });
 
 // interceptor for http
