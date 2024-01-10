@@ -1,9 +1,7 @@
-import React from "react";
 import { useSelector } from "react-redux";
-
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import { Box, CardMedia, Grid, Slider, useMediaQuery } from "@mui/material";
+import { Box, CardMedia, Grid, useMediaQuery } from "@mui/material";
 
 // project import
 import MainCard from "../../../../ui-component/cards/MainCard";
@@ -11,23 +9,12 @@ import Avatar from "../../../../ui-component/extended/Avatar";
 import { Products } from "../types";
 import { DefaultRootStateProps } from "../../../../types";
 import { gridSpacing } from "../../../../store/constant";
-
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 // third-party
-// import Slider from "react-slick";
+import Slider from "react-slick";
 // import Carousel, { Modal, ModalGateway } from "react-images";
-
-// assets
-import prod1 from "../../../../assets/images/e-commerce/prod-1.jpg";
-import prod2 from "../../../../assets/images/e-commerce/prod-2.jpg";
-import prod3 from "../../../../assets/images/e-commerce/prod-3.jpg";
-import prod4 from "../../../../assets/images/e-commerce/prod-4.jpg";
-import prod5 from "../../../../assets/images/e-commerce/prod-5.jpg";
-import prod6 from "../../../../assets/images/e-commerce/prod-6.jpg";
-import prod7 from "../../../../assets/images/e-commerce/prod-7.jpg";
-import prod8 from "../../../../assets/images/e-commerce/prod-8.jpg";
-
-// const prodImage = require.context("assets/images/e-commerce", true);
-
+import { Key, useState } from "react";
 // ==============================|| PRODUCT DETAILS - IMAGES ||============================== //
 
 const ProductImages = ({ product }: { product: Products }) => {
@@ -35,14 +22,17 @@ const ProductImages = ({ product }: { product: Products }) => {
   const customization = useSelector(
     (state: DefaultRootStateProps) => state.customization
   );
-  const products = [prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8];
+
+  const product1 = [...product.image]
+  console.log(product1);
 
   const matchDownLG = useMediaQuery(theme.breakpoints.up("lg"));
-  const initialImage = product.image.url;
+  const initialImage = product.image[0].url;
 
-  const [selected, setSelected] = React.useState(initialImage);
-  const [modal, setModal] = React.useState(false);
-
+  const [selected, setSelected] = useState(initialImage);
+  const [modal, setModal] = useState(false);
+  const onOpenModal = () => setModal(true);
+  const onCloseModal = () => setModal(false);
   const lgNo = matchDownLG ? 4 : 3;
 
   const settings = {
@@ -51,7 +41,7 @@ const ProductImages = ({ product }: { product: Products }) => {
     swipeToSlide: true,
     focusOnSelect: true,
     centerPadding: "0px",
-    slidesToShow: products.length > 3 ? lgNo : products.length,
+    slidesToShow: product.image.length > 2 ? lgNo : product.image.length,
   };
 
   return (
@@ -65,7 +55,7 @@ const ProductImages = ({ product }: { product: Products }) => {
         <Grid item xs={12}>
           <MainCard content={false} sx={{ m: "0 auto" }}>
             <CardMedia
-              onClick={() => setModal(!modal)}
+              onClick={() => onOpenModal()}
               component="img"
               image={selected}
               sx={{
@@ -78,13 +68,13 @@ const ProductImages = ({ product }: { product: Products }) => {
         </Grid>
         <Grid item xs={11} sm={7} md={9} lg={10} xl={8}>
           <Slider {...settings}>
-            {products.map((item, index) => (
-              <Box key={index} onClick={() => setSelected(item)} sx={{ p: 1 }}>
+            {product1.map((item: any, index: Key | null | undefined) => (
+              <Box key={index} onClick={() => setSelected(item?.url)} sx={{ p: 1 }}>
                 <Avatar
-                  outline={selected === item}
+                  outline={selected == item}
                   size={matchDownLG ? "lg" : "md"}
                   color="primary"
-                  src={item}
+                  src={item?.url}
                   variant="rounded"
                   sx={{ m: "0 auto", cursor: "pointer" }}
                 />
@@ -93,6 +83,14 @@ const ProductImages = ({ product }: { product: Products }) => {
           </Slider>
         </Grid>
       </Grid>
+      {modal ? (
+        <Modal open={modal} onClose={onCloseModal} center>
+          <CardMedia
+            component="img"
+            image={selected}
+          />
+        </Modal>
+      ) : null}
     </>
   );
 };

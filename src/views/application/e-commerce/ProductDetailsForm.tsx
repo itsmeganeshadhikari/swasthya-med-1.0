@@ -100,6 +100,7 @@ const ProductDetailsForm = ({
     },
     validationSchema,
     onSubmit: (values) => {
+      console.log(values.productImage);
       setProductDetailsData({
         productImagePreview: values.productImagePreview,
         productName: values.productName,
@@ -208,7 +209,6 @@ const ProductDetailsForm = ({
                       },
                     }}
                   >
-                    {/* <Typography variant="subtitle1">React Quill</Typography> */}
                     <ReactQuillDemo value={text} onChange={handleChange} />
                   </Stack>
                 </Grid>
@@ -216,22 +216,31 @@ const ProductDetailsForm = ({
             </MainCard>
           </Grid>
           <Grid item xs={12}>
-            <TextField
+            <input
               type="file"
-              fullWidth
+              multiple
               name="productImage"
+              accept="image/*"
               onChange={(event: any) => {
-                const url = URL.createObjectURL(event.target.files[0]);
-                const reader = new FileReader();
-                reader.readAsDataURL(event.target.files[0]);
-
-                reader.onload = () => {
-                  if (reader.readyState == 2) {
-                    formik.setFieldValue("productImage", reader.result);
-                    formik.setFieldValue("productImagePreview", url);
-                  }
-                };
-              }}
+                const fileList = event.target.files
+                const result: (string | ArrayBuffer | null)[] = []
+                const urls: string[] = []
+                const files: File[] = Array.from(fileList);
+                files.map((file: File) => {
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  const url = URL.createObjectURL(file);
+                  reader.onload = () => {
+                    if (reader.readyState == 2) {
+                      result.push(reader.result)
+                      urls.push(url)
+                    }
+                  };
+                })
+                formik.setFieldValue("productImage", result);
+                formik.setFieldValue("productImagePreview", urls);
+              }
+              }
             />
           </Grid>
           <Grid item xs={12} sm={6}>

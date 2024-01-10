@@ -31,7 +31,7 @@ import * as yup from "yup";
 // project imports
 import Chip from "../../../../ui-component/extended/Chip";
 import Avatar from "../../../../ui-component/extended/Avatar";
-import {  Products } from "../types";
+import { Products } from "../types";
 import { ADD_PRODUCTS, SNACKBAR_OPEN } from "../../../../store/actions";
 
 // assets
@@ -210,10 +210,10 @@ const ProductInfo = ({ product }: { product: Products }) => {
       <Grid item xs={12}>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="h2" color="primary">
-            Rs {product.offerPrice}
+            Rs {product?.offerPrice}
           </Typography>
           <Typography variant="body1" sx={{ textDecoration: "line-through" }}>
-            Rs {product.salePrice}
+            Rs {product?.salePrice}
           </Typography>
           <Typography variant="caption">(Inclusive of all taxes)</Typography>
         </Stack>

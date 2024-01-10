@@ -9,7 +9,7 @@ const ProductCategory = ({ products }: any) => {
         <Grid key={index} item xs={11} sm={5} md={3} lg={2}>
           <ProductCard
             id={product.id}
-            image={product.image.url}
+            image={product.image[0].url}
             name={product.productName}
             description={product.subDescription}
             offerPrice={product.offerPrice}

@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
-import { Box, Grid, Stack, Tab, Tabs } from "@mui/material";
+import { Box, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
 
 // project imports
 import ProductImages from "./ProductImages";
@@ -18,6 +18,7 @@ import { RESET_CART } from "../../../../store/actions";
 import { gridSpacing } from "../../../../store/constant";
 import axiosServices from "../../../../utils/axios";
 import ProductDescription from "./ProductDescription";
+import RelatedProducts from "./RelatedProducts";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -118,7 +119,7 @@ const ProductDetails = () => {
                     to="#"
                     label={
                       <Stack direction="row" alignItems="center">
-                        Reviews{" "}
+                        Reviews
                         <Chip
                           label={String(product.salePrice)}
                           size="small"
@@ -141,12 +142,12 @@ const ProductDetails = () => {
           )}
         </MainCard>
       </Grid>
-      {/* <Grid item xs={12} lg={10} sx={{ mt: 3 }}>
+      <Grid item xs={12} lg={10} sx={{ mt: 3 }}>
         <Typography variant="h2">Related Products</Typography>
       </Grid>
       <Grid item xs={11} lg={10}>
         <RelatedProducts id={id} />
-      </Grid> */}
+      </Grid>
       <FloatingCart />
     </Grid>
     // </Container>
