@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./assets/scss/style.scss";
+import 'react-medium-image-zoom/dist/styles.css'
 import { Provider } from "react-redux";
 import { store } from "./store";
 import config from "./config";

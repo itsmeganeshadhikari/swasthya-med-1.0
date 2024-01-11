@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import { Box, CardMedia, Grid, useMediaQuery } from "@mui/material";
+import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
 
 // project import
 import MainCard from "../../../../ui-component/cards/MainCard";
@@ -14,7 +15,7 @@ import { Modal } from 'react-responsive-modal';
 // third-party
 import Slider from "react-slick";
 // import Carousel, { Modal, ModalGateway } from "react-images";
-import { Key, useState } from "react";
+import { Key, useCallback, useState } from "react";
 // ==============================|| PRODUCT DETAILS - IMAGES ||============================== //
 
 const ProductImages = ({ product }: { product: Products }) => {
@@ -43,6 +44,12 @@ const ProductImages = ({ product }: { product: Products }) => {
     centerPadding: "0px",
     slidesToShow: product.image.length > 2 ? lgNo : product.image.length,
   };
+
+  const [isZoomed, setIsZoomed] = useState(false)
+
+  const handleZoomChange = useCallback((shouldZoom: any) => {
+    setIsZoomed(shouldZoom)
+  }, [])
 
   return (
     <>
@@ -85,10 +92,12 @@ const ProductImages = ({ product }: { product: Products }) => {
       </Grid>
       {modal ? (
         <Modal open={modal} onClose={onCloseModal} center>
-          <CardMedia
-            component="img"
-            image={selected}
-          />
+          <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
+            <CardMedia
+              component="img"
+              image={selected}
+            />
+          </ControlledZoom>
         </Modal>
       ) : null}
     </>
