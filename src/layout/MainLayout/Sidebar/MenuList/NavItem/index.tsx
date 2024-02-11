@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
-  Avatar,
-  Chip,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -67,8 +65,8 @@ const NavItem = ({ item, level }: NavItemProps) => {
 
   let listItemProps: {
     component:
-      | ForwardRefExoticComponent<RefAttributes<HTMLAnchorElement>>
-      | string;
+    | ForwardRefExoticComponent<RefAttributes<HTMLAnchorElement>>
+    | string;
     href?: string;
     target?: LinkTarget;
   } = {
@@ -102,12 +100,11 @@ const NavItem = ({ item, level }: NavItemProps) => {
       {...listItemProps}
       disabled={item.disabled}
       sx={{
-        borderRadius: `${customization.borderRadius}px`,
-        mb: 0.5,
+        borderRadius: `2px`,
         alignItems: "flex-start",
-        backgroundColor: level > 1 ? "transparent !important" : "inherit",
+        backgroundColor: "whitesmoke",
         py: level > 1 ? 1 : 1.25,
-        pl: `${level * 24}px`,
+        // pl: `${level * 15}px`,
       }}
       selected={customization.isOpen.findIndex((id) => id === item.id) > -1}
       onClick={() => itemHandler(item.id!)}
@@ -141,7 +138,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
           )
         }
       />
-      {item.chip && (
+      {/* {item.chip && (
         <Chip
           color={item.chip.color}
           variant={item.chip.variant}
@@ -149,7 +146,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
           label={item.chip.label}
           avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
         />
-      )}
+      )} */}
     </ListItemButton>
   );
 };

@@ -32,7 +32,7 @@ export interface ProductCardProps extends KeyedObject {
   id?: string | number;
   color?: string;
   name: string;
-  image: string;
+  image: string | any;
   description?: string;
   offerPrice?: number;
   salePrice?: number;
@@ -50,11 +50,10 @@ const ProductCard = ({
   rating,
 }: ProductCardProps) => {
   const dispatch = useDispatch();
-  const prodProfile = image;
+  const prodProfile = image[0].url;
   const [productRating] = React.useState<number | undefined>(rating);
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
-  // console.log(isLoggedIn);
+  const { isLoggedIn } = useAuth()
 
   const addCart = () => {
     if (isLoggedIn) {
@@ -127,7 +126,7 @@ const ProductCard = ({
                 <Tooltip title={name} enterDelay={500} leaveDelay={200}>
                   <Typography
                     component={Link}
-                    to={`/e-commerce/product-details/${id}`}
+                    to={`/product-details/${id}`}
                     variant="subtitle1"
                     sx={{ textDecoration: "none" }}
                   >

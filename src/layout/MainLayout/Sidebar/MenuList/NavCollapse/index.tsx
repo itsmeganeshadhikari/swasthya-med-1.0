@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -18,7 +17,6 @@ import NavItem from "../NavItem";
 // assets
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
-import { DefaultRootStateProps } from "../../../../../types";
 import { NavGroupProps } from "../NavGroup";
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
@@ -30,10 +28,6 @@ export interface NavCollapseProps {
 
 const NavCollapse = ({ menu, level }: NavCollapseProps) => {
   const theme = useTheme();
-  const customization = useSelector(
-    (state: DefaultRootStateProps) => state.customization
-  );
-
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string | null | undefined>(
     null
@@ -81,12 +75,11 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <>
       <ListItemButton
         sx={{
-          borderRadius: `${customization.borderRadius}px`,
-          mb: 0.5,
+          borderRadius: `1px`,
           alignItems: "flex-start",
-          backgroundColor: level > 1 ? "transparent !important" : "inherit",
+          backgroundColor: level > 1 ? "transparent !important" : "skyblue",
           py: level > 1 ? 1 : 1.25,
-          pl: `${level * 24}px`,
+          pl: `${level * 15}px`,
         }}
         selected={selected === menu.id}
         onClick={handleClick}
@@ -98,7 +91,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
           primary={
             <Typography
               variant={selected === menu.id ? "h5" : "body1"}
-              color="inherit"
+              color="purple"
               sx={{ my: "auto" }}
             >
               {menu.title}

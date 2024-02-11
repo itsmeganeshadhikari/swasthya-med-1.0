@@ -39,7 +39,7 @@ export interface CartProductStateProps {
 }
 
 export type Address = {
-  id?: string | number | undefined;
+  _id?: string | number | undefined;
   name: string;
   destination: string;
   building: string;

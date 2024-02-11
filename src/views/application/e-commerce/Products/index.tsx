@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // material-ui
 import { styled, useTheme } from "@mui/material/styles";
@@ -11,8 +11,10 @@ import { motion } from "framer-motion";
 import FloatingCart from "../../../../ui-component/cards/FloatingCart";
 import { appDrawerWidth, gridSpacing } from "../../../../store/constant";
 import ProductCategory from "./ProductCategory";
-import { useQuery } from "@tanstack/react-query";
-import axiosServices from "../../../../utils/axios";
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCTS } from "../../../../utils/querys/userQuery";
+// import { useQuery } from "@tanstack/react-query";
+// import axiosServices from "../../../../utils/axios";
 
 // product list container
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -41,36 +43,27 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 
 const Products = () => {
   const theme = useTheme();
-  const [, setLoading] = React.useState(true);
+  const { data, error } = useQuery(GET_PRODUCTS);
 
-  const { data } = useQuery({
-    queryKey: ["get-product"],
-    queryFn: async () => {
-      return axiosServices.get("/api/product");
-    },
-  });
-
-  const skinProduct = data?.data.filter((e: any) => e.category == "Skin");
-  const babyProducts = data?.data.filter((e: any) => e.category == "Baby");
-  const trendingProducts = data?.data.filter((e: any) => e.category == "Baby");
-  const topBrandProducts = data?.data.filter((e: any) => e.category == "Skin");
-
-  useEffect(() => {
-    setLoading(true);
-  }, []);
-
-  let topBrand: React.ReactElement | React.ReactElement[] = <></>;
+  if (error) {
+    console.log("error");
+  }
+  const skinProduct = data?.productlist.products.filter((e: any) => e.category == "Skin");
+  const babyProducts = data?.productlist.products.filter((e: any) => e.category == "Baby");
+  // const trendingProducts = data?.productlist.products.filter((e: any) => e.category == "Baby");
+  // const topBrandProducts = data?.productlist.products.filter((e: any) => e.category == "Skin");
+  // let topBrand: React.ReactElement | React.ReactElement[] = <></>;
   let derma: React.ReactElement | React.ReactElement[] = <></>;
-  let trending: React.ReactElement | React.ReactElement[] = <></>;
+  // let trending: React.ReactElement | React.ReactElement[] = <></>;
   let baby: React.ReactElement | React.ReactElement[] = <></>;
 
-  if (topBrandProducts) {
-    topBrand = <ProductCategory products={topBrandProducts} />;
-  }
+  // if (topBrandProducts) {
+  //   topBrand = <ProductCategory products={topBrandProducts} />;
+  // }
 
-  if (trendingProducts) {
-    trending = <ProductCategory products={trendingProducts} />;
-  }
+  // if (trendingProducts) {
+  //   trending = <ProductCategory products={trendingProducts} />;
+  // }
 
   if (babyProducts) {
     baby = <ProductCategory products={babyProducts} />;
@@ -92,7 +85,7 @@ const Products = () => {
           mb: { xs: 2.5, md: 5 },
         }}
       >
-        <Grid item xs={12} p={0}>
+        {/* <Grid item xs={12} p={0}>
           <Divider sx={{ my: 0, borderColor: "black" }} />
         </Grid>
         <Grid item xs={12} xl={9}>
@@ -151,8 +144,8 @@ const Products = () => {
               </Main>
             </Box>
           </Grid>
-        </Grid>
-        <Grid item xs={12} p={0}>
+        </Grid> */}
+        {/* <Grid item xs={12} p={0}>
           <Divider sx={{ my: 0, borderColor: "black" }} />
         </Grid>
         <Grid item xs={12} xl={9}>
@@ -207,7 +200,7 @@ const Products = () => {
               </Main>
             </Box>
           </Grid>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} p={0}>
           <Divider sx={{ my: 0, borderColor: "black" }} />
         </Grid>

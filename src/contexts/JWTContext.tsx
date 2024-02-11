@@ -7,12 +7,13 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 // reducer - state management
 import { LOGIN, LOGOUT } from "../store/actions";
 import accountReducer from "../store/accountReducer";
-
 // project imports
 import Loader from "../ui-component/Loader";
-import axios from "../utils/axios";
 import { initialLoginContextProps, KeyedObject } from "../types";
 import { JWTContextType } from "../types/auth";
+import { useMutation, useQuery } from "@apollo/client";
+import { CREATE_USER, LOGIN_USER } from "../utils/mutations/userMutations";
+import { GET_CURRENT_USER } from "../utils/querys/userQuery";
 
 const chance = new Chance();
 
@@ -40,11 +41,11 @@ const verifyToken: (st: string) => boolean = (serviceToken) => {
 const setSession = (serviceToken?: string | null) => {
   if (serviceToken) {
     localStorage.setItem("serviceToken", serviceToken);
-    axios.defaults.headers.common.Authorization = `Bearer ${serviceToken}`;
+    // axios.defaults.headers.common.Authorization = `Bearer ${serviceToken}`;
   } else {
     localStorage.removeItem("serviceToken");
     localStorage.clear();
-    delete axios.defaults.headers.common.Authorization;
+    // delete axios.defaults.headers.common.Authorization;
   }
 };
 
@@ -53,14 +54,19 @@ const JWTContext = createContext<JWTContextType | null>(null);
 
 export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
   const [state, dispatch] = useReducer(accountReducer, initialState);
+  const [createUser] = useMutation(CREATE_USER);
+  const [loginUser] = useMutation(LOGIN_USER);
+  const { refetch } = useQuery(GET_CURRENT_USER);
   useEffect(() => {
     const init = async () => {
       try {
         const serviceToken = window.localStorage.getItem("serviceToken");
         if (serviceToken && verifyToken(serviceToken)) {
           setSession(serviceToken);
-          const response = await axios.get("api/user/me");
-          const { user } = response.data;
+          //QUERY CLIENT
+          const response = await refetch()
+
+          const { user } = response.data.me;
           dispatch({
             type: LOGIN,
             payload: {
@@ -85,12 +91,9 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post("api/user/sign-in", {
-      email,
-      password,
-    });
-    const { token, user } = response.data;
-    setSession(token);
+    const response = await loginUser({ variables: { input: { email: email, password: password } } })
+    const { accessToken, user } = response.data.login
+    setSession(accessToken);
     dispatch({
       type: LOGIN,
       payload: {
@@ -101,7 +104,7 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
   };
 
   const register = async (
-    avatar: any,
+    // avatar: any,
     email: string,
     password: string,
     firstName: string,
@@ -110,19 +113,8 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
   ) => {
     // todo: this flow need to be recode as it not verified
     const id = chance.bb_pin();
-    // if (isLoggedIn) {
-    // }
-    const response = await axios.post("api/user/sign-up", {
-      id,
-      avatar,
-      email,
-      password,
-      firstName,
-      lastName,
-      phoneNumber,
-    });
-    let users = response.data;
-
+    const data = await createUser({ variables: { input: { firstName: firstName, lastName: lastName, email: email, password: password, phone: phoneNumber } } })
+    let users = data.data?.createUser?.user;
     if (
       window.localStorage.getItem("users") !== undefined &&
       window.localStorage.getItem("users") !== null
@@ -148,7 +140,7 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
 
   const resetPassword = (email: string) => console.log(email);
 
-  const updateProfile = () => {};
+  const updateProfile = () => { };
 
   if (state.isInitialized !== undefined && !state.isInitialized) {
     return <Loader />;

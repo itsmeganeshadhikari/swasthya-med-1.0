@@ -36,7 +36,7 @@ import SubCard from "../../../../ui-component/cards/SubCard";
 import Avatar from "../../../../ui-component/extended/Avatar";
 import {
   SNACKBAR_OPEN,
-  SET_PAYMENT_METHOD,
+  SET_PAYMENT_METHOD
 } from "../../../../store/actions";
 import { gridSpacing } from "../../../../store/constant";
 
@@ -49,9 +49,9 @@ import FormatPrice from "../../../../ui-component/FormatPrice";
 
 // const prodImage = require.context("../../../../assets/images/e-commerce", true);
 import qr from "../../../../assets/images/e-commerce/qrcode.png";
-import axios from "../../../../utils/axios";
-import { useSearchParams } from "react-router-dom";
-
+import useAuth from "../../../../hooks/useAuth";
+import { useMutation } from "@apollo/client";
+import { CREATE_ORDER } from "../../../../utils/mutations/orderMutation";
 // ==============================|| CHECKOUT PAYMENT - MAIN ||============================== //
 
 interface PaymentProps {
@@ -73,9 +73,9 @@ const Payment = ({
   const [payment, setPayment] = React.useState(checkout.payment.method);
   const [rows, setRows] = React.useState(checkout.products);
   const [cards] = React.useState(checkout.payment.card);
-
-  const [searchParams] = useSearchParams();
-
+  const { user } = useAuth()
+  const productsId: any[] = []
+  const [createOrder] = useMutation(CREATE_ORDER);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -85,30 +85,11 @@ const Payment = ({
     setOpen(false);
   };
 
-  const [complete, setComplete] = React.useState(false);
-  React.useEffect(() => {
-    if (searchParams.size > 0) {
-      //verify transaction api
-    //   const response = axios.post("/api/khalti/lookup", {
-    //     pidx: `${searchParams.get("pidx")}`,
-    //   });
-    }
-    // if (checkout.step > 2) {
-    //   setComplete(true);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [complete, setComplete] = React.useState(false)
 
   React.useEffect(() => {
     setRows(checkout.products);
   }, [checkout.products]);
-
-  // const cardHandler = (card: string) => {
-  //   if (payment === "card") {
-  //     setCards(card);
-  //     dispatch({ type: SET_PAYMENT_CARD, card });
-  //   }
-  // };
 
   const handlePaymentMethod = (value: string) => {
     setPayment(value);
@@ -116,51 +97,53 @@ const Payment = ({
   };
 
   const completeHandler = async () => {
-    if (payment === "Khalti") {
-      const resData = await axios.post("/api/khalti/", {
-        return_url: "http://localhost:5173/checkout/",
-        website_url: "http://localhost:5173/",
-        amount: 1300,
-        purchase_order_id: "test12",
-        purchase_order_name: "test",
-        customer_info: {
-          name: "Ashim Upadhaya",
-          email: "example@gmail.com",
-          phone: "9811496763",
-        },
-        amount_breakdown: [
-          {
-            label: "Mark Price",
-            amount: 1000,
-          },
-          {
-            label: "VAT",
-            amount: 300,
-          },
-        ],
-        product_details: [
-          {
-            identity: "1234567890",
-            name: "Khalti logo",
-            total_price: 1300,
-            quantity: 1,
-            unit_price: 1300,
-          },
-        ],
-      });
-      window.location.href = resData.data.data.payment_url;
-    }
     if (payment === "card" && (cards === "" || cards === null)) {
       dispatch({
         type: SNACKBAR_OPEN,
-        open: true,
+        open: false,
         message: "Select Payment Card",
         variant: "alert",
         alertSeverity: "error",
       });
-    } else {
+    }
+    if (checkout.billing == null) {
+      dispatch({
+        type: SNACKBAR_OPEN,
+        open: true,
+        message: "Select Delivery Address",
+        variant: "alert",
+        alertSeverity: "error",
+      });
+    }
+    checkout.products.map((e) => {
+      productsId.push(e.id)
+    })
+    const response = await createOrder({
+      variables: {
+        createOrderInput: {
+          user: user?._id,
+          method: checkout.payment.method,
+          type: checkout.payment.type,
+          total: checkout.total,
+          subTotal: checkout.subtotal,
+          discount: checkout.discount,
+          address: checkout.billing?._id,
+          product: productsId
+        }
+      }
+    })
+    if (response.data) {
       onNext();
       setComplete(true);
+    }
+    if (response.errors) {
+      dispatch({
+        type: SNACKBAR_OPEN,
+        open: false,
+        message: "Select Payment Card",
+        variant: "alert",
+        alertSeverity: "error",
+      });
     }
   };
 
@@ -221,7 +204,7 @@ const Payment = ({
                                   Fast Delivery (Rs.100)
                                 </Typography>
                                 <Typography variant="caption">
-                                  Contact tor your time: 9863421980
+                                  Contact  us: 9863421980
                                 </Typography>
                               </Stack>
                             }
@@ -260,64 +243,37 @@ const Payment = ({
             item
             xs={12}
             lg={6}
-            sx={{ opacity: payment === "card" ? 1 : 0.4 }}
+            sx={{ opacity: payment === "card" ? 1 : 0.1 }}
           >
             <SubCard
-              title="Add Your Card"
-              secondary={
-                <Button
-                  variant="contained"
-                  size="small"
-                  startIcon={<AddTwoToneIcon />}
-                  onClick={handleClickOpen}
-                >
-                  Add Card
-                </Button>
-              }
+              title="Scan QR to Pay and Upload Transaction"
             >
               <Grid container spacing={gridSpacing}>
-                <Grid item xs={12} xl={12}>
+
+                <Grid item xs={12} xl={10}>
                   <Card>
                     <CardMedia
                       component="img"
                       height="250"
                       image={qr}
-                      alt="Paella dish"
+                      alt="QR"
                     />
                   </Card>
                 </Grid>
                 <Grid item xs={12} xl={12}>
-                  <Typography variant="h5" ml={2} color="primary">
-                    Scan QR to Pay
-                  </Typography>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    startIcon={<AddTwoToneIcon />}
+                    onClick={handleClickOpen}
+                  >
+                    Upload Transaction (Image/Statment)
+                  </Button>
                 </Grid>
+
               </Grid>
               <AddPaymentCard open={open} handleClose={handleClose} />
             </SubCard>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid
-              container
-              spacing={3}
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Grid item>
-                <Button
-                  variant="text"
-                  startIcon={<KeyboardBackspaceIcon />}
-                  onClick={onBack}
-                >
-                  Back
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button variant="contained" onClick={completeHandler}>
-                  Complete Order
-                </Button>
-                <OrderComplete open={complete} />
-              </Grid>
-            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -346,9 +302,7 @@ const Payment = ({
                                   size="md"
                                   variant="rounded"
                                   src={
-                                    row.image.url
-                                    // ? prodImage(`./${row.image}`).default
-                                    // : ""
+                                    row.image[0].url
                                   }
                                 />
                               </Grid>
@@ -394,7 +348,7 @@ const Payment = ({
               </TableContainer>
             </Stack>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} mt={5}>
             <OrderSummary
               totalPrice={checkout.total}
               totalQuantity={checkout.total}
@@ -402,12 +356,36 @@ const Payment = ({
           </Grid>
           <Grid item xs={12}>
             <AddressCard
-              deleteAddress={() => {}}
+              deleteAddress={() => { }}
               single
               change
               address={checkout.billing}
               onBack={onBack}
             />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid
+          container
+          spacing={3}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Grid item>
+            <Button
+              variant="text"
+              startIcon={<KeyboardBackspaceIcon />}
+              onClick={onBack}
+            >
+              Back
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" color="secondary" onClick={completeHandler}>
+              Complete Order
+            </Button>
+            <OrderComplete open={complete} />
           </Grid>
         </Grid>
       </Grid>

@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
 import {
   Button,
   Dialog,
-  FormControl,
-  FormControlLabel,
   IconButton,
   Grid,
-  Radio,
-  RadioGroup,
   Stack,
   TextField,
   Zoom,
   ZoomProps,
+  CardMedia,
 } from "@mui/material";
 
 // third-party
@@ -29,6 +25,9 @@ import { gridSpacing } from "../../../../store/constant";
 
 // assets
 import HighlightOffTwoToneIcon from "@mui/icons-material/HighlightOffTwoTone";
+import { useMutation } from "@apollo/client";
+import { CREATE_TRANSACTION } from "../../../../utils/mutations/transactionMutation";
+import useAuth from "../../../../hooks/useAuth";
 
 const Transition = React.forwardRef((props: ZoomProps, ref) => (
   <Zoom ref={ref} {...props} />
@@ -43,28 +42,42 @@ const AddPaymentCard = ({
   open: boolean;
   handleClose: () => void;
 }) => {
-  const theme = useTheme();
   const dispatch = useDispatch();
-
+  const [image, setImage] = useState("")
+  const [uploadTransactionImage] = useMutation(CREATE_TRANSACTION);
+  const { user } = useAuth();
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      number: "",
-      type: "visa",
-      expired: "",
-      cvv: "",
-      bank: "",
-      method: "",
+      transactionImage: "",
+      userId: "",
     },
-    onSubmit: () => {
-      handleClose();
-      dispatch({
-        type: SNACKBAR_OPEN,
-        open: true,
-        message: "Payment Card Add Success",
-        variant: "alert",
-        alertSeverity: "success",
+    onSubmit: async (e) => {
+      const response = await uploadTransactionImage({
+        variables:
+        {
+          createTransactionInput:
+            { transactionImage: e.transactionImage[0], user: user?._id }
+        }
       });
+      if (response) {
+        handleClose();
+        dispatch({
+          type: SNACKBAR_OPEN,
+          open: true,
+          message: "Uploaded Success",
+          variant: "alert",
+          alertSeverity: "success",
+        });
+      } else {
+        dispatch({
+          type: SNACKBAR_OPEN,
+          open: true,
+          message: "Uploaded Fail",
+          variant: "alert",
+          alertSeverity: "error",
+        });
+      }
     },
   });
 
@@ -83,7 +96,7 @@ const AddPaymentCard = ({
       }}
     >
       <MainCard
-        title="Add Payment Card"
+        title="Upload Transaction"
         secondary={
           <IconButton onClick={handleClose} size="large">
             <HighlightOffTwoToneIcon fontSize="small" />
@@ -93,140 +106,43 @@ const AddPaymentCard = ({
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-label="type"
-                  value={formik.values.type}
-                  onChange={formik.handleChange}
-                  name="type"
-                  id="type"
-                >
-                  <FormControlLabel
-                    value="visa"
-                    control={
-                      <Radio
-                        sx={{
-                          color: theme.palette.primary.main,
-                          "&.Mui-checked": {
-                            color: theme.palette.primary.main,
-                          },
-                        }}
-                      />
-                    }
-                    label="Visa"
-                  />
-                  <FormControlLabel
-                    value="mastercard"
-                    control={
-                      <Radio
-                        sx={{
-                          color: theme.palette.secondary.main,
-                          "&.Mui-checked": {
-                            color: theme.palette.secondary.main,
-                          },
-                        }}
-                      />
-                    }
-                    label="Mastercard"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <TextField
+                type="file"
                 fullWidth
-                id="bank"
-                name="bank"
-                label="Bank"
-                value={formik.values.bank}
-                onChange={formik.handleChange}
+                name="transactionImage"
+                onChange={(event: any) => {
+                  const fileList = event.target.files
+                  const result: (string | ArrayBuffer | null)[] = []
+                  const urls: string[] = []
+                  const files: File[] = Array.from(fileList);
+                  files.map((file: File) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    const url = URL.createObjectURL(file);
+                    reader.onload = () => {
+                      if (reader.readyState == 2) {
+                        result.push(reader.result)
+                        urls.push(url)
+                        setImage(url)
+                      }
+                    };
+                  })
+                  formik.setFieldValue("transactionImage", result);
+                  formik.setFieldValue("transactionImagePreview", urls);
+                }
+                }
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="number"
-                name="number"
-                label="Card Number"
-                value={formik.values.number}
-                onChange={formik.handleChange}
+            <Grid>
+              <CardMedia
+                sx={{
+                  height: 200,
+                  width: 200,
+                  margin: 4
+                }}
+                // component='img'
+                image={image}
               />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                id="expired"
-                name="expired"
-                label="Expiry Date"
-                value={formik.values.expired}
-                onChange={formik.handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                id="cvv"
-                name="cvv"
-                label="CVV"
-                value={formik.values.cvv}
-                onChange={formik.handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-label="method"
-                  value={formik.values.method}
-                  onChange={formik.handleChange}
-                  name="method"
-                  id="method"
-                >
-                  <FormControlLabel
-                    value="credit"
-                    control={
-                      <Radio
-                        sx={{
-                          color: theme.palette.primary.main,
-                          "&.Mui-checked": {
-                            color: theme.palette.primary.main,
-                          },
-                        }}
-                      />
-                    }
-                    label="Credit Card"
-                  />
-                  <FormControlLabel
-                    value="Debit Card"
-                    control={
-                      <Radio
-                        sx={{
-                          color: theme.palette.secondary.main,
-                          "&.Mui-checked": {
-                            color: theme.palette.secondary.main,
-                          },
-                        }}
-                      />
-                    }
-                    label="debit"
-                  />
-                  <FormControlLabel
-                    value="net-banking"
-                    control={
-                      <Radio
-                        sx={{
-                          color: theme.palette.secondary.main,
-                          "&.Mui-checked": {
-                            color: theme.palette.secondary.main,
-                          },
-                        }}
-                      />
-                    }
-                    label="Net Banking"
-                  />
-                </RadioGroup>
-              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" spacing={1} justifyContent="flex-end">

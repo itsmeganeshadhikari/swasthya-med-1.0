@@ -35,6 +35,8 @@ import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import CreditCardTwoToneIcon from "@mui/icons-material/CreditCardTwoTone";
 import useAuth from "../../../../hooks/useAuth";
+import { useMutation } from "@apollo/client";
+import { CREATE_ADDRESS, GET_ADDRESS_ID } from "../../../../utils/mutations/addressMutation";
 
 interface StyledProps {
   theme: Theme;
@@ -59,7 +61,7 @@ const StyledTab = styled((props) => <Tab {...props} />)(
         ? theme.palette.success.dark
         : theme.palette.grey[600],
     minHeight: "auto",
-    minWidth: 250,
+    minWidth: 330,
     padding: 16,
     borderRadius: `${customization.borderRadius}px`,
     display: "flex",
@@ -75,7 +77,7 @@ const StyledTab = styled((props) => <Tab {...props} />)(
       background:
         theme.palette.mode === "dark"
           ? theme.palette.dark.main
-          : theme.palette.grey[50],
+          : theme.palette.dark.main,
     },
     "& > svg": {
       marginBottom: "0px !important",
@@ -139,6 +141,7 @@ const Checkout = () => {
   );
   const cart = useSelector((state: DefaultRootStateProps) => state.cart);
   const dispatch = useDispatch();
+  const [getAddressById] = useMutation(GET_ADDRESS_ID)
   const { user } = useAuth();
   const isCart = cart.checkout.products && cart.checkout.products.length > 0;
 
@@ -147,18 +150,16 @@ const Checkout = () => {
   );
   const [billing, setBilling] = useState(cart.checkout.billing);
   const [address, setAddress] = useState([]);
+  const [createAddress] = useMutation(CREATE_ADDRESS)
 
   const getAddress = async () => {
-    const response = await axios.get(`/api/address/${user?.id}`);
-    setAddress(response.data.address);
+    const response = await getAddressById({ variables: { input: user?._id } });
+    setAddress(response.data.getAddressById.addresss);
   };
 
   const addAddress = async (addressNew: Address) => {
-    const response = await axios.post("/api/address/new", {
-      data: addressNew,
-    });
+    await createAddress({ variables: { input: addressNew } })
     getAddress();
-    setAddress(response.data.address);
   };
 
   const editAddress = async (addressEdit: Address) => {

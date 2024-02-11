@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
-import { Box, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Grid, Stack, Tab, Tabs } from "@mui/material";
 
 // project imports
 import ProductImages from "./ProductImages";
@@ -16,9 +16,9 @@ import { Products } from "../types";
 import { DefaultRootStateProps } from "../../../../types";
 import { RESET_CART } from "../../../../store/actions";
 import { gridSpacing } from "../../../../store/constant";
-import axiosServices from "../../../../utils/axios";
 import ProductDescription from "./ProductDescription";
-import RelatedProducts from "./RelatedProducts";
+import { useMutation } from "@apollo/client";
+import { GET_PRODUCTS_ID } from "../../../../utils/mutations/productMutation";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,7 +52,7 @@ const ProductDetails = () => {
   const history = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state: DefaultRootStateProps) => state.cart);
-
+  const [getProducts] = useMutation(GET_PRODUCTS_ID);
   // product description tabs
   const [value, setValue] = React.useState(0);
 
@@ -61,23 +61,22 @@ const ProductDetails = () => {
   };
 
   const [product, setProduct] = React.useState<Products | null>(null);
-  const getProduct = async () => {
-    const response = await axiosServices.get("/api/product/" + id);
-    console.log(response.data);
-    setProduct(response.data);
+  const getProductData = async () => {
+    const response = await getProducts({ variables: { input: id } })
+    console.log(response);
+
+    setProduct(response.data?.getProduct.product);
     if (id === "default") {
       history(`/e-commerce/product-details/1`);
     }
   };
 
   React.useEffect(() => {
-    getProduct();
-
+    getProductData();
     // clear cart if complete order
     if (cart.checkout.step > 2) {
       dispatch({ type: RESET_CART });
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -104,7 +103,6 @@ const ProductDetails = () => {
                   value={value}
                   indicatorColor="primary"
                   onChange={handleChange}
-                  sx={{}}
                   aria-label="product description tabs example"
                   variant="scrollable"
                 >
@@ -142,12 +140,12 @@ const ProductDetails = () => {
           )}
         </MainCard>
       </Grid>
-      <Grid item xs={12} lg={10} sx={{ mt: 3 }}>
+      {/* <Grid item xs={12} lg={10} sx={{ mt: 3 }}>
         <Typography variant="h2">Related Products</Typography>
       </Grid>
       <Grid item xs={11} lg={10}>
         <RelatedProducts id={id} />
-      </Grid>
+      </Grid> */}
       <FloatingCart />
     </Grid>
     // </Container>

@@ -7,8 +7,8 @@ const ProductCategory = ({ products }: any) => {
       {products.map((product: any, index: any) => (
         <Grid key={index} item xs={6} sm={4} md={3} lg={2}>
           <ProductCard
-            id={product.id}
-            image={product.image[0].url}
+            id={product._id}
+            image={product.image}
             name={product.productName}
             description={product.subDescription}
             offerPrice={product.offerPrice}

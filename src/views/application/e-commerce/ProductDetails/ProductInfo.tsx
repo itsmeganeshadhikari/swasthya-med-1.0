@@ -92,6 +92,8 @@ const Increment = (props: string | FieldHookConfig<any> | any) => {
 
 const ProductInfo = ({ product }: { product: Products }) => {
   const dispatch = useDispatch();
+  console.log(product._id);
+
   const history = useNavigate();
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
@@ -99,7 +101,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: product.id,
+      id: product._id,
       name: product.productName,
       image: product.image,
       salePrice: product.salePrice,
@@ -126,6 +128,7 @@ const ProductInfo = ({ product }: { product: Products }) => {
 
   const addCart = () => {
     if (isLoggedIn) {
+      console.log(values);
       values.color = values.color ? values.color : "primaryDark";
       values.size = values.size ? values.size : "8";
       dispatch({ type: ADD_PRODUCTS, product: values });
@@ -230,107 +233,6 @@ const ProductInfo = ({ product }: { product: Products }) => {
                   <TableBody
                     sx={{ "& .MuiTableCell-root": { borderBottom: "none" } }}
                   >
-                    {/* <TableRow>
-                      <TableCell>
-                        <Typography variant="body2">
-                          Colors{" "}
-                          <Typography color="error" component="span">
-                            *
-                          </Typography>
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="left">
-                        <RadioGroup
-                          row
-                          value={values.color}
-                          onChange={handleChange}
-                          aria-label="colors"
-                          name="color"
-                          id="color"
-                          sx={{ ml: 1 }}
-                        >
-                          {product.colors &&
-                            product.colors.map((item, index) => {
-                              const colorsData = getColor(item);
-                              return (
-                                <FormControlLabel
-                                  key={index}
-                                  value={item}
-                                  control={
-                                    <Radio
-                                      sx={{ p: 0.25 }}
-                                      disableRipple
-                                      checkedIcon={
-                                        <Colors
-                                          checked
-                                          colorsData={colorsData}
-                                        />
-                                      }
-                                      icon={<Colors colorsData={colorsData} />}
-                                    />
-                                  }
-                                  label=""
-                                />
-                              );
-                            })}
-                        </RadioGroup>
-                        {errors.color && (
-                          <FormHelperText error id="standard-label-color">
-                            {errors.color}
-                          </FormHelperText>
-                        )}
-                      </TableCell>
-                    </TableRow> */}
-                    {/* <TableRow>
-                      <TableCell>
-                        <Stack>
-                          <Typography variant="body2">
-                            Size{" "}
-                            <Typography color="error" component="span">
-                              *
-                            </Typography>
-                          </Typography>
-                          <Typography
-                            variant="caption"
-                            color="primary"
-                            component={Link}
-                            to="#"
-                          >
-                            Size Chart?
-                          </Typography>
-                        </Stack>
-                      </TableCell>
-                      <TableCell align="left">
-                        <FormControl sx={{ minWidth: 120 }}>
-                          <Select
-                            id="size"
-                            name="size"
-                            value={values.size}
-                            onChange={handleChange}
-                            displayEmpty
-                            inputProps={{ "aria-label": "Without label" }}
-                          >
-                            <MenuItem value="">
-                              <em>None</em>
-                            </MenuItem>
-                            {sizeOptions.map((option, index) => (
-                              <MenuItem
-                                sx={{ p: 1.25 }}
-                                key={index}
-                                value={option}
-                              >
-                                {option}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        {errors.size && (
-                          <FormHelperText error id="standard-label-size">
-                            {errors.size}
-                          </FormHelperText>
-                        )}
-                      </TableCell>
-                    </TableRow> */}
                     <TableRow>
                       <TableCell>
                         <Typography variant="body2">Quantity</Typography>

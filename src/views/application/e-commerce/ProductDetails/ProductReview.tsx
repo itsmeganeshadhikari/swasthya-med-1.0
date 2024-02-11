@@ -29,14 +29,14 @@ interface ProgressProps {
   star: number;
   value: number;
   color?:
-    | "inherit"
-    | "primary"
-    | "secondary"
-    | "error"
-    | "info"
-    | "success"
-    | "warning"
-    | undefined;
+  | "inherit"
+  | "primary"
+  | "secondary"
+  | "error"
+  | "info"
+  | "success"
+  | "warning"
+  | undefined;
 }
 
 // progress

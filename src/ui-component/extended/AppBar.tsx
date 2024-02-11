@@ -41,6 +41,9 @@ import { CartProductStateProps } from "../../types/cart";
 import { sum } from "lodash";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { BrowserView, MobileView } from "react-device-detect";
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import CategoryMenu from "../../layout/MainLayout/Sidebar/MenuList/CategoryMenu";
 
 // elevation scroll
 export interface ElevationScrollProps {
@@ -109,6 +112,24 @@ const AppBar = ({ ...others }) => {
           <Toolbar>
             <Typography component="div" sx={{ flexGrow: 1, textAlign: "left" }}>
               <LogoSection />
+              <Grid xl={4}>
+                <BrowserView>
+                  <PerfectScrollbar
+                    component="div"
+                    style={{
+                      height: '40vh',
+                      position: 'absolute',
+                    }}
+                  >
+                    <CategoryMenu />
+                  </PerfectScrollbar>
+                </BrowserView>
+                <MobileView>
+                  <Box sx={{ px: 2 }}>
+                    <CategoryMenu />
+                  </Box>
+                </MobileView>
+              </Grid>
             </Typography>
             <Grid mr={2}>
               <Grid item xs={12} md={5}>
@@ -145,6 +166,7 @@ const AppBar = ({ ...others }) => {
               >
                 Cart
               </Button>
+
               <Button color="inherit" component={Link} to="/" target="_blank">
                 About us
               </Button>

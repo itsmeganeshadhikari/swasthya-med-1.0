@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -26,6 +26,8 @@ import { Chance } from "chance";
 // assets
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import completed from "../../../../assets/images/e-commerce/completed.png";
+import { useDispatch } from "react-redux";
+import { RESET_CART } from "../../../../store/actions";
 
 const chance = new Chance();
 
@@ -36,9 +38,15 @@ const Transition = React.forwardRef((props: ZoomProps, ref) => (
 // ==============================|| CHECKOUT CART - DISCOUNT COUPON CODE ||============================== //
 
 const OrderComplete = ({ open }: { open: boolean }) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+
+  const continueShoping = () => {
+    navigate("/", { replace: true });
+    dispatch({ type: RESET_CART })
+  }
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Dialog
       open={open}
@@ -77,7 +85,7 @@ const OrderComplete = ({ open }: { open: boolean }) => {
                 We will send a process notification, before it delivered.
               </Typography>
               <Typography variant="body1" align="center">
-                Your order id:{" "}
+                Your order id:
                 <Typography
                   variant="subtitle1"
                   component="span"
@@ -124,9 +132,8 @@ const OrderComplete = ({ open }: { open: boolean }) => {
             >
               <Grid item>
                 <Button
-                  component={Link}
-                  to="/e-commerce/products"
                   variant="text"
+                  onClick={continueShoping}
                   startIcon={<KeyboardBackspaceIcon />}
                 >
                   Continue Shopping
@@ -134,10 +141,10 @@ const OrderComplete = ({ open }: { open: boolean }) => {
               </Grid>
               <Grid item>
                 <Button
-                  component={Link}
-                  to="/e-commerce/products"
                   variant="contained"
                   fullWidth
+                  disabled
+                  onClick={continueShoping}
                 >
                   Download Invoice
                 </Button>

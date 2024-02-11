@@ -16,8 +16,8 @@ import ProductPriceForm, { ProductPriceData } from "./ProductPriceForm";
 import Review from "./Review";
 import MainCard from "../../../ui-component/cards/MainCard";
 import AnimateButton from "../../../ui-component/extended/AnimateButton";
-import { useMutation } from "@tanstack/react-query";
-import axiosServices from "../../../utils/axios";
+import { CREATE_PRODUCT } from "../../../utils/mutations/productMutation";
+import { useMutation } from "@apollo/client";
 
 // step options
 const steps = ["Product Details", "Price Details", "Review your Product"];
@@ -71,16 +71,18 @@ const ProductEntryForm = () => {
   const [productDetailsData, setProductDetailsData] = useState<any>({});
   const [productPriceData, setProductPriceData] = useState<any>({});
   const [errorIndex, setErrorIndex] = useState<number | null>(null);
-  const { mutate } = useMutation({
-    mutationKey: ["add-product"],
-    mutationFn: async (values) => {
-      return await axiosServices.post("/api/product", values);
-    },
-  });
+  const [createProducts] = useMutation(CREATE_PRODUCT);
+
+  // const { mutate } = useMutation({
+  //   mutationKey: ["add-product"],
+  //   mutationFn: async (values) => {
+  //     return await axiosServices.post("/api/product", values);
+  //   },
+  // });
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      mutate({ ...productDetailsData, ...productPriceData });
+      createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
     }
     setActiveStep(activeStep + 1);
     setErrorIndex(null);

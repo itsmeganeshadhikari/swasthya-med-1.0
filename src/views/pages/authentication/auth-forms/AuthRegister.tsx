@@ -206,7 +206,6 @@ const AuthRegister = ({ ...others }) => {
                     reader.readAsDataURL(event.target.files[0]);
                     reader.onload = () => {
                       if (reader.readyState == 2) {
-                        console.log(reader.result);
                         setFieldValue("avatar", reader.result);
                       }
                     };

@@ -25,7 +25,6 @@ const ProductImages = ({ product }: { product: Products }) => {
   );
 
   const product1 = [...product.image]
-  console.log(product1);
 
   const matchDownLG = useMediaQuery(theme.breakpoints.up("lg"));
   const initialImage = product.image[0].url;

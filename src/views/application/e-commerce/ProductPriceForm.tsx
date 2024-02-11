@@ -61,6 +61,7 @@ export default function ProductPriceForm({
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <TextField
+              type="number"
               id="regularPrice"
               label="Regular Price"
               name="regularPrice"
@@ -80,6 +81,7 @@ export default function ProductPriceForm({
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
+              type="number"
               id="salePrice"
               label="Sales Price"
               name="salePrice"
@@ -97,6 +99,7 @@ export default function ProductPriceForm({
 
           <Grid item xs={12} md={6}>
             <TextField
+              type="number"
               id="offerPrice"
               label="Offer Price"
               name="offerPrice"
