@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
   // uri: 'http://localhost:8080/api/swasthya',
-  uri: "https://swasthya-med.onrender.com",
+  uri: "https://swasthya-med-nest.onrender.com",
 });
 
 const authLink = setContext((_, { headers }) => {
