@@ -254,7 +254,7 @@ const Payment = ({
                   <Card>
                     <CardMedia
                       component="img"
-                      height="250"
+                      height="350"
                       image={qr}
                       alt="QR"
                     />
