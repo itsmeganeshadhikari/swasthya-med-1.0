@@ -112,7 +112,7 @@ const AppBar = ({ ...others }) => {
           <Toolbar>
             <Typography component="div" sx={{ flexGrow: 1, textAlign: "left" }}>
               <LogoSection />
-              <Grid xl={4}>
+              <Grid xs={8}>
                 <BrowserView>
                   <PerfectScrollbar
                     component="div"
