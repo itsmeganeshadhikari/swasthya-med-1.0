@@ -43,4 +43,11 @@ query Productlist{
 }
 }
 `
-export { GET_CURRENT_USER, GET_PRODUCTS }
+const DELETE_PRODUCT = gql`
+mutation DeleteProduct($deleteProductId: String!) {
+  deleteProduct(id: $deleteProductId) {
+    message
+  }
+}
+`
+export { GET_CURRENT_USER, GET_PRODUCTS, DELETE_PRODUCT }

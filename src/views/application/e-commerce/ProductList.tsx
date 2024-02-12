@@ -29,7 +29,7 @@ import {
 import MainCard from "../../../ui-component/cards/MainCard";
 import Avatar from "../../../ui-component/extended/Avatar";
 import Chip from "../../../ui-component/extended/Chip";
-import axios from "../../../utils/axios";
+
 import { Products } from "./types";
 import {
   ArrangementOrder,
@@ -48,8 +48,8 @@ import FileCopyIcon from "@mui/icons-material/FileCopyTwoTone";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/AddTwoTone";
 import { IconEdit } from "@tabler/icons-react";
-import { useMutation } from "@tanstack/react-query";
-import axiosServices from "../../../utils/axios";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { DELETE_PRODUCT, GET_PRODUCTS } from "../../../utils/querys/userQuery";
 
 // table sort
 function descendingComparator(a: KeyedObject, b: KeyedObject, orderBy: string) {
@@ -254,19 +254,20 @@ const ProductList = () => {
   const [orderBy, setOrderBy] = React.useState<string>("calories");
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState<number>(0);
+  const [getProduct] = useLazyQuery(GET_PRODUCTS);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
   const [search, setSearch] = React.useState<string>("");
   const [rows, setRows] = React.useState<Products[]>([]);
-  const { mutate } = useMutation({
-    mutationKey: ["delete-product"],
-    mutationFn: async (id: any) => {
-      await axiosServices.delete("/api/product/" + id);
-      getProducts();
-    },
-  });
+  const [deleteProductById] = useMutation(DELETE_PRODUCT);
+
+  const deleteProducts = async (id: string | undefined | number) => {
+    await deleteProductById({ variables: { deleteProductId: id } });
+    await getProducts();
+  }
+
   const getProducts = async () => {
-    const response = await axios.get("/api/product");
-    setRows(response.data);
+    const res = await getProduct();
+    setRows(res.data.productlist.products);
   };
 
   React.useEffect(() => {
@@ -486,7 +487,7 @@ const ProductList = () => {
                       onClick={(event) => handleClick(event, row.name)}
                       sx={{ cursor: "pointer" }}
                     >
-                      <Avatar src={row.image.url} size="md" variant="rounded" />
+                      <Avatar src={row.image[0].url} size="md" variant="rounded" />
                     </TableCell>
                     <TableCell
                       component="th"
@@ -532,7 +533,7 @@ const ProductList = () => {
                       <Button
                         variant="outlined"
                         sx={{ marginLeft: "4px" }}
-                        onClick={() => mutate(row.id)}
+                        onClick={() => deleteProducts(row?._id)}
                       >
                         <DeleteIcon color="error" />
                       </Button>

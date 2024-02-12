@@ -16,9 +16,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Typography,
-  CardMedia,
-  Card,
+  Typography
 } from "@mui/material";
 
 // third-party
@@ -52,6 +50,7 @@ import qr from "../../../../assets/images/e-commerce/qr.jpg";
 import useAuth from "../../../../hooks/useAuth";
 import { useMutation } from "@apollo/client";
 import { CREATE_ORDER } from "../../../../utils/mutations/orderMutation";
+import TransactionImage from "../TransactionImage";
 // ==============================|| CHECKOUT PAYMENT - MAIN ||============================== //
 
 interface PaymentProps {
@@ -249,16 +248,16 @@ const Payment = ({
               title="Scan QR to Pay and Upload Transaction"
             >
               <Grid container spacing={gridSpacing}>
-
-                <Grid item xs={12} xl={10}>
-                  <Card>
-                    <CardMedia
+                <Grid item xs={12} xl={11}>
+                  {/* <Card> */}
+                  {/* <CardMedia
                       component="img"
-                      height="350"
+                      height="400"
                       image={qr}
                       alt="QR"
-                    />
-                  </Card>
+                    /> */}
+                  {/* </Card> */}
+                  <TransactionImage image={qr} />
                 </Grid>
                 <Grid item xs={12} xl={12}>
                   <Button
@@ -266,6 +265,7 @@ const Payment = ({
                     size="medium"
                     startIcon={<AddTwoToneIcon />}
                     onClick={handleClickOpen}
+                    sx={{ backgroundColor: 'purple' }}
                   >
                     Upload Transaction (Image/Statment)
                   </Button>
@@ -382,9 +382,11 @@ const Payment = ({
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="secondary" onClick={completeHandler}>
+            {checkout.billing == null ? <Button variant="contained" color="secondary" disabled onClick={completeHandler}>
               Complete Order
-            </Button>
+            </Button> : <Button variant="contained" color="secondary" onClick={completeHandler}>
+              Complete Order
+            </Button>}
             <OrderComplete open={complete} />
           </Grid>
         </Grid>

@@ -71,14 +71,7 @@ const ProductEntryForm = () => {
   const [productDetailsData, setProductDetailsData] = useState<any>({});
   const [productPriceData, setProductPriceData] = useState<any>({});
   const [errorIndex, setErrorIndex] = useState<number | null>(null);
-  const [createProducts] = useMutation(CREATE_PRODUCT);
-
-  // const { mutate } = useMutation({
-  //   mutationKey: ["add-product"],
-  //   mutationFn: async (values) => {
-  //     return await axiosServices.post("/api/product", values);
-  //   },
-  // });
+  const [createProducts] = useMutation(CREATE_PRODUCT)
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {

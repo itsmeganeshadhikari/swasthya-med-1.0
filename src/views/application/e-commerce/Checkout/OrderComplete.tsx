@@ -25,7 +25,6 @@ import { Chance } from "chance";
 
 // assets
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import completed from "../../../../assets/images/e-commerce/completed.png";
 import { useDispatch } from "react-redux";
 import { RESET_CART } from "../../../../store/actions";
 
@@ -96,14 +95,14 @@ const OrderComplete = ({ open }: { open: boolean }) => {
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={12} sx={{ m: 3 }}>
+          {/* <Grid item xs={12} sx={{ m: 3 }}>
             <img
               src={completed}
               alt="Order Complete"
-              width="100%"
-              style={{ maxWidth: 780 }}
+              width="400px"
+              style={{ maxWidth: 500 }}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={9}>
             <Stack alignItems="center" spacing={1}>
               <Typography variant="caption" align="center">
@@ -115,7 +114,7 @@ const OrderComplete = ({ open }: { open: boolean }) => {
                 color="error"
                 sx={{ cursor: "pointer" }}
               >
-                {chance.phone()}
+                +977-9863421980
               </Typography>
             </Stack>
           </Grid>

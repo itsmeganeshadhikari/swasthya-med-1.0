@@ -229,8 +229,7 @@ const Checkout = () => {
         message: "Please select delivery address",
         variant: "alert",
         alertSeverity: "error",
-      });
-      onNext();
+      })
     }
   };
 
