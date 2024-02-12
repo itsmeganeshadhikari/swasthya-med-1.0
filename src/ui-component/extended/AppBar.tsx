@@ -125,9 +125,17 @@ const AppBar = ({ ...others }) => {
                   </PerfectScrollbar>
                 </BrowserView>
                 <MobileView>
-                  <Box sx={{ px: 2 }}>
-                    <CategoryMenu />
-                  </Box>
+                  <PerfectScrollbar
+                    component="div"
+                    style={{
+                      height: '40vh',
+                      position: 'absolute',
+                    }}
+                  >
+                    <Box sx={{ px: 2 }}>
+                      <CategoryMenu />
+                    </Box>
+                  </PerfectScrollbar>
                 </MobileView>
               </Grid>
             </Typography>
