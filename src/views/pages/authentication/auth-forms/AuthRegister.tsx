@@ -189,7 +189,7 @@ const AuthRegister = ({ ...others }) => {
           handleChange,
           handleSubmit,
           isSubmitting,
-          setFieldValue,
+          // setFieldValue,
           touched,
           values,
         }) => (

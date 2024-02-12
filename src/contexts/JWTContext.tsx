@@ -113,6 +113,7 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
   ) => {
     // todo: this flow need to be recode as it not verified
     const id = chance.bb_pin();
+    console.log(avatar);
     const data = await createUser({ variables: { input: { firstName: firstName, lastName: lastName, email: email, password: password, phone: phoneNumber } } })
     let users = data.data?.createUser?.user;
     if (
