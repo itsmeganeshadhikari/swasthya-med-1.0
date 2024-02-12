@@ -48,7 +48,7 @@ import { PaymentOptionsProps } from "../types";
 import FormatPrice from "../../../../ui-component/FormatPrice";
 
 // const prodImage = require.context("../../../../assets/images/e-commerce", true);
-import qr from "../../../../assets/images/e-commerce/qrcode.png";
+import qr from "../../../../assets/images/e-commerce/qr.jpg";
 import useAuth from "../../../../hooks/useAuth";
 import { useMutation } from "@apollo/client";
 import { CREATE_ORDER } from "../../../../utils/mutations/orderMutation";
