@@ -137,7 +137,6 @@ const AuthRegister = ({ ...others }) => {
         validationSchema={Yup.object().shape({
           avatar: Yup.string(),
           email: Yup.string()
-            .email("Must be a valid email")
             .max(255)
             .required("Email is required"),
           password: Yup.string().max(255).required("Password is required"),
@@ -196,7 +195,7 @@ const AuthRegister = ({ ...others }) => {
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Grid container spacing={matchDownSM ? 0 : 2}>
-              <Grid item xs={12} sm={12}>
+              {/* <Grid item xs={12} sm={12}>
                 <TextField
                   type="file"
                   fullWidth
@@ -211,7 +210,7 @@ const AuthRegister = ({ ...others }) => {
                     };
                   }}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth

@@ -104,7 +104,7 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
   };
 
   const register = async (
-    // avatar: any,
+    avatar: any,
     email: string,
     password: string,
     firstName: string,
