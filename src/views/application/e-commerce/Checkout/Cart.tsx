@@ -137,14 +137,14 @@ const Cart = ({
       </Grid>
       <Grid item xs={12}>
         <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650, backgroundColor: "powderblue" }} aria-label="simple table">
             <TableHead
               sx={{
                 borderTop: "1px solid",
                 color:
                   theme.palette.mode === "dark"
                     ? theme.palette.dark.light + 15
-                    : "grey.200",
+                    : "purple",
               }}
             >
               <TableRow>
@@ -244,7 +244,7 @@ const Cart = ({
                         onClick={() => removeProduct(row.itemId)}
                         size="large"
                       >
-                        <DeleteTwoToneIcon sx={{ color: "grey.500" }} />
+                        <DeleteTwoToneIcon sx={{ color: "red" }} />
                       </IconButton>
                     </TableCell>
                   </TableRow>

@@ -73,9 +73,9 @@ const MainCard = React.forwardRef(
           ":hover": {
             boxShadow: boxShadow
               ? shadow ||
-                (theme.palette.mode === "dark"
-                  ? "0 2px 14px 0 rgb(33 150 243 / 10%)"
-                  : "0 2px 14px 0 rgb(32 40 45 / 8%)")
+              (theme.palette.mode === "dark"
+                ? "0 2px 14px 0 rgb(33 150 243 / 10%)"
+                : "0 2px 14px 0 rgb(32 40 45 / 8%)")
               : "inherit",
           },
           ...sx,

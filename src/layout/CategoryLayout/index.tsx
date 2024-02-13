@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom";
 // material-ui
 import { styled, useTheme, Theme } from "@mui/material/styles";
 import {
-  AppBar,
   Box,
+  Container,
   CssBaseline,
   Toolbar,
   useMediaQuery,
@@ -15,7 +15,7 @@ import {
 // project imports
 import Breadcrumbs from "../../ui-component/extended/Breadcrumbs";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Customization from "../Customization";
 import navigation from "../../menu-items";
 import { drawerWidth } from "../../store/constant";
 import { SET_MENU } from "../../store/actions";
@@ -23,6 +23,7 @@ import { DefaultRootStateProps } from "../../types";
 
 // assets
 import { IconChevronRight } from "@tabler/icons-react";
+import AppBar from "../../ui-component/extended/AppBar";
 
 interface MainStyleProps {
   theme: Theme;
@@ -77,7 +78,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-const MainLayout = () => {
+const CategoryLayout = () => {
   const theme = useTheme();
   const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -96,47 +97,49 @@ const MainLayout = () => {
   }, [matchDownMd]);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      {/* header */}
-      <AppBar
-        enableColorOnDark
-        position="fixed"
-        color="inherit"
-        elevation={0}
-        sx={{
-          bgcolor: theme.palette.background.default,
-          transition: leftDrawerOpened
-            ? theme.transitions.create("width")
-            : "none",
-        }}
-      >
-        <Toolbar>
-          <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
-        </Toolbar>
-      </AppBar>
+    <Container>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        {/* header */}
+        <AppBar
+          enableColorOnDark
+          position="fixed"
+          color="inherit"
+          elevation={0}
+          sx={{
+            bgcolor: theme.palette.background.default,
+            transition: leftDrawerOpened
+              ? theme.transitions.create("width")
+              : "none",
+          }}
+        >
+          <Toolbar>
+            <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
+          </Toolbar>
+        </AppBar>
 
-      {/* drawer */}
-      <Sidebar
-        drawerOpen={leftDrawerOpened}
-        drawerToggle={handleLeftDrawerToggle}
-      />
+        {/* drawer */}
+        {/* <CategorySidebar
+          drawerOpen={leftDrawerOpened}
+          drawerToggle={handleLeftDrawerToggle}
+        /> */}
 
-      {/* main content */}
-      <Main theme={theme} open={leftDrawerOpened}>
-        {/* breadcrumb */}
-        <Breadcrumbs
-          separator={IconChevronRight}
-          navigation={navigation}
-          icon
-          title
-          rightAlign
-        />
-        <Outlet />
-      </Main>
-      {/* <Customization /> */}
-    </Box>
+        {/* main content */}
+        <Main theme={theme} open={leftDrawerOpened}>
+          {/* breadcrumb */}
+          <Breadcrumbs
+            separator={IconChevronRight}
+            navigation={navigation}
+            icon
+            title
+            rightAlign
+          />
+          <Outlet />
+        </Main>
+        <Customization />
+      </Box>
+    </Container>
   );
 };
 
-export default MainLayout;
+export default CategoryLayout;

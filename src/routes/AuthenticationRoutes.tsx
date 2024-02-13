@@ -21,6 +21,10 @@ const AuthenticationRoutes = {
       element: <PagesLanding />,
     },
     {
+      path: "/components/autocomplete",
+      element: <PagesLanding />,
+    },
+    {
       path: "/product-details/:id",
       element: (
         <>

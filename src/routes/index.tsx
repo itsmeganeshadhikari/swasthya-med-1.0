@@ -6,6 +6,7 @@ import MinimalLayout from "../layout/MinimalLayout";
 import Loadable from "../ui-component/Loadable";
 import { lazy } from "react";
 import EcommerceRoutes from "./EcommerceAuthRoutes";
+import CategoryRoutes from "./CategoryRoutes";
 const PagesLanding = Loadable(lazy(() => import("../views/pages/landing")));
 
 export default function ThemeRoutes() {
@@ -24,5 +25,6 @@ export default function ThemeRoutes() {
     AuthenticationRoutes,
     LoginRoutes,
     MainRoutes,
+    CategoryRoutes
   ]);
 }

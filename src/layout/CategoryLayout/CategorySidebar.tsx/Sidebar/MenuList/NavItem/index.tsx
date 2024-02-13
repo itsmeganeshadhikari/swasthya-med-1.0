@@ -18,12 +18,12 @@ import {
 } from "@mui/material";
 
 // project imports
-import { MENU_OPEN, SET_MENU } from "../../../../../store/actions";
+import { MENU_OPEN, SET_MENU } from "../../../../../../store/actions";
 import {
   DefaultRootStateProps,
   LinkTarget,
   NavItemType,
-} from "../../../../../types";
+} from "../../../../../../types";
 
 // assets
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -104,7 +104,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         alignItems: "flex-start",
         backgroundColor: "whitesmoke",
         py: level > 1 ? 1 : 1.25,
-        pl: `${level * 15}px`,
+        // pl: `${level * 15}px`,
       }}
       selected={customization.isOpen.findIndex((id) => id === item.id) > -1}
       onClick={() => itemHandler(item.id!)}

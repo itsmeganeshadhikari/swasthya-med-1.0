@@ -13,7 +13,7 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 // ==============================|| CHECKOUT BILLING ADDRESS - ADDRESS CARD ||============================== //
 
 interface AddressCardProps {
-  address: Address | null| any;
+  address: Address | null | any;
   deleteAddress: (id: string | number) => void;
   single?: boolean;
   change?: boolean;
@@ -116,7 +116,7 @@ const AddressCard = ({
                   <DeleteTwoToneIcon
                     fontSize="small"
                     onClick={() => {
-                      deleteAddress(address?.id);
+                      deleteAddress(address?._id);
                     }}
                   />
                 </IconButton>

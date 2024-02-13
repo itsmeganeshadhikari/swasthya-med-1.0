@@ -36,7 +36,7 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import CreditCardTwoToneIcon from "@mui/icons-material/CreditCardTwoTone";
 import useAuth from "../../../../hooks/useAuth";
 import { useMutation } from "@apollo/client";
-import { CREATE_ADDRESS, GET_ADDRESS_ID } from "../../../../utils/mutations/addressMutation";
+import { CREATE_ADDRESS, DELETE_ADDRESS_ID, GET_ADDRESS_ID } from "../../../../utils/mutations/addressMutation";
 
 interface StyledProps {
   theme: Theme;
@@ -151,6 +151,7 @@ const Checkout = () => {
   const [billing, setBilling] = useState(cart.checkout.billing);
   const [address, setAddress] = useState([]);
   const [createAddress] = useMutation(CREATE_ADDRESS)
+  const [toDeleteAddress] = useMutation(DELETE_ADDRESS_ID)
 
   const getAddress = async () => {
     const response = await getAddressById({ variables: { input: user?._id } });
@@ -159,20 +160,20 @@ const Checkout = () => {
 
   const addAddress = async (addressNew: Address) => {
     await createAddress({ variables: { input: addressNew } })
-    getAddress();
+    await getAddress();
   };
 
   const editAddress = async (addressEdit: Address) => {
     const response = await axios.put(`/api/address/${addressEdit.id}`, {
       data: addressEdit,
     });
-    getAddress();
+    await getAddress();
     setAddress(response.data.address);
   };
 
   const deleteAddress = async (id: string | number) => {
-    await axios.delete(`/api/address/${id}`);
-    getAddress();
+    await toDeleteAddress({ variables: { deleteAddressId: id } })
+    await getAddress();
   };
 
   const handleChange = (newValue: number) => {

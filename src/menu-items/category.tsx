@@ -12,10 +12,6 @@ import categoryType from "./categoryType";
 
 const menuItems: { items: NavItemType[] } = {
     items: [categoryType],
-};
-
-// const menuItems: { items: NavItemType[] } = {
-//     items: [dashboard, widget, application, forms, elements, pages, utilities, support, other]
-// };
+}
 
 export default menuItems;

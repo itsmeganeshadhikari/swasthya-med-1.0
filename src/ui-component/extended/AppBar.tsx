@@ -76,7 +76,7 @@ function ElevationScroll(props: ElevationScrollProps) {
   return React.cloneElement(children, {
     elevation: trigger ? 2 : 0,
     style: {
-      backgroundColor: "whiteSmoke",
+      backgroundColor: "wheat",
       borderBottom: trigger ? "none" : "1px solid",
       borderColor: trigger ? "" : darkBorder,
       color: theme.palette.text.dark,
@@ -112,32 +112,6 @@ const AppBar = ({ ...others }) => {
           <Toolbar>
             <Typography component="div" sx={{ flexGrow: 1, textAlign: "left" }}>
               <LogoSection />
-              <Grid xs={4}>
-                <BrowserView>
-                  <PerfectScrollbar
-                    component="div"
-                    style={{
-                      height: '40vh',
-                      position: 'absolute',
-                    }}
-                  >
-                    <CategoryMenu />
-                  </PerfectScrollbar>
-                </BrowserView>
-                <MobileView>
-                  <PerfectScrollbar
-                    component="div"
-                    style={{
-                      height: '40vh',
-                      position: 'absolute',
-                    }}
-                  >
-                    <Box sx={{ px: 2 }}>
-                      <CategoryMenu />
-                    </Box>
-                  </PerfectScrollbar>
-                </MobileView>
-              </Grid>
             </Typography>
             <Grid mr={2}>
               <Grid item xs={12} md={5}>
@@ -267,6 +241,28 @@ const AppBar = ({ ...others }) => {
               </Drawer>
             </Box>
           </Toolbar>
+        </Container>
+        <Container>
+          <Grid xs={4}>
+            <BrowserView>
+              <PerfectScrollbar
+                component="div"
+                style={{
+                  top: 74,
+                  height: '40vh',
+                  width: "15%",
+                  position: 'absolute',
+                }}
+              >
+                <CategoryMenu />
+              </PerfectScrollbar>
+            </BrowserView>
+            <MobileView>
+              <Box sx={{ px: 2 }}>
+                <CategoryMenu />
+              </Box>
+            </MobileView>
+          </Grid>
         </Container>
       </MuiAppBar>
     </ElevationScroll>

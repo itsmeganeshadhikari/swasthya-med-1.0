@@ -2,12 +2,12 @@ import React from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { List, Typography } from '@mui/material';
+import { Divider, List, Typography } from '@mui/material';
 
 // project imports
 import NavItem from '../NavItem';
 import NavCollapse from '../NavCollapse';
-import { GenericCardProps } from '../../../../../types';
+import { GenericCardProps } from '../../../../../../types';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
@@ -47,7 +47,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
             <List
                 subheader={
                     item.title && (
-                        <Typography variant="caption" sx={{ ...theme.typography.menuCaption, backgroundColor: 'skyblue', textAlign: 'left', paddingX: '18px', fontSize: '0.9rem', color: 'purple' }} display="block">
+                        <Typography variant="caption" sx={{ ...theme.typography.menuCaption }} display="block" gutterBottom>
                             {item.title}
                             {item.caption && (
                                 <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
@@ -62,7 +62,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
             </List>
 
             {/* group divider */}
-            {/* <Divider sx={{ mt: 0.25, mb: 1.25 }} /> */}
+            <Divider sx={{ mt: 0.25, mb: 1.25 }} />
         </>
     );
 };

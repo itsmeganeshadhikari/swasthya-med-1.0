@@ -44,4 +44,11 @@ const GET_ADDRESS_ID = gql`
   }
 }
 `
-export { CREATE_ADDRESS, GET_ADDRESS_ID }
+const DELETE_ADDRESS_ID = gql`
+mutation DeleteAddress($deleteAddressId: String!) {
+  deleteAddress(id: $deleteAddressId) {
+    message
+  }
+}
+`
+export { CREATE_ADDRESS, GET_ADDRESS_ID, DELETE_ADDRESS_ID }

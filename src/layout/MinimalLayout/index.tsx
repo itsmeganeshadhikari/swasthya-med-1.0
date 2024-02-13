@@ -1,11 +1,9 @@
 import { Outlet } from "react-router-dom";
 
 // project imports
-import Customization from "../Customization";
 import AppBar from "../../ui-component/extended/AppBar";
 import Footer from "../../views/pages/landing/Footer";
 import { styled } from "@mui/material";
-
 // ==============================|| MINIMAL LAYOUT ||============================== //
 
 const HeaderWrapper = styled("div")(({ theme }) => ({
@@ -30,7 +28,7 @@ const MinimalLayout = () => (
     <SecondWrapper>
       <Outlet />
     </SecondWrapper>
-    <Customization />
+    {/* <Customization /> */}
     <Footer />
   </>
 );

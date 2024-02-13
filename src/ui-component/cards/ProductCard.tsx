@@ -106,7 +106,7 @@ const ProductCard = ({
             "&:hover": {
               transform: "scale3d(1.02, 1.02, 1)",
               transition: "all .4s ease-in-out",
-            },
+            }
           }}
         >
           <CardMedia

@@ -21,6 +21,10 @@ const EcommerceRoutes = {
     {
       path: "/checkout",
       element: <AppECommCheckout />,
+    },
+    {
+      path: "/checkout",
+      element: <AppECommCheckout />,
     }
   ],
 };

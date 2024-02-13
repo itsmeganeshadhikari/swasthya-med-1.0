@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconClipboardCheck, IconPictureInPicture, IconForms, IconBorderAll, IconChartDots, IconStairsUp } from '@tabler/icons-react';
+import { IconClipboardCheck, IconPictureInPicture, IconForms, IconBorderAll, IconChartDots, IconStairsUp, IconFirstAidKit, IconCategory } from '@tabler/icons-react';
 
 // constant
 const icons = {
@@ -11,83 +11,37 @@ const icons = {
     IconForms,
     IconBorderAll,
     IconChartDots,
-    IconStairsUp
+    IconStairsUp,
+    IconFirstAidKit,
+    IconCategory
 };
 
 // ==============================|| UI FORMS MENU ITEMS ||============================== //
 
 const categoryType = {
     id: 'ui-forms',
-    // title: <FormattedMessage id="forms" />,
+    title: <FormattedMessage id="All Categories" />,
     type: 'group',
     children: [
         {
-            id: 'categories',
-            title: <FormattedMessage id="All Categories" />,
+            id: 'family-care',
+            title: <FormattedMessage id="Family Care" />,
             type: 'collapse',
-            icon: icons.IconPictureInPicture,
+            icon: icons.IconCategory,
             children: [
                 {
-                    id: 'autocomplete',
-                    title: <FormattedMessage id="autocomplete" />,
+                    id: 'child-care',
+                    title: <FormattedMessage id="Child Care" />,
                     type: 'item',
-                    url: '/components/autocomplete',
+                    url: '/categories/family-care',
                     breadcrumbs: false,
-                    icon: icons.IconPictureInPicture,
+                    icon: icons.IconFirstAidKit
                 },
                 {
-                    id: 'button',
-                    title: <FormattedMessage id="button" />,
+                    id: 'men-care',
+                    title: <FormattedMessage id="Men Care" />,
                     type: 'item',
-                    url: '/components/button',
-                    icon: icons.IconPictureInPicture,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'checkbox',
-                    title: <FormattedMessage id="checkbox" />,
-                    type: 'item',
-                    url: '/components/checkbox',
-                    icon: icons.IconPictureInPicture,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'date-time',
-                    title: <FormattedMessage id="date-time" />,
-                    type: 'item',
-                    url: '/components/date-time',
-                    icon: icons.IconPictureInPicture,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'radio',
-                    title: <FormattedMessage id="radio" />,
-                    type: 'item',
-                    url: '/components/radio',
-                    icon: icons.IconPictureInPicture,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'slider',
-                    title: <FormattedMessage id="slider" />,
-                    type: 'item',
-                    url: '/components/slider',
-                    icon: icons.IconPictureInPicture,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'switch',
-                    title: <FormattedMessage id="switch" />,
-                    type: 'item',
-                    url: '/components/switch',
-                    icon: icons.IconPictureInPicture,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'text-field',
-                    title: <FormattedMessage id="text-field" />,
-                    type: 'item',
-                    url: '/components/text-field',
+                    url: '/categories/family-care',
                     icon: icons.IconPictureInPicture,
                     breadcrumbs: false
                 }

@@ -16,7 +16,7 @@ import logo from "../../../assets/images/logoSw.png";
 const FooterWrapper = styled("div")(({ theme }) => ({
   padding: "35px 0",
   color: "#fff",
-  background: "whitesmoke",
+  background: "wheat",
   [theme.breakpoints.down("md")]: {
     textAlign: "center",
   },
@@ -40,7 +40,7 @@ const FooterLink = styled(Link)({
 const FooterSubWrapper = styled("div")(({ theme }) => ({
   padding: "20px 0",
   color: "white",
-  background: "purple",
+  background: "wheat",
   [theme.breakpoints.down("md")]: {
     textAlign: "center",
   },
@@ -105,7 +105,7 @@ const FooterPage = () => {
       </FooterWrapper>
       <FooterSubWrapper>
         <Container>
-          <Typography variant="subtitle2" component="div" color="inherit">
+          <Typography variant="subtitle2" component="div" color="purple">
             &#169; Swasthya MED
           </Typography>
         </Container>
