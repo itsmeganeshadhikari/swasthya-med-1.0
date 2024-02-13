@@ -220,7 +220,7 @@ const Payment = ({
           <Grid item xs={12}>
             <Typography variant="subtitle1">Payment Options</Typography>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} lg={7}>
             <FormControl>
               <RadioGroup
                 aria-label="delivery-options"
@@ -237,40 +237,38 @@ const Payment = ({
                 </Grid>
               </RadioGroup>
             </FormControl>
+            <Grid item xs={12} mt={3}>
+              <OrderSummary
+                totalPrice={checkout.total}
+                totalQuantity={checkout.total}
+              />
+            </Grid>
           </Grid>
           <Grid
             item
             xs={12}
-            lg={6}
+            lg={5}
             sx={{ opacity: payment === "card" ? 1 : 0.1 }}
           >
             <SubCard
               title="Scan QR to Pay and Upload Transaction"
             >
               <Grid container spacing={gridSpacing}>
-                <Grid item xs={12} xl={11}>
-                  {/* <Card> */}
-                  {/* <CardMedia
-                      component="img"
-                      height="400"
-                      image={qr}
-                      alt="QR"
-                    /> */}
-                  {/* </Card> */}
+                <Grid item xs={12} xl={12}>
                   <TransactionImage image={qr} />
                 </Grid>
-                <Grid item xs={12} xl={12}>
+                <Grid item xs={12} sm={12}>
                   <Button
                     variant="contained"
                     size="medium"
+                    fullWidth
                     startIcon={<AddTwoToneIcon />}
                     onClick={handleClickOpen}
                     sx={{ backgroundColor: 'purple' }}
                   >
-                    Upload Transaction (Image/Statment)
+                    Upload Transactions
                   </Button>
                 </Grid>
-
               </Grid>
               <AddPaymentCard open={open} handleClose={handleClose} />
             </SubCard>
@@ -347,12 +345,6 @@ const Payment = ({
                 </Table>
               </TableContainer>
             </Stack>
-          </Grid>
-          <Grid item xs={12} mt={5}>
-            <OrderSummary
-              totalPrice={checkout.total}
-              totalQuantity={checkout.total}
-            />
           </Grid>
           <Grid item xs={12}>
             <AddressCard
