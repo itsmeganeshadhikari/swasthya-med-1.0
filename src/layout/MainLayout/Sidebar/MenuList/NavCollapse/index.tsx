@@ -77,7 +77,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         sx={{
           borderRadius: `1px`,
           alignItems: "flex-start",
-          backgroundColor: level > 1 ? "transparent !important" : "skyblue",
+          backgroundColor: level > 1 ? "transparent !important" : "white",
           py: level > 1 ? 1 : 1.25,
           pl: `${level * 15}px`,
         }}
@@ -91,7 +91,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
           primary={
             <Typography
               variant={selected === menu.id ? "h5" : "body1"}
-              color="purple"
+              color="secondary"
               sx={{ my: "auto" }}
             >
               {menu.title}

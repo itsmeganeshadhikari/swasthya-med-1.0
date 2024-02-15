@@ -102,7 +102,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
       sx={{
         borderRadius: `2px`,
         alignItems: "flex-start",
-        backgroundColor: "whitesmoke",
+        backgroundColor: "white",
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 15}px`,
       }}

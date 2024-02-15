@@ -18,6 +18,10 @@ const SecondWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     paddingTop: 15,
   },
+  [theme.breakpoints.down("sm")]: {
+    paddingTop: 100,
+    paddingBottom: 100,
+  },
 }));
 
 const MinimalLayout = () => (

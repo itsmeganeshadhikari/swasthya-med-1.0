@@ -15,7 +15,6 @@ import {
 // project imports
 import Breadcrumbs from "../../ui-component/extended/Breadcrumbs";
 import Header from "./Header";
-import Customization from "../Customization";
 import navigation from "../../menu-items";
 import { drawerWidth } from "../../store/constant";
 import { SET_MENU } from "../../store/actions";
@@ -136,7 +135,7 @@ const CategoryLayout = () => {
           />
           <Outlet />
         </Main>
-        <Customization />
+        {/* <Customization /> */}
       </Box>
     </Container>
   );

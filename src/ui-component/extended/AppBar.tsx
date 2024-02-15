@@ -11,8 +11,6 @@ import {
   IconButton,
   List,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Stack,
   Toolbar,
   Typography,
@@ -26,8 +24,6 @@ import {
 
 // assets
 import {
-  IconBook,
-  IconHome2,
   IconUpload,
 } from "@tabler/icons-react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -76,7 +72,7 @@ function ElevationScroll(props: ElevationScrollProps) {
   return React.cloneElement(children, {
     elevation: trigger ? 2 : 0,
     style: {
-      backgroundColor: "wheat",
+      backgroundColor: "darkorange",
       borderBottom: trigger ? "none" : "1px solid",
       borderColor: trigger ? "" : darkBorder,
       color: theme.palette.text.dark,
@@ -87,7 +83,7 @@ function ElevationScroll(props: ElevationScrollProps) {
 // ==============================|| MINIMAL LAYOUT APP BAR ||============================== //
 
 const AppBar = ({ ...others }) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
   const cart = useSelector((state: DefaultRootStateProps) => state.cart);
   const totalQuantity = sum(
     cart.checkout.products.map((item: CartProductStateProps) => item.quantity)
@@ -124,7 +120,8 @@ const AppBar = ({ ...others }) => {
               spacing={2}
             >
               <Button
-                color="inherit"
+                color="secondary"
+                variant="contained"
                 component={Link}
                 to="/"
                 target="_blank"
@@ -133,26 +130,24 @@ const AppBar = ({ ...others }) => {
                 Upload Prescription
               </Button>
               <Button
-                color="inherit"
+                color="secondary"
                 component={Link}
                 to="/checkout"
                 startIcon={
                   <StyledBadge
                     showZero
                     badgeContent={totalQuantity}
-                    color="error"
+                    color="secondary"
                   >
-                    <ShoppingCartTwoToneIcon sx={{ color: "grey.800" }} />
+                    <ShoppingCartTwoToneIcon sx={{ color: "secondary" }} />
                   </StyledBadge>
                 }
               >
                 Cart
               </Button>
-
-              <Button color="inherit" component={Link} to="/" target="_blank">
+              <Button color="secondary" variant="outlined" component={Link} to="/" target="_blank">
                 About us
               </Button>
-
               {isLoggedIn ? (
                 <ProfileSection />
               ) : (
@@ -176,7 +171,7 @@ const AppBar = ({ ...others }) => {
                 <MenuIcon />
               </IconButton>
               <Drawer
-                anchor="top"
+                anchor="left"
                 open={drawerToggle}
                 onClose={drawerToggler(false)}
               >
@@ -189,53 +184,65 @@ const AppBar = ({ ...others }) => {
                   onKeyDown={drawerToggler(false)}
                 >
                   <List>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      to="#"
-                      target="_blank"
-                    >
-                      <ListItemButton component="a">
-                        <ListItemIcon>
-                          <IconHome2 />
-                        </ListItemIcon>
-                        <ListItemText primary="Home" />
-                      </ListItemButton>
-                    </Link>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      to="/"
-                      target="_blank"
-                    >
-                      <ListItemButton component="a">
-                        <ListItemIcon>
-                          <IconUpload />
-                        </ListItemIcon>
-                        <ListItemText primary="Upload Prescription" />
-                      </ListItemButton>
-                    </Link>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      to="/"
-                      target="_blank"
-                    >
-                      <ListItemButton component="a">
-                        <ListItemIcon>
-                          <IconBook />
-                        </ListItemIcon>
-                        <ListItemText primary="About us" />
-                      </ListItemButton>
-                    </Link>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      to="/checkout"
-                    >
-                      <ListItemButton component="a">
-                        <ListItemIcon>
-                          <ShoppingCartTwoToneIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Cart" />
-                      </ListItemButton>
-                    </Link>
+                    <ListItemButton component="a">
+                      <Button fullWidth color="inherit" variant="outlined" component={Link} to="/" target="_blank">
+                        <LogoSection />
+                      </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      <Button
+                        color="secondary"
+                        fullWidth
+                        variant="contained"
+                        component={Link}
+                        to="/"
+                        target="_blank"
+                        startIcon={<IconUpload />}
+                      >
+                        Upload Prescription
+                      </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      <Button fullWidth color="secondary" variant="contained" component={Link} to="/" target="_blank">
+                        About us
+                      </Button>
+                    </ListItemButton>
+
+                    <ListItemButton component="a">
+                      <Button
+                        color="secondary"
+                        component={Link}
+                        to="/checkout"
+                        fullWidth
+                        variant="contained"
+                        startIcon={
+                          <StyledBadge
+                            showZero
+                            badgeContent={totalQuantity}
+                            color="error"
+                          >
+                            <ShoppingCartTwoToneIcon sx={{ color: "secondary" }} />
+                          </StyledBadge>
+                        }
+                      >
+                        Cart
+                      </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      <Button fullWidth color="secondary" variant="contained" component="a" target="_blank" onClick={logout}>
+                        Logout
+                      </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      <Button fullWidth color="secondary" variant="contained" component={Link} to="/login" target="_blank">
+                        Login
+                      </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      <Button fullWidth color="secondary" variant="contained" component={Link} to="/register" target="_blank">
+                        Sign up
+                      </Button>
+                    </ListItemButton>
                   </List>
                 </Box>
               </Drawer>
