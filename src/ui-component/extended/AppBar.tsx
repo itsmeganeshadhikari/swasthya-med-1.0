@@ -83,7 +83,7 @@ function ElevationScroll(props: ElevationScrollProps) {
 // ==============================|| MINIMAL LAYOUT APP BAR ||============================== //
 
 const AppBar = ({ ...others }) => {
-  const { isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, logout } = useAuth();
   const cart = useSelector((state: DefaultRootStateProps) => state.cart);
   const totalQuantity = sum(
     cart.checkout.products.map((item: CartProductStateProps) => item.quantity)
@@ -137,7 +137,7 @@ const AppBar = ({ ...others }) => {
                   <StyledBadge
                     showZero
                     badgeContent={totalQuantity}
-                    color="secondary"
+                    color="error"
                   >
                     <ShoppingCartTwoToneIcon sx={{ color: "secondary" }} />
                   </StyledBadge>
@@ -185,9 +185,32 @@ const AppBar = ({ ...others }) => {
                 >
                   <List>
                     <ListItemButton component="a">
-                      <Button fullWidth color="inherit" variant="outlined" component={Link} to="/" target="_blank">
+                      <Button color="inherit" fullWidth variant="outlined" component={Link} to="/" target="_blank" sx={{ padding: '20px' }}>
                         <LogoSection />
                       </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      {isLoggedIn ? (
+                        <div>
+                          <Button color="secondary" variant="text" component={Link} to="/login" target="_blank">
+                            {user?.email}
+                          </Button>
+                          <Button color="secondary" variant="outlined" component="a" target="_blank" onClick={logout} sx={{ marginX: '5px' }}>
+                            Logout
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button
+                          component={Link}
+                          to="/login"
+                          fullWidth
+                          disableElevation
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Login
+                        </Button>
+                      )}
                     </ListItemButton>
                     <ListItemButton component="a">
                       <Button
@@ -207,7 +230,6 @@ const AppBar = ({ ...others }) => {
                         About us
                       </Button>
                     </ListItemButton>
-
                     <ListItemButton component="a">
                       <Button
                         color="secondary"
@@ -226,16 +248,6 @@ const AppBar = ({ ...others }) => {
                         }
                       >
                         Cart
-                      </Button>
-                    </ListItemButton>
-                    <ListItemButton component="a">
-                      <Button fullWidth color="secondary" variant="contained" component="a" target="_blank" onClick={logout}>
-                        Logout
-                      </Button>
-                    </ListItemButton>
-                    <ListItemButton component="a">
-                      <Button fullWidth color="secondary" variant="contained" component={Link} to="/login" target="_blank">
-                        Login
                       </Button>
                     </ListItemButton>
                     <ListItemButton component="a">
