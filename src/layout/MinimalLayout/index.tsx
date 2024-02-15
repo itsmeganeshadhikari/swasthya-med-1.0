@@ -12,6 +12,7 @@ const HeaderWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     paddingTop: 20,
   },
+  marginBottom: 30
 }));
 
 const SecondWrapper = styled("div")(({ theme }) => ({
@@ -22,6 +23,7 @@ const SecondWrapper = styled("div")(({ theme }) => ({
     paddingTop: 100,
     paddingBottom: 100,
   },
+  paddingTop: 30
 }));
 
 const MinimalLayout = () => (
