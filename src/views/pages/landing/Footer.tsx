@@ -16,7 +16,7 @@ import logo from "../../../assets/images/logoSw.png";
 const FooterWrapper = styled("div")(({ theme }) => ({
   padding: "35px 0",
   color: "#fff",
-  background: "#eefff9",
+  background: "rgb(216 216 216)",
   [theme.breakpoints.down("md")]: {
     textAlign: "center",
   },
@@ -40,7 +40,7 @@ const FooterLink = styled(Link)({
 const FooterSubWrapper = styled("div")(({ theme }) => ({
   padding: "20px 0",
   color: "white",
-  backgroundColor: "#eefff9",
+  backgroundColor: "rgb(216 216 216)",
   [theme.breakpoints.down("md")]: {
     textAlign: "center",
   },
