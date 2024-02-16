@@ -218,6 +218,19 @@ const AppBar = ({ ...others }) => {
                         fullWidth
                         variant="contained"
                         component={Link}
+                        to="/myorder"
+                        target="_blank"
+                        startIcon={<IconUpload />}
+                      >
+                        My orders
+                      </Button>
+                    </ListItemButton>
+                    <ListItemButton component="a">
+                      <Button
+                        color="secondary"
+                        fullWidth
+                        variant="contained"
+                        component={Link}
                         to="/"
                         target="_blank"
                         startIcon={<IconUpload />}
