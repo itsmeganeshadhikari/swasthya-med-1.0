@@ -162,15 +162,17 @@ const ProfileSection = () => {
                         <Typography
                           component="span"
                           variant="h4"
+                          color="blueviolet"
                           sx={{ fontWeight: 400 }}
                         >
                           {user?.email}
                         </Typography>
                       </Stack>
-                      <Typography variant="subtitle2">
+                      <Typography variant="subtitle2" color="tomato">
                         Role: {user?.role}
                       </Typography>
-                      {user?.role=="admin"?<Button variant="outlined" to="/dashboard" component={Link}>Dashboard</Button>:""}
+                      {user?.role == "admin" ? <Button variant="contained" to="/dashboard" color="secondary" component={Link}>Dashboard</Button> : ""}
+                      <Button variant="contained" to="/myorder" color="secondary" component={Link} sx={{ marginTop: '10px' }}>View Order</Button>
                     </Stack>
                     {/* <OutlinedInput
                       sx={{ width: "100%", pr: 1, pl: 2, my: 2 }}
@@ -375,7 +377,7 @@ const ProfileSection = () => {
             </Paper>
           </Transitions>
         )}
-      </Popper>
+      </Popper >
     </>
   );
 };

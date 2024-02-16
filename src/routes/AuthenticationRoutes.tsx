@@ -10,6 +10,10 @@ const PagesLanding = Loadable(lazy(() => import("../views/pages/landing")));
 const AppECommProductDetails = Loadable(
   lazy(() => import("../views/application/e-commerce/ProductDetails"))
 );
+
+const AppOrderDetails = Loadable(
+  lazy(() => import("../views/application/e-commerce/Checkout/OrderDetails"))
+);
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
@@ -23,6 +27,10 @@ const AuthenticationRoutes = {
     {
       path: "/components/autocomplete",
       element: <PagesLanding />,
+    },
+    {
+      path: "/myorder",
+      element: <AppOrderDetails />,
     },
     {
       path: "/product-details/:id",

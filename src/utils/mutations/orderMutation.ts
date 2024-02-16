@@ -14,4 +14,20 @@ const CREATE_ORDER = gql`
   }
 }
 `
-export { CREATE_ORDER };
+const GET_ORDERS = gql`
+  mutation FindOrderByUser($findOrderByUserId: String!) {
+  findOrderByUser(id: $findOrderByUserId) {
+    orders {
+      _id
+      method
+      total
+      discount
+      addressName
+      city
+      userName
+      productName
+    }
+  }
+}
+`
+export { CREATE_ORDER, GET_ORDERS };
