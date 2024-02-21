@@ -151,7 +151,7 @@ const CategoryProduct = () => {
                             <Main>
                                 <Grid container
                                     spacing={1}
-                                    margin="auto"
+                                    justifyContent="center"
                                     sx={{ overflowX: "auto" }}>
                                     <Grid item xs={11} md={3} lg={2} xl={2}>
                                         <PerfectScrollbar component="div">
@@ -160,10 +160,11 @@ const CategoryProduct = () => {
                                     </Grid>
                                     <Grid container
                                         spacing={1}
-                                        height="84vh"
+                                        height={{ xs: '60vh', lg: '80vh', xl: '70vh' }}
+
                                         marginTop={1}
                                         sx={{ overflowX: "auto" }}
-                                        item xs={12} md={9} lg={10} xl={10}>
+                                        item xs={11} md={9} lg={10} xl={10}>
                                         {product}
                                     </Grid>
                                 </Grid>

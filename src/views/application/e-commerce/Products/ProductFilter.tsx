@@ -20,7 +20,6 @@ import {
 
 import MainCard from '../../../../ui-component/cards/MainCard';
 import Accordion from '../../../../ui-component/extended/Accordion';
-import { gridSpacing } from '../../../../store/constant';
 import { ProductsFilter } from '../types';
 // ==============================|| PRODUCT GRID - CATEGORIES FILTER ||============================== //
 
@@ -82,8 +81,8 @@ const Price = ({ price, handelFilter }: { price: string; handelFilter: (type: st
                         onChange={(e) => handelFilter('price', e.target.value)}
                         name="row-radio-buttons-group"
                     >
-                        <Grid container spacing={0.25}>
-                            <Grid item xs={6} lg={12} xl={12}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={10} lg={12} xl={12}>
                                 <FormControlLabel
                                     value="0-10"
                                     control={<Radio />}
@@ -94,7 +93,7 @@ const Price = ({ price, handelFilter }: { price: string; handelFilter: (type: st
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6} lg={12} xl={12}>
+                            <Grid item xs={10} lg={12} xl={12}>
                                 <FormControlLabel
                                     value="0-10"
                                     control={<Radio />}
@@ -105,18 +104,7 @@ const Price = ({ price, handelFilter }: { price: string; handelFilter: (type: st
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6} lg={12} xl={12}>
-                                <FormControlLabel
-                                    value="0-10"
-                                    control={<Radio />}
-                                    label="Below $10"
-                                    sx={{
-                                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                                        '& .MuiFormControlLabel-label': { color: 'grey.900' }
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={6} lg={12} xl={12}>
+                            <Grid item xs={10} lg={12} xl={12}>
                                 <FormControlLabel
                                     value="0-10"
                                     control={<Radio />}
@@ -163,18 +151,18 @@ const ProductFilter = ({
 
     return (
         <MainCard border={!matchDownLG} content={false} sx={{ overflow: 'visible' }}>
-            <CardContent sx={{ p: 1, height: matchDownLG ? '100vh' : 'auto' }}>
-                <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12}>
+            <CardContent sx={{ p: 1, height: 'auto' }}>
+                <Grid container spacing={1}>
+                    <Grid item xs={7}>
                         <Accordion data={filterData} />
                     </Grid>
-                    <Grid item xs={12} sx={{ m: 1 }}>
-                        <Stack direction="row" justifyContent="center" alignItems="center">
-                            <Button variant="contained" fullWidth color="error" onClick={() => handelFilter('reset', '')}>
-                                Clear All
-                            </Button>
-                        </Stack>
-                    </Grid>
+                </Grid>
+                <Grid item xs={10} sx={{ m: 1 }}>
+                    <Stack direction="row" justifyContent="center" alignItems="center">
+                        <Button variant="contained" fullWidth color="error" onClick={() => handelFilter('reset', '')}>
+                            Clear All
+                        </Button>
+                    </Stack>
                 </Grid>
             </CardContent>
         </MainCard>
