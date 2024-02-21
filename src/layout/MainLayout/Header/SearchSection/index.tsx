@@ -90,11 +90,12 @@ interface Props {
   value: string;
   setValue: (value: string) => void;
   popupState: any;
+  handlekeydown: any;
 }
 
 // ==============================|| SEARCH INPUT - MOBILE||============================== //
 
-const MobileSearch = ({ value, setValue, popupState }: Props) => {
+const MobileSearch = ({ value, setValue, popupState, handlekeydown }: Props) => {
   const theme = useTheme();
 
   return (
@@ -146,6 +147,7 @@ const MobileSearch = ({ value, setValue, popupState }: Props) => {
       }
       aria-describedby="search-helper-text"
       inputProps={{ "aria-label": "weight" }}
+      onKeyDown={handlekeydown}
     />
   );
 };
@@ -209,6 +211,7 @@ const SearchSection = () => {
                                 value={value}
                                 setValue={setValue}
                                 popupState={popupState}
+                                handlekeydown={handlekeydown}
                               />
                             </Grid>
                           </Grid>
