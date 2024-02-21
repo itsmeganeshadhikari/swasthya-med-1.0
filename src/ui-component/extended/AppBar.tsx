@@ -24,6 +24,7 @@ import {
 
 // assets
 import {
+  IconMenuOrder,
   IconUpload,
 } from "@tabler/icons-react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -76,6 +77,8 @@ function ElevationScroll(props: ElevationScrollProps) {
       borderBottom: trigger ? "none" : "1px solid",
       borderColor: trigger ? "" : darkBorder,
       color: theme.palette.text.dark,
+      height: '20vh',
+      paddingTop: '15px',
     },
   });
 }
@@ -125,6 +128,7 @@ const AppBar = ({ ...others }) => {
                 component={Link}
                 to="/"
                 target="_blank"
+                disabled
                 startIcon={<IconUpload />}
               >
                 Upload Prescription
@@ -145,7 +149,7 @@ const AppBar = ({ ...others }) => {
               >
                 Cart
               </Button>
-              <Button color="secondary" variant="outlined" component={Link} to="/" target="_blank">
+              <Button color="secondary" variant="outlined" component={Link} to="/" target="_blank" disabled>
                 About us
               </Button>
               {isLoggedIn ? (
@@ -220,7 +224,7 @@ const AppBar = ({ ...others }) => {
                         component={Link}
                         to="/myorder"
                         target="_blank"
-                        startIcon={<IconUpload />}
+                        startIcon={<IconMenuOrder />}
                       >
                         My orders
                       </Button>
@@ -233,13 +237,14 @@ const AppBar = ({ ...others }) => {
                         component={Link}
                         to="/"
                         target="_blank"
+                        disabled
                         startIcon={<IconUpload />}
                       >
                         Upload Prescription
                       </Button>
                     </ListItemButton>
                     <ListItemButton component="a">
-                      <Button fullWidth color="secondary" variant="contained" component={Link} to="/" target="_blank">
+                      <Button fullWidth color="secondary" variant="contained" component={Link} to="/" target="_blank" disabled>
                         About us
                       </Button>
                     </ListItemButton>
@@ -280,9 +285,9 @@ const AppBar = ({ ...others }) => {
               <PerfectScrollbar
                 component="div"
                 style={{
-                  top: 74,
-                  height: '40vh',
-                  width: "15%",
+                  top: 92,
+                  height: '42vh',
+                  width: "12.2%",
                   position: 'absolute',
                 }}
               >

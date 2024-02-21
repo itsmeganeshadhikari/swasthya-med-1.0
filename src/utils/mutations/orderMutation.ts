@@ -20,6 +20,7 @@ const GET_ORDERS = gql`
     orders {
       _id
       method
+      url
       total
       discount
       addressName

@@ -13,8 +13,7 @@ import { appDrawerWidth, gridSpacing } from "../../../../store/constant";
 import ProductCategory from "./ProductCategory";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../../../../utils/querys/userQuery";
-// import { useQuery } from "@tanstack/react-query";
-// import axiosServices from "../../../../utils/axios";
+
 
 // product list container
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -48,22 +47,13 @@ const Products = () => {
   if (error) {
     console.log("error");
   }
-  const skinProduct = data?.productlist.products.filter((e: any) => e.category == "Skin");
-  const babyProducts = data?.productlist.products.filter((e: any) => e.category == "Baby");
-  // const trendingProducts = data?.productlist.products.filter((e: any) => e.category == "Baby");
-  // const topBrandProducts = data?.productlist.products.filter((e: any) => e.category == "Skin");
-  // let topBrand: React.ReactElement | React.ReactElement[] = <></>;
-  let derma: React.ReactElement | React.ReactElement[] = <></>;
-  // let trending: React.ReactElement | React.ReactElement[] = <></>;
-  let baby: React.ReactElement | React.ReactElement[] = <></>;
+  const skinProduct = data?.productlist.products.filter((e: any) => e.category == "Skin")
 
-  // if (topBrandProducts) {
-  //   topBrand = <ProductCategory products={topBrandProducts} />;
-  // }
+  const babyProducts = data?.productlist.products.filter((e: any) => e.category == "Baby")
 
-  // if (trendingProducts) {
-  //   trending = <ProductCategory products={trendingProducts} />;
-  // }
+  let derma: React.ReactElement | React.ReactElement[] = <></>
+
+  let baby: React.ReactElement | React.ReactElement[] = <></>
 
   if (babyProducts) {
     baby = <ProductCategory products={babyProducts} />;
@@ -85,122 +75,7 @@ const Products = () => {
           mb: { xs: 2.5, md: 5 },
         }}
       >
-        {/* <Grid item xs={12} p={0}>
-          <Divider sx={{ my: 0, borderColor: "black" }} />
-        </Grid>
-        <Grid item xs={12} xl={9}>
-          <Grid
-            container
-            spacing={gridSpacing}
-            sx={{
-              [theme.breakpoints.down("lg")]: { pr: 0, textAlign: "center" },
-              padding: { xs: 5, sm: 2 },
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-              }}
-            >
-              <Main>
-                <Grid item xs={12} md={4} mb={2}>
-                  <Grid item xs={12}>
-                    <motion.div
-                      initial={{ opacity: 0, translateY: 550 }}
-                      animate={{ opacity: 1, translateY: 0 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 150,
-                        damping: 30,
-                      }}
-                    >
-                      <Typography
-                        variant="subtitle1"
-                        sx={{
-                          fontSize: {
-                            xs: "1.25rem",
-                            sm: "1.2rem",
-                            md: "1.2rem",
-                          },
-                          fontWeight: 500,
-                          lineHeight: 1.2,
-                          color: theme.palette.secondary.main,
-                        }}
-                      >
-                        Top Brand Products
-                      </Typography>
-                    </motion.div>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  spacing={gridSpacing}
-                  height={295}
-                  marginTop={1}
-                  sx={{ overflowX: "auto" }}
-                >
-                  {topBrand}
-                </Grid>
-              </Main>
-            </Box>
-          </Grid>
-        </Grid> */}
-        {/* <Grid item xs={12} p={0}>
-          <Divider sx={{ my: 0, borderColor: "black" }} />
-        </Grid>
-        <Grid item xs={12} xl={9}>
-          <Grid
-            container
-            spacing={gridSpacing}
-            sx={{
-              [theme.breakpoints.down("lg")]: { pr: 0, textAlign: "center" },
-              padding: { xs: 5, sm: 2 },
-            }}
-          >
-            <Box sx={{ display: "flex" }}>
-              <Main>
-                <Grid item xs={12} md={5} mb={2}>
-                  <Grid item xs={12}>
-                    <motion.div
-                      initial={{ opacity: 0, translateY: 550 }}
-                      animate={{ opacity: 1, translateY: 0 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 150,
-                        damping: 30,
-                      }}
-                    >
-                      <Typography
-                        variant="subtitle1"
-                        sx={{
-                          fontSize: {
-                            xs: "1.25rem",
-                            sm: "1.2rem",
-                            md: "1.2rem",
-                          },
-                          fontWeight: 500,
-                          lineHeight: 1.2,
-                          color: theme.palette.secondary.main,
-                        }}
-                      >
-                        Trending Products
-                      </Typography>
-                    </motion.div>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  spacing={gridSpacing}
-                  height={300}
-                  marginTop={1}
-                  sx={{ overflowX: "auto" }}
-                >
-                  {trending}
-                </Grid>
-              </Main>
-            </Box>
-          </Grid>
-        </Grid> */}
+
         <Grid item xs={12} p={0}>
           <Divider sx={{ my: 0, borderColor: "black" }} />
         </Grid>

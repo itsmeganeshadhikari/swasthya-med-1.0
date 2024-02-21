@@ -10,66 +10,18 @@ import {
     Grid,
     Radio,
     RadioGroup,
-    Rating,
     Skeleton,
     Stack,
     Theme,
-    Typography,
     useMediaQuery
 } from '@mui/material';
 
 // project imports
-import Colors from './Colors';
+
 import MainCard from '../../../../ui-component/cards/MainCard';
 import Accordion from '../../../../ui-component/extended/Accordion';
 import { gridSpacing } from '../../../../store/constant';
 import { ProductsFilter } from '../types';
-
-// ==============================|| PRODUCT GRID GENDER FILTER ||============================== //
-
-const Gender = ({ gender, handelFilter }: { gender: string[]; handelFilter: (type: string, params: string) => void }) => {
-    const [isGenderLoading, setGenderLoading] = React.useState(true);
-    React.useEffect(() => {
-        setGenderLoading(false);
-    }, []);
-
-    return (
-        <Stack direction="row" alignItems="center">
-            {isGenderLoading ? (
-                <Skeleton variant="rectangular" width="100%" height={42} />
-            ) : (
-                <>
-                    <FormControlLabel
-                        control={<Checkbox checked={gender.some((item) => item === 'male')} />}
-                        onChange={() => handelFilter('gender', 'male')}
-                        label="Male"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={gender.some((item) => item === 'female')}
-                                onChange={() => handelFilter('gender', 'female')}
-                                color="secondary"
-                            />
-                        }
-                        label="Female"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={gender.some((item) => item === 'kids')}
-                                onChange={() => handelFilter('gender', 'kids')}
-                                color="error"
-                            />
-                        }
-                        label="Kids"
-                    />
-                </>
-            )}
-        </Stack>
-    );
-};
-
 // ==============================|| PRODUCT GRID - CATEGORIES FILTER ||============================== //
 
 const Categories = ({ categories, handelFilter }: { categories: string[]; handelFilter: (type: string, params: string) => void }) => {
@@ -95,29 +47,12 @@ const Categories = ({ categories, handelFilter }: { categories: string[]; handel
                         <FormControlLabel
                             control={<Checkbox checked={categories.some((item) => item === 'electronics')} />}
                             onChange={() => handelFilter('categories', 'electronics')}
-                            label="Electronics"
+                            label="Baby"
                         />
                         <FormControlLabel
                             control={<Checkbox checked={categories.some((item) => item === 'fashion')} />}
                             onChange={() => handelFilter('categories', 'fashion')}
-                            label="Fashion"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormControlLabel
-                            control={<Checkbox checked={categories.some((item) => item === 'kitchen')} />}
-                            onChange={() => handelFilter('categories', 'kitchen')}
-                            label="Kitchen"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={categories.some((item) => item === 'books')} />}
-                            onChange={() => handelFilter('categories', 'books')}
-                            label="Books"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={categories.some((item) => item === 'toys')} />}
-                            onChange={() => handelFilter('categories', 'toys')}
-                            label="Toys"
+                            label="Skin"
                         />
                     </Grid>
                 </>
@@ -148,7 +83,7 @@ const Price = ({ price, handelFilter }: { price: string; handelFilter: (type: st
                         name="row-radio-buttons-group"
                     >
                         <Grid container spacing={0.25}>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} lg={12} xl={12}>
                                 <FormControlLabel
                                     value="0-10"
                                     control={<Radio />}
@@ -159,55 +94,33 @@ const Price = ({ price, handelFilter }: { price: string; handelFilter: (type: st
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} lg={12} xl={12}>
                                 <FormControlLabel
-                                    value="10-50"
+                                    value="0-10"
                                     control={<Radio />}
-                                    label="$10 - $50"
+                                    label="Below $10"
                                     sx={{
                                         '& .MuiSvgIcon-root': { fontSize: 28 },
                                         '& .MuiFormControlLabel-label': { color: 'grey.900' }
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} lg={12} xl={12}>
                                 <FormControlLabel
-                                    value="50-100"
+                                    value="0-10"
                                     control={<Radio />}
-                                    label="$50 - $100"
+                                    label="Below $10"
                                     sx={{
                                         '& .MuiSvgIcon-root': { fontSize: 28 },
                                         '& .MuiFormControlLabel-label': { color: 'grey.900' }
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} lg={12} xl={12}>
                                 <FormControlLabel
-                                    value="100-150"
+                                    value="0-10"
                                     control={<Radio />}
-                                    label="$100 - $150"
-                                    sx={{
-                                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                                        '& .MuiFormControlLabel-label': { color: 'grey.900' }
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControlLabel
-                                    value="150-200"
-                                    control={<Radio />}
-                                    label="$150 - $200"
-                                    sx={{
-                                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                                        '& .MuiFormControlLabel-label': { color: 'grey.900' }
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControlLabel
-                                    value="200-99999"
-                                    control={<Radio />}
-                                    label="Over $200"
+                                    label="Below $10"
                                     sx={{
                                         '& .MuiSvgIcon-root': { fontSize: 28 },
                                         '& .MuiFormControlLabel-label': { color: 'grey.900' }
@@ -220,40 +133,7 @@ const Price = ({ price, handelFilter }: { price: string; handelFilter: (type: st
             )}
         </>
     );
-};
-
-// ==============================|| PRODUCT GRID - RATING FILTER ||============================== //
-
-const RatingSection = ({
-    rating,
-    handelFilter
-}: {
-    rating: number;
-    handelFilter: (type: string, params: string, rating: number) => void;
-}) => {
-    const [isRatingLoading, setRatingLoading] = React.useState(true);
-    React.useEffect(() => {
-        setRatingLoading(false);
-    }, []);
-
-    return (
-        <>
-            {isRatingLoading ? (
-                <Skeleton variant="rectangular" width="100%" height={172} />
-            ) : (
-                <Stack direction="row" spacing={1} alignItems="center">
-                    <Rating
-                        precision={0.5}
-                        name="simple-controlled"
-                        value={rating}
-                        onChange={(_event, newValue) => handelFilter('rating', '', newValue!)}
-                    />
-                    <Typography component="legend">({rating})</Typography>
-                </Stack>
-            )}
-        </>
-    );
-};
+}
 
 // ==============================|| PRODUCT GRID - FILTER ||============================== //
 
@@ -268,34 +148,16 @@ const ProductFilter = ({
 
     const filterData = [
         {
-            id: 'gender',
-            defaultExpand: true,
-            title: 'Gender',
-            content: <Gender gender={filter.gender} handelFilter={handelFilter} />
-        },
-        {
             id: 'categories',
             defaultExpand: true,
             title: 'Categories',
             content: <Categories categories={filter.categories} handelFilter={handelFilter} />
         },
         {
-            id: 'colors',
-            defaultExpand: true,
-            title: 'Colors',
-            content: <Colors colors={filter.colors} handelFilter={handelFilter} />
-        },
-        {
             id: 'price',
             defaultExpand: true,
             title: 'Price',
             content: <Price price={filter.price} handelFilter={handelFilter} />
-        },
-        {
-            id: 'rating',
-            defaultExpand: true,
-            title: 'Rating',
-            content: <RatingSection rating={filter.rating} handelFilter={handelFilter} />
         }
     ];
 

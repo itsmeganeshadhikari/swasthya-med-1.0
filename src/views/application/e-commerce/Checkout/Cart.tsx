@@ -137,7 +137,7 @@ const Cart = ({
       </Grid>
       <Grid item xs={12}>
         <TableContainer>
-          <Table sx={{ minWidth: 650, backgroundColor: "powderblue" }} aria-label="simple table">
+          <Table sx={{ minWidth: 650, backgroundColor: "white" }} aria-label="simple table">
             <TableHead
               sx={{
                 borderTop: "1px solid",

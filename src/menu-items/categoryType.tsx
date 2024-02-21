@@ -1,5 +1,3 @@
-// third-party
-import { FormattedMessage } from 'react-intl';
 
 // assets
 import { IconClipboardCheck, IconPictureInPicture, IconForms, IconBorderAll, IconChartDots, IconStairsUp, IconFirstAidKit, IconCategory } from '@tabler/icons-react';
@@ -20,28 +18,29 @@ const icons = {
 
 const categoryType = {
     id: 'ui-forms',
-    title: <FormattedMessage id="All Categories" />,
+    title: "All Categories",
     type: 'group',
     children: [
         {
             id: 'family-care',
-            title: <FormattedMessage id="Family Care" />,
+            title: "Family Care",
             type: 'collapse',
             icon: icons.IconCategory,
+            breadcrumbs: true,
             children: [
                 {
                     id: 'child-care',
-                    title: <FormattedMessage id="Child Care" />,
+                    title: "Child Care",
                     type: 'item',
-                    url: '/categories/family-care',
+                    url: '/products/baby',
                     breadcrumbs: false,
                     icon: icons.IconFirstAidKit
                 },
                 {
                     id: 'men-care',
-                    title: <FormattedMessage id="Men Care" />,
+                    title: "Men Care",
                     type: 'item',
-                    url: '/categories/family-care',
+                    url: '/products/nipple',
                     icon: icons.IconPictureInPicture,
                     breadcrumbs: false
                 }

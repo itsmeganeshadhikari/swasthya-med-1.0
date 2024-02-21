@@ -26,6 +26,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { shouldForwardProp } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
@@ -102,7 +103,6 @@ const MobileSearch = ({ value, setValue, popupState }: Props) => {
       value={value}
       onChange={(e) => setValue(e.target.value)}
       placeholder="Search"
-      disabled
       startAdornment={
         <InputAdornment position="start">
           <IconSearch
@@ -155,7 +155,13 @@ const MobileSearch = ({ value, setValue, popupState }: Props) => {
 const SearchSection = () => {
   const theme = useTheme();
   const [value, setValue] = useState("");
+  const navigate = useNavigate();
 
+  const handlekeydown = async (event: any) => {
+    if (event.key === 'Enter') {
+      navigate("/products/" + value);
+    }
+  }
   return (
     <>
       <Box sx={{ display: { xs: "block", md: "none" } }}>
@@ -222,7 +228,6 @@ const SearchSection = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Search for products"
-          disabled
           startAdornment={
             <InputAdornment position="start">
               <IconSearch
@@ -232,17 +237,18 @@ const SearchSection = () => {
               />
             </InputAdornment>
           }
-          endAdornment={
-            <InputAdornment position="end">
-              <ButtonBase sx={{ borderRadius: "12px" }}>
-                <HeaderAvatarStyle variant="rounded">
-                  <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
-                </HeaderAvatarStyle>
-              </ButtonBase>
-            </InputAdornment>
-          }
+          // endAdornment={
+          //   <InputAdornment position="end">
+          //     <ButtonBase sx={{ borderRadius: "12px" }}>
+          //       <HeaderAvatarStyle variant="rounded">
+          //         <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
+          //       </HeaderAvatarStyle>
+          //     </ButtonBase>
+          //   </InputAdornment>
+          // }
           aria-describedby="search-helper-text"
           inputProps={{ "aria-label": "weight" }}
+          onKeyDown={handlekeydown}
         />
       </Box>
     </>

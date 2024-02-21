@@ -52,4 +52,30 @@ mutation GetProduct($input: String!) {
   }
 }
 `
-export { CREATE_PRODUCT, GET_PRODUCTS_ID }
+const GET_PRODUCTS_BY_NAME = gql`
+  mutation ProductName($input: String!) {
+  productName(input: $input) {
+  products {
+    _id
+    productName
+    subDescription
+    description
+    productCode
+    productSize
+    sku
+    category
+    quantity
+    regularPrice
+    salePrice
+    offerPrice
+    image {
+      public_id
+      url
+    }
+    rating
+    stock
+  }  
+  }
+}
+`
+export { CREATE_PRODUCT, GET_PRODUCTS_ID, GET_PRODUCTS_BY_NAME }

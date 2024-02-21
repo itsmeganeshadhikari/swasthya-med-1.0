@@ -48,14 +48,14 @@ const OrderDetails = () => {
             <Grid item container spacing={gridSpacing}>
                 <Grid item xs={12}>
                     <TableContainer>
-                        <Table sx={{ minWidth: 650, backgroundColor: "powderblue" }} aria-label="simple table">
+                        <Table sx={{ minWidth: 650, backgroundColor: "white" }} aria-label="simple table">
                             <TableHead
                                 sx={{
                                     borderTop: "1px solid",
                                     color:
                                         theme.palette.mode === "dark"
                                             ? theme.palette.dark.light + 15
-                                            : "purple",
+                                            : "white",
                                 }}
                             >
                                 <TableRow>
@@ -107,7 +107,7 @@ const OrderDetails = () => {
                                                             <Avatar
                                                                 size="md"
                                                                 variant="rounded"
-                                                            // src={`${row.image[0].url}`}
+                                                                src={`${row.url}`}
                                                             />
                                                             <Typography variant="subtitle1">
                                                                 {row.productName}

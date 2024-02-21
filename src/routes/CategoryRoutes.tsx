@@ -4,8 +4,8 @@ import { lazy } from "react";
 import Loadable from "../ui-component/Loadable";
 import CategoryLayout from "../layout/CategoryLayout";
 // application e-commerce pages
-const AppECommProducts = Loadable(
-    lazy(() => import("../views/application/e-commerce/Products"))
+const CategoryProduct = Loadable(
+    lazy(() => import("../views/application/e-commerce/Products/CategoryProduct"))
 );
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -17,8 +17,8 @@ const CategoryRoutes = {
     ),
     children: [
         {
-            path: "/categories/family-care",
-            element: <AppECommProducts />,
+            path: "/products?/:productName",
+            element: <CategoryProduct />,
         }
     ],
 };

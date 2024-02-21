@@ -27,6 +27,7 @@ import { Chance } from "chance";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useDispatch } from "react-redux";
 import { RESET_CART } from "../../../../store/actions";
+import { IconViewfinder } from "@tabler/icons-react";
 
 const chance = new Chance();
 
@@ -42,6 +43,11 @@ const OrderComplete = ({ open }: { open: boolean }) => {
 
   const continueShoping = () => {
     navigate("/", { replace: true });
+    dispatch({ type: RESET_CART })
+  }
+
+  const viewOrder = () => {
+    navigate("/myorder", { replace: true });
     dispatch({ type: RESET_CART })
   }
   const theme = useTheme();
@@ -114,7 +120,7 @@ const OrderComplete = ({ open }: { open: boolean }) => {
                 color="error"
                 sx={{ cursor: "pointer" }}
               >
-                +977-9863421980
+                +977-9852062951
               </Typography>
             </Stack>
           </Grid>
@@ -142,10 +148,10 @@ const OrderComplete = ({ open }: { open: boolean }) => {
                 <Button
                   variant="contained"
                   fullWidth
-                  disabled
-                  onClick={continueShoping}
+                  onClick={viewOrder}
+                  startIcon={<IconViewfinder />}
                 >
-                  Download Invoice
+                  View Order
                 </Button>
               </Grid>
             </Grid>
