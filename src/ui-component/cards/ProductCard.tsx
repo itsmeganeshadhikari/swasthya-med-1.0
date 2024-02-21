@@ -111,8 +111,8 @@ const ProductCard = ({
         >
           <CardMedia
             sx={{
-              height: 130,
-              width: 130,
+              height: 120,
+              width: 100,
               margin: 'auto'
             }}
             title={name}
@@ -142,9 +142,9 @@ const ProductCard = ({
                     leaveDelay={200}
                   >
                     <Typography
-                      variant="body1"
+                      variant="subtitle2"
                       sx={{
-                        overflow: "hidden",
+                        overflow: "scroll",
                         height: 20,
                       }}
                     >

@@ -5,7 +5,7 @@ const ProductCategory = ({ products }: any) => {
   return (
     <>
       {products.map((product: any, index: any) => (
-        <Grid key={index} item xs={6} sm={4} md={3} lg={2}>
+        <Grid key={index} item xs={6} sm={4} md={2} lg={2}>
           <ProductCard
             id={product._id}
             image={product.image}
