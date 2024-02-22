@@ -22,11 +22,12 @@ import SecondaryAction from "../../../ui-component/cards/CardSecondaryAction";
 import InputLabel from "../../../ui-component/extended/Form/InputLabel";
 import { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import axiosServices from "../../../utils/axios";
 import MainCard from "../../../ui-component/cards/MainCard";
 import { gridSpacing } from "../../../store/constant";
 import LinkIcon from "@mui/icons-material/Link";
 import ReactQuillDemo from "../../forms/plugins/Wysiwug/ReactQuill";
+import { useLazyQuery } from "@apollo/client";
+import { GET_ALL_PRODUCT } from "../../../utils/mutations/productMutation";
 
 const validationSchema = yup.object({
   productName: yup.string().required("Product Name is required"),
@@ -61,7 +62,9 @@ const ProductDetailsForm = ({
   handleNext,
   setErrorIndex,
 }: ProductDetailsForm) => {
-  const [newProduct, setNewProduct] = useState("10001");
+  const [newProduct, setNewProduct] = useState("");
+  const [getProduct] = useLazyQuery(GET_ALL_PRODUCT)
+
   const theme = useTheme();
   const [text, setText] = useState(
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
@@ -71,19 +74,18 @@ const ProductDetailsForm = ({
   };
 
   const getProducts = async () => {
-    const response = await axiosServices.get("/api/product");
-    if (response.data.length > 0) {
-      const lastProductLength = response?.data.length - 1;
-      const codeNo = response?.data[lastProductLength].productCode + 1;
+    const data = await getProduct()
+    if (data?.data.productlist?.products.length > 0) {
+      const lastProductLength = data?.data.productlist.products.length - 1;
+      const codeNo = data?.data.productlist.products[lastProductLength].productCode + 1;
       setNewProduct(codeNo);
     } else {
-      setNewProduct("101");
+      setNewProduct("1");
     }
-  };
-
+  }
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts()
+  }, [newProduct]);
 
   const formik = useFormik({
     initialValues: {

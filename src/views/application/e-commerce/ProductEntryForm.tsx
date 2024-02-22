@@ -71,11 +71,11 @@ const ProductEntryForm = () => {
   const [productDetailsData, setProductDetailsData] = useState<any>({});
   const [productPriceData, setProductPriceData] = useState<any>({});
   const [errorIndex, setErrorIndex] = useState<number | null>(null);
-  const [createProducts] = useMutation(CREATE_PRODUCT)
+  const [createProducts, { error }] = useMutation(CREATE_PRODUCT)
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
+      await createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
     }
     setActiveStep(activeStep + 1);
     setErrorIndex(null);
@@ -84,6 +84,10 @@ const ProductEntryForm = () => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  if (error) {
+    alert('error on create products')
+  }
 
   return (
     <MainCard title="Product Entry">

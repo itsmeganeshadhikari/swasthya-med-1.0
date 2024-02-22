@@ -78,4 +78,30 @@ const GET_PRODUCTS_BY_NAME = gql`
   }
 }
 `
-export { CREATE_PRODUCT, GET_PRODUCTS_ID, GET_PRODUCTS_BY_NAME }
+const GET_ALL_PRODUCT = gql`
+  query Productlist {
+  productlist {
+    products {
+      _id
+      productName
+      subDescription
+      description
+      productCode
+      productSize
+      sku
+      category
+      quantity
+      regularPrice
+      salePrice
+      offerPrice
+      image {
+        public_id
+        url
+      }
+      rating
+      stock
+    }
+  }
+}
+`
+export { CREATE_PRODUCT, GET_PRODUCTS_ID, GET_PRODUCTS_BY_NAME, GET_ALL_PRODUCT }
