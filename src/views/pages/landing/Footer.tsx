@@ -56,7 +56,7 @@ const FooterPage = () => {
         <Container>
           <Grid container alignItems="center" spacing={gridSpacing}>
             <Grid item xs={12} sm={4}>
-              <img src={logo} alt="Berry" width="100" />
+              <img src={logo} alt="SwasthyaMed" width="100" />
             </Grid>
             <Grid item xs={12} sm={8}>
               <Grid
@@ -70,7 +70,7 @@ const FooterPage = () => {
               >
                 <Grid item>
                   <FooterLink
-                    href="https://blog.berrydashboard.io/"
+                    href="https://www.facebook.com/profile.php?id=61556518389128"
                     target="_blank"
                     underline="hover"
                   >
@@ -80,7 +80,7 @@ const FooterPage = () => {
                 </Grid>
                 <Grid item>
                   <FooterLink
-                    href="https://www.facebook.com/codedthemes"
+                    href="https://www.facebook.com/profile.php?id=61556518389128"
                     target="_blank"
                     underline="hover"
                   >
@@ -90,7 +90,7 @@ const FooterPage = () => {
                 </Grid>
                 <Grid item>
                   <FooterLink
-                    href="https://twitter.com/codedthemes"
+                    href="https://www.facebook.com/profile.php?id=61556518389128"
                     target="_blank"
                     underline="hover"
                   >
