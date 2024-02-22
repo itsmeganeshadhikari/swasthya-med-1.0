@@ -18,6 +18,8 @@ import MainCard from "../../../ui-component/cards/MainCard";
 import AnimateButton from "../../../ui-component/extended/AnimateButton";
 import { CREATE_PRODUCT } from "../../../utils/mutations/productMutation";
 import { useMutation } from "@apollo/client";
+import { SNACKBAR_OPEN } from "../../../store/actions";
+import { useDispatch } from "react-redux";
 
 // step options
 const steps = ["Product Details", "Price Details", "Review your Product"];
@@ -72,10 +74,21 @@ const ProductEntryForm = () => {
   const [productPriceData, setProductPriceData] = useState<any>({});
   const [errorIndex, setErrorIndex] = useState<number | null>(null);
   const [createProducts, { error }] = useMutation(CREATE_PRODUCT)
+  const dispatch = useDispatch();
 
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      await createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
+      try {
+        await createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
+      } catch (error) {
+        dispatch({
+          type: SNACKBAR_OPEN,
+          open: true,
+          message: "Error on creating product! Please try again",
+          variant: "alert",
+          alertSeverity: "error",
+        });
+      }
     }
     setActiveStep(activeStep + 1);
     setErrorIndex(null);
@@ -86,7 +99,13 @@ const ProductEntryForm = () => {
   };
 
   if (error) {
-    alert('error on create products')
+    dispatch({
+      type: SNACKBAR_OPEN,
+      open: true,
+      message: "Error on creating product! Please try again",
+      variant: "alert",
+      alertSeverity: "error",
+    });
   }
 
   return (

@@ -62,7 +62,7 @@ const ProductDetailsForm = ({
   handleNext,
   setErrorIndex,
 }: ProductDetailsForm) => {
-  const [newProduct, setNewProduct] = useState("");
+  const [newProduct, setNewProduct] = useState('');
   const [getProduct] = useLazyQuery(GET_ALL_PRODUCT)
 
   const theme = useTheme();
@@ -77,10 +77,10 @@ const ProductDetailsForm = ({
     const data = await getProduct()
     if (data?.data.productlist?.products.length > 0) {
       const lastProductLength = data?.data.productlist.products.length - 1;
-      const codeNo = data?.data.productlist.products[lastProductLength].productCode + 1;
-      setNewProduct(codeNo);
+      const codeNo = parseInt(data?.data.productlist.products[lastProductLength].productCode) + 1;
+      setNewProduct(codeNo + '-swasthya');
     } else {
-      setNewProduct("1");
+      setNewProduct('1-swasthya');
     }
   }
   useEffect(() => {
@@ -267,7 +267,7 @@ const ProductDetailsForm = ({
             <TextField
               id="sku"
               name="sku"
-              value={newProduct + "11"}
+              value={newProduct + '-med'}
               defaultValue={newProduct}
               disabled
               autoComplete="product serial no"
