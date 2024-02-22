@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 // material-ui
 import { styled, useTheme } from "@mui/material/styles";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, CardContent, Container, Grid } from "@mui/material";
 
 // third party
 
@@ -118,9 +118,21 @@ const CategoryProduct = () => {
         }
     };
 
-    let product: React.ReactElement | React.ReactElement[] = <></>;
-    if (data?.productName.products) {
+    let product: React.ReactElement | React.ReactElement[] = <></>
+
+    if (data?.productName.products.length > 0) {
         product = <ProductCategory products={data?.productName.products} />;
+    } else {
+        product =
+            <Grid xs={11} md={10} lg={10} xl={10} sx={{ marginLeft: { lg: 60 } }}>
+                <CardContent sx={{ p: 1, height: 'auto' }}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={7}>
+                            <h1>Not Found</h1>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </Grid>
     }
 
     useEffect(() => {

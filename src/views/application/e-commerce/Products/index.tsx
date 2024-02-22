@@ -122,7 +122,7 @@ const Products = () => {
                 <Grid
                   container
                   spacing={gridSpacing}
-                  height={300}
+                  height={400}
                   marginTop={1}
                   sx={{ overflowX: "auto" }}
                 >
@@ -178,7 +178,7 @@ const Products = () => {
                 <Grid
                   container
                   spacing={gridSpacing}
-                  height={300}
+                  height={400}
                   marginTop={1}
                   sx={{ overflowX: "auto" }}
                 >
