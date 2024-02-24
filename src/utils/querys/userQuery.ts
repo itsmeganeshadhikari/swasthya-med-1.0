@@ -23,7 +23,10 @@ query Productlist{
   products {
     _id
     description
-    category
+    category {
+        category
+        subcategory
+    }
     offerPrice
     productCode
     productName

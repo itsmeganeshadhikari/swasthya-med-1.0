@@ -60,7 +60,7 @@ const dashboard: DashboardMenuProps = {
       id: "createProduct",
       title: "Create Product",
       type: "item",
-      url: "/e-commerce/product-entry",
+      url: "/e-commerce/product-entry/new",
       icon: icons.IconDeviceAnalytics,
       breadcrumbs: false,
     },

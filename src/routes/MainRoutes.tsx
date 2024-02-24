@@ -23,6 +23,10 @@ const AppECommProductEntry = Loadable(
   lazy(() => import("../views/application/e-commerce/ProductEntry"))
 );
 
+const AppECommProductUpdateEntry = Loadable(
+  lazy(() => import("../views/application/e-commerce/ProductDetailUpdate"))
+);
+
 const SamplePage = Loadable(lazy(() => import("../views/sample-page")));
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -58,13 +62,13 @@ const MainRoutes = {
       element: <AppECommCheckout />,
     },
     {
-      path: "/e-commerce/product-entry",
+      path: "/e-commerce/product-entry/new",
       element: <AppECommProductEntry />,
     },
     {
-      path: "/e-commerce/product-entry/:id",
-      element: <AppECommProductEntry />,
-    },
+      path: "/e-commerce/product-entry/update/:id",
+      element: <AppECommProductUpdateEntry />,
+    }
   ],
 };
 

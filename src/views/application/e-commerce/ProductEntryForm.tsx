@@ -79,7 +79,16 @@ const ProductEntryForm = () => {
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
       try {
-        await createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
+        const data = await createProducts({ variables: { input: { ...productDetailsData, ...productPriceData } } });
+        if (data) {
+          dispatch({
+            type: SNACKBAR_OPEN,
+            open: true,
+            message: "Product created successfully",
+            variant: "alert",
+            alertSeverity: "success",
+          });
+        }
       } catch (error) {
         dispatch({
           type: SNACKBAR_OPEN,

@@ -1,6 +1,6 @@
 
 // assets
-import { IconClipboardCheck, IconPictureInPicture, IconForms, IconBorderAll, IconChartDots, IconStairsUp, IconFirstAidKit, IconCategory } from '@tabler/icons-react';
+import { IconClipboardCheck, IconPictureInPicture, IconForms, IconBorderAll, IconChartDots, IconStairsUp, IconFirstAidKit, IconCategory, IconScissors, IconMilk, IconMedicalCross, IconMedicineSyrup } from '@tabler/icons-react';
 
 // constant
 const icons = {
@@ -11,7 +11,11 @@ const icons = {
     IconChartDots,
     IconStairsUp,
     IconFirstAidKit,
-    IconCategory
+    IconScissors,
+    IconMilk,
+    IconCategory,
+    IconMedicalCross,
+    IconMedicineSyrup
 };
 
 // ==============================|| UI FORMS MENU ITEMS ||============================== //
@@ -37,11 +41,27 @@ const categoryType = {
                     icon: icons.IconFirstAidKit
                 },
                 {
-                    id: 'men-care',
-                    title: "Men Care",
+                    id: 'surgical',
+                    title: "Surgical",
                     type: 'item',
-                    url: '/products/nipple',
-                    icon: icons.IconPictureInPicture,
+                    url: '/products/surgical',
+                    icon: icons.IconScissors,
+                    breadcrumbs: false
+                },
+                {
+                    id: 'nutritional',
+                    title: "Nutritional",
+                    type: 'item',
+                    url: '/products/nutritional',
+                    icon: icons.IconMilk,
+                    breadcrumbs: false
+                },
+                {
+                    id: 'medicine',
+                    title: "Medicine",
+                    type: 'item',
+                    url: '/products/medicine',
+                    icon: icons.IconMedicineSyrup,
                     breadcrumbs: false
                 }
             ]

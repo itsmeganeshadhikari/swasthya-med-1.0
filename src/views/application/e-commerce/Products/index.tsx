@@ -47,9 +47,9 @@ const Products = () => {
   if (error) {
     console.log("error");
   }
-  const skinProduct = data?.productlist.products.filter((e: any) => e.category == "Skin")
+  const skinProduct = data?.productlist.products.filter((e: any) => e.category.category == "skin")
 
-  const babyProducts = data?.productlist.products.filter((e: any) => e.category == "Baby")
+  const babyProducts = data?.productlist.products.filter((e: any) => e.category.category == "baby")
 
   let derma: React.ReactElement | React.ReactElement[] = <></>
 

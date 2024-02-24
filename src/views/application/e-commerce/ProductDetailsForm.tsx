@@ -46,6 +46,7 @@ export type ProductDetailsData = {
   productSize: string;
   sku: string | any;
   category: string;
+  subcategory: string;
   quantity: number;
 };
 
@@ -98,6 +99,7 @@ const ProductDetailsForm = ({
       productSize: productDetailsData.productSize,
       sku: productDetailsData.sku,
       category: productDetailsData.category,
+      subcategory: productDetailsData.subcategory,
       quantity: productDetailsData.quantity,
     },
     validationSchema,
@@ -112,6 +114,7 @@ const ProductDetailsForm = ({
         productSize: values.productSize,
         sku: newProduct,
         category: values.category,
+        subcategory: values.subcategory,
         quantity: values.quantity,
       });
       handleNext();
@@ -286,21 +289,46 @@ const ProductDetailsForm = ({
                 onChange={formik.handleChange}
                 label="Category"
               >
-                <MenuItem value="none">None</MenuItem>
-                <MenuItem value="Skin">Skin</MenuItem>
-                <MenuItem value="Baby">Baby</MenuItem>
-                <MenuItem value="Surgical">Surgical</MenuItem>
+                <MenuItem value="skin">Skin</MenuItem>
+                <MenuItem value="baby">Baby</MenuItem>
+                <MenuItem value="surgical">Surgical</MenuItem>
+                <MenuItem value="nutritional">Nutritional</MenuItem>
+                <MenuItem value="medicine">Medicine</MenuItem>
               </Select>
               {formik.errors.category && (
                 <FormHelperText
                   error
                   id="standard-weight-helper-text-email-login"
                 >
-                  {formik.errors.category}
                 </FormHelperText>
               )}
             </FormControl>
           </Grid>
+          {formik.values.category == 'baby' ? <Grid item xs={12} sm={6}>
+            <FormControl sx={{ m: 1 }} fullWidth>
+              <InputLabel id="category-select">Sub category</InputLabel>
+              <Select
+                labelId="category-select"
+                id="subcategory"
+                name="subcategory"
+                defaultValue={formik.values.subcategory}
+                onChange={formik.handleChange}
+                label="Sub category"
+              >
+                <MenuItem value="milk">Milk</MenuItem>
+                <MenuItem value="skin">Skin</MenuItem>
+                <MenuItem value="suplement">Supplement</MenuItem>
+                <MenuItem value="daiper">Daiper</MenuItem>
+              </Select>
+              {formik.errors.category && (
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text-email-login"
+                >
+                </FormHelperText>
+              )}
+            </FormControl>
+          </Grid> : ""}
           <Grid item xs={12} sm={6}>
             <TextField
               type="number"

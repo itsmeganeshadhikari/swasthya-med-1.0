@@ -525,7 +525,7 @@ const ProductList = () => {
                       />
                     </TableCell>
                     <TableCell align="center" sx={{ pr: 3 }}>
-                      <Link to={`/e-commerce/product-entry/${row.id}`}>
+                      <Link to={`/e-commerce/product-entry/update/${row._id}`}>
                         <Button variant="outlined">
                           <IconEdit color="purple" />
                         </Button>

@@ -5,7 +5,10 @@ const CREATE_PRODUCT = gql`
   product(input: $input) {
     product {
       _id
-      category
+      category {
+        category
+        subcategory
+      }
       description
       productCode
       offerPrice
@@ -37,7 +40,10 @@ mutation GetProduct($input: String!) {
     productCode
     productSize
     sku
-    category
+    category {
+        category
+        subcategory
+    }
     quantity
     regularPrice
     salePrice
@@ -63,7 +69,10 @@ const GET_PRODUCTS_BY_NAME = gql`
     productCode
     productSize
     sku
-    category
+    category {
+        category
+        subcategory
+    }
     quantity
     regularPrice
     salePrice
@@ -89,7 +98,10 @@ const GET_ALL_PRODUCT = gql`
       productCode
       productSize
       sku
-      category
+      category {
+        category
+        subcategory
+      }
       quantity
       regularPrice
       salePrice
