@@ -78,7 +78,6 @@ function ElevationScroll(props: ElevationScrollProps) {
       borderColor: trigger ? "" : darkBorder,
       color: theme.palette.text.dark,
       height: '20vh',
-      paddingTop: '15px',
     },
   });
 }
@@ -285,9 +284,9 @@ const AppBar = ({ ...others }) => {
               <PerfectScrollbar
                 component="div"
                 style={{
-                  top: 92,
+                  top: 84,
                   height: '42vh',
-                  width: "12.2%",
+                  width: "12.3%",
                   position: 'absolute',
                 }}
               >

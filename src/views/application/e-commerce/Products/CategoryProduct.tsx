@@ -124,10 +124,10 @@ const CategoryProduct = () => {
         product = <ProductCategory products={data?.productName.products} />;
     } else {
         product =
-            <Grid xs={11} md={10} lg={10} xl={10} sx={{ marginLeft: { lg: 60 } }}>
-                <CardContent sx={{ p: 1, height: 'auto' }}>
+            <Grid xs={11} md={10} lg={10} xl={10} sx={{ marginLeft: { lg: 80 } }}>
+                <CardContent sx={{ height: 'auto' }}>
                     <Grid container spacing={1}>
-                        <Grid item xs={7}>
+                        <Grid item xs={9}>
                             <h1>Not Found</h1>
                         </Grid>
                     </Grid>
@@ -156,10 +156,10 @@ const CategoryProduct = () => {
                         spacing={gridSpacing}
                         sx={{
                             [theme.breakpoints.down("lg")]: { pr: 0, textAlign: "center" },
-                            padding: { xs: 5, sm: 2 },
+                            paddingTop: { xs: 5, sm: 2 },
                         }}
                     >
-                        <Box sx={{ display: "flex" }}>
+                        <Box sx={{ display: "flex", marginLeft: '24px' }}>
                             <Main>
                                 <Grid container
                                     spacing={1}
@@ -173,8 +173,6 @@ const CategoryProduct = () => {
                                     <Grid container
                                         spacing={1}
                                         height={{ xs: '60vh', lg: '80vh', xl: '70vh' }}
-
-                                        marginTop={1}
                                         sx={{ overflowX: "auto" }}
                                         item xs={11} md={9} lg={10} xl={10}>
                                         {product}

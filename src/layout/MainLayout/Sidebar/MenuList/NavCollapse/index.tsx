@@ -77,7 +77,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         sx={{
           borderRadius: `1px`,
           alignItems: "flex-start",
-          backgroundColor: level > 1 ? "transparent !important" : "white",
+          background: theme.palette.divider,
           py: level > 1 ? 1 : 1.25,
           pl: `${level * 15}px`,
         }}
