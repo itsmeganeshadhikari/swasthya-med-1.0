@@ -123,7 +123,6 @@ const Products = () => {
                   container
                   spacing={gridSpacing}
                   height={400}
-                  marginTop={1}
                   sx={{ overflowX: "auto" }}
                 >
                   {baby}

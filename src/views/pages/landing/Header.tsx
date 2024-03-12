@@ -1,115 +1,107 @@
 // material-ui
 import { useTheme, styled } from "@mui/material/styles";
+// project imports
+import dashboard from "../../../assets/images/e-commerce/smart.jpeg";
 import { Box, Container, Grid, Typography } from "@mui/material";
-
-// third party
-import { motion } from "framer-motion";
-
-// project imports
-// project imports
-import dashboard from "../../../assets/images/e-commerce/swasthyaM.png";
+import dashboard1 from "../../../assets/images/e-commerce/smartnep.jpg";
+import dashboard2 from "../../../assets/images/e-commerce/smartd.jpeg";
 import { gridSpacing } from "../../../store/constant";
+
 // styles
-const HeaderImage = styled("img")(({ theme }) => ({
-  maxWidth: "100%",
-  borderRadius: "1px",
-  transform: "scale(1.3)",
-  transformOrigin: theme.direction === "rtl" ? "100% 50%" : "0 50%",
-  [theme.breakpoints.down("lg")]: {
-    transform: "scale(1.2)",
-  },
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import './image.css'
+
+var settings = {
+  dots: false,
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+};
+
+const HeaderImage = styled("img")(({ }) => ({
+  height: '200px',
+  width: "100%",
 }));
 
 const HeaderPage = () => {
   const theme = useTheme();
-
   return (
     <Container>
       <Grid
         container
+        md={12}
         alignItems="center"
         justifyContent="space-between"
         spacing={gridSpacing}
-        sx={{ mt: { xs: 10, sm: 6, md: 18.75 }, mb: { xs: 2.5, md: 10 } }}
+        sx={{ mt: { xs: 3, sm: 3, md: 11 }, mb: { xs: 2.5, md: 1 }, boxShadow: '3px 2px 2px 3px red', zIndex: 1, backgroundColor: 'whitesmoke' }}
       >
-        <Grid item xs={12} md={10}>
-          <Grid
-            container
-            spacing={gridSpacing}
+        <Grid item xs={3}>
+          <Typography
+            variant="h3"
             sx={{
-              pr: 10,
-              [theme.breakpoints.down("lg")]: { pr: 0, textAlign: "center" },
+              fontSize: { xs: "1.25rem", sm: "2rem", md: "2rem" },
+              fontWeight: 900,
+              lineHeight: 1.2,
             }}
           >
-            <Grid item xs={12} md={5}>
-              <Grid item xs={12}>
-                <motion.div
-                  initial={{ opacity: 0, translateY: 550 }}
-                  animate={{ opacity: 1, translateY: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 150,
-                    damping: 30,
-                  }}
-                >
-                  <Typography
-                    variant="h1"
-                    sx={{
-                      fontSize: { xs: "1.25rem", sm: "2rem", md: "3rem" },
-                      fontWeight: 900,
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    Online Medicine
-                    <Box
-                      component="span"
-                      sx={{ ml: 2, color: theme.palette.primary.main }}
-                    >
-                      Swasthya Med
-                    </Box>
-                  </Typography>
-                </motion.div>
-              </Grid>
-              <Grid item xs={12}>
-                <motion.div
-                  initial={{ opacity: 0, translateY: 550 }}
-                  animate={{ opacity: 1, translateY: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 150,
-                    damping: 30,
-                    delay: 0.2,
-                  }}
-                >
-                  <Typography
-                    variant="h4"
-                    component="div"
-                    color="inherit"
-                    sx={{
-                      fontSize: { xs: "1rem", md: "1.125rem" },
-                      fontWeight: 400,
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    All products displayed on Swasthya Med are 100% genuine and
-                    reliable.
-                  </Typography>
-                </motion.div>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={7}
-              sx={{ display: { xs: "none", md: "flex" } }}
+            Online Medicine
+            <Box
+              component="span"
+              sx={{ ml: 2, color: theme.palette.primary.main }}
             >
-              <Box sx={{ mt: 2, pb: 4, ml: 20 }}>
-                <HeaderImage src={dashboard} alt="Swasthya" />
-              </Box>
-            </Grid>
-          </Grid>
+              Swasthya Med
+            </Box>
+          </Typography>
+        </Grid>
+        <Grid
+          xs={12}
+          md={8}
+          sx={{ borderLeft: '2px solid red' }}
+        >
+          <Slider {...settings}>
+            <div>
+              <HeaderImage src={dashboard} alt="Swasthya" />
+            </div>
+            <div>
+              <HeaderImage src={dashboard1} alt="Swasthya" />
+            </div>
+            <div>
+              <HeaderImage src={dashboard2} alt="Swasthya" />
+            </div>
+          </Slider>
         </Grid>
       </Grid>
+
     </Container>
   );
 };
